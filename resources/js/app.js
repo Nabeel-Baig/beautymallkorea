@@ -7,7 +7,8 @@
  * File: Main Js File
  */
 
-const app_url = "";
+const app_url = window.location.origin;
+
 (function ($) {
 
 	"use strict";
@@ -255,9 +256,9 @@ const app_url = "";
 			$("#dark-mode-switch").prop("checked", false);
 			$("#rtl-mode-switch").prop("checked", false);
 			$("#dark-rtl-mode-switch").prop("checked", false);
-			$("#bootstrap-style").attr("href", `${ app_url }assets/css/bootstrap.min.css`);
+			$("#bootstrap-style").attr("href", `${ app_url }/assets/css/bootstrap.min.css`);
 			$("body").attr("data-layout-mode", "light");
-			$("#app-style").attr("href", `${ app_url }assets/css/app.min.css`);
+			$("#app-style").attr("href", `${ app_url }/assets/css/app.min.css`);
 			sessionStorage.setItem("is_visited", "light-mode-switch");
 		} else if ($("#dark-mode-switch").prop("checked") == true && id === "dark-mode-switch") {
 			$("html").removeAttr("dir");
@@ -270,8 +271,8 @@ const app_url = "";
 			$("#light-mode-switch").prop("checked", false);
 			$("#dark-mode-switch").prop("checked", false);
 			$("#dark-rtl-mode-switch").prop("checked", false);
-			$("#bootstrap-style").attr("href", `${ app_url }assets/css/bootstrap-rtl.min.css`);
-			$("#app-style").attr("href", `${ app_url }assets/css/app-rtl.min.css`);
+			$("#bootstrap-style").attr("href", `${ app_url }/assets/css/bootstrap-rtl.min.css`);
+			$("#app-style").attr("href", `${ app_url }/assets/css/app-rtl.min.css`);
 			$("html").attr("dir", "rtl");
 			$("body").attr("data-layout-mode", "light");
 			sessionStorage.setItem("is_visited", "rtl-mode-switch");
@@ -279,8 +280,8 @@ const app_url = "";
 			$("#light-mode-switch").prop("checked", false);
 			$("#rtl-mode-switch").prop("checked", false);
 			$("#dark-mode-switch").prop("checked", false);
-			$("#bootstrap-style").attr("href", `${ app_url }assets/css/bootstrap-rtl.min.css`);
-			$("#app-style").attr("href", `${ app_url }assets/css/app-rtl.min.css`);
+			$("#bootstrap-style").attr("href", `${ app_url }/assets/css/bootstrap-rtl.min.css`);
+			$("#app-style").attr("href", `${ app_url }/assets/css/app-rtl.min.css`);
 			$("html").attr("dir", "rtl");
 			$("body").attr("data-layout-mode", "dark");
 			sessionStorage.setItem("is_visited", "dark-rtl-mode-switch");
