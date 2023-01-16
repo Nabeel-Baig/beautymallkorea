@@ -1,5 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Admin\CurrencyController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PermissionsController;
+use App\Http\Controllers\Admin\RolesController;
+use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\UsersController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -16,36 +24,36 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 /* Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Controllers\Admin', 'middleware' => ['auth', 'twofactor']], function () {
-    Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     // Permissions
-    Route::delete('permissions/destroy', [App\Http\Controllers\Admin\PermissionsController::class, 'massDestroy'])->name('permissions.massDestroy');
+    Route::delete('permissions/destroy', [PermissionsController::class, 'massDestroy'])->name('permissions.massDestroy');
     Route::resource('permissions', PermissionsController::class);
 
     // Roles
-    Route::delete('roles/destroy', [App\Http\Controllers\Admin\RolesController::class, 'massDestroy'])->name('roles.massDestroy');
+    Route::delete('roles/destroy', [RolesController::class, 'massDestroy'])->name('roles.massDestroy');
     Route::resource('roles', RolesController::class);
 
     // Users
-    Route::delete('users/destroy', [App\Http\Controllers\Admin\UsersController::class, 'massDestroy'])->name('users.massDestroy');
+    Route::delete('users/destroy', [UsersController::class, 'massDestroy'])->name('users.massDestroy');
     Route::resource('users', UsersController::class);
 
     //    Settings
     Route::resource('settings', SettingsController::class)->only(['edit', 'update']);
 
     // Categories
-    Route::delete('categories/destroy', [App\Http\Controllers\Admin\CategoriesController::class, 'massDestroy'])->name('categories.massDestroy');
+    Route::delete('categories/destroy', [CategoriesController::class, 'massDestroy'])->name('categories.massDestroy');
     Route::resource('categories', CategoriesController::class);
 
     // Funds
-    Route::delete('funds/destroy', [App\Http\Controllers\Admin\FundsController::class, 'massDestroy'])->name('funds.massDestroy');
+    Route::delete('funds/destroy', [FundsController::class, 'massDestroy'])->name('funds.massDestroy');
     Route::resource('funds', FundsController::class);
 
     // Orders
-    Route::delete('orders/destroy', [App\Http\Controllers\Admin\OrdersController::class, 'massDestroy'])->name('orders.massDestroy');
+    Route::delete('orders/destroy', [OrdersController::class, 'massDestroy'])->name('orders.massDestroy');
     Route::resource('orders', OrdersController::class);
 
     // Payments
-    Route::delete('payments/destroy', [App\Http\Controllers\Admin\PaymentsController::class, 'massDestroy'])->name('payments.massDestroy');
+    Route::delete('payments/destroy', [PaymentsController::class, 'massDestroy'])->name('payments.massDestroy');
     Route::resource('payments', PaymentsController::class);
 
     // Update User Details
@@ -56,39 +64,65 @@ Auth::routes();
 }); */
 
 Route::group([
-    'prefix'     => 'admin',
-    'as' => 'admin.',
-    'namespace' => 'App\Http\Controllers\Admin',
-    'middleware' => ['auth', 'twofactor'],
-], function () {
-    Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
-    // Permissions
-    Route::delete('permissions/destroy', [App\Http\Controllers\Admin\PermissionsController::class, 'massDestroy'])->name('permissions.massDestroy');
-    Route::resource('permissions', PermissionsController::class);
+	'prefix' => 'admin',
+	'as' => 'admin.',
+	'namespace' => 'App\Http\Controllers\Admin',
+	'middleware' => ['auth', 'twofactor'],
+], static function () {
+	Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+	// Permissions
+	Route::delete('permissions/destroy', [PermissionsController::class, 'massDestroy'])->name('permissions.massDestroy');
+	Route::resource('permissions', PermissionsController::class);
 
-    // Roles
-    Route::delete('roles/destroy', [App\Http\Controllers\Admin\RolesController::class, 'massDestroy'])->name('roles.massDestroy');
-    Route::resource('roles', RolesController::class);
+	// Roles
+	Route::delete('roles/destroy', [RolesController::class, 'massDestroy'])->name('roles.massDestroy');
+	Route::resource('roles', RolesController::class);
 
-    // Users
-    Route::delete('users/destroy', [App\Http\Controllers\Admin\UsersController::class, 'massDestroy'])->name('users.massDestroy');
-    Route::resource('users', UsersController::class);
+	// Users
+	Route::delete('users/destroy', [UsersController::class, 'massDestroy'])->name('users.massDestroy');
+	Route::resource('users', UsersController::class);
 
-    // Categories
-    Route::delete('categories/destroy', [App\Http\Controllers\Admin\CategoriesController::class, 'massDestroy'])->name('categories.massDestroy');
-    Route::resource('categories', CategoriesController::class);
+	// Categories
+	Route::delete('categories/destroy', [CategoriesController::class, 'massDestroy'])->name('categories.massDestroy');
+	Route::resource('categories', CategoriesController::class);
 
-    //    Settings
-    Route::resource('settings', SettingsController::class)->only(['edit', 'update']);
+	// Tags
+	Route::group(["prefix" => "tags", "as" => "tags."], static function () {
+		Route::get("/", [TagController::class, "index"])->name("index");
+		Route::get("/paginate", [TagController::class, "paginate"])->name("paginate");
+		Route::get("/view/{tag}", [TagController::class, "view"])->name("view");
+		Route::get("/create", [TagController::class, "create"])->name("create");
+		Route::post("/store", [TagController::class, "store"])->name("store");
+		Route::get("/edit/{tag}", [TagController::class, "edit"])->name("edit");
+		Route::patch("/update/{tag}", [TagController::class, "update"])->name("update");
+		Route::delete("/delete/{tag}", [TagController::class, "delete"])->name("delete");
+		Route::delete("/delete", [TagController::class, "deleteMany"])->name("delete.many");
+	});
+
+	// Currency
+	Route::group(["prefix" => "currencies", "as" => "currencies."], static function () {
+		Route::get("/", [CurrencyController::class, "index"])->name("index");
+		Route::get("/paginate", [CurrencyController::class, "paginate"])->name("paginate");
+		Route::get("/view/{tag}", [CurrencyController::class, "view"])->name("view");
+		Route::get("/create", [CurrencyController::class, "create"])->name("create");
+		Route::post("/store", [CurrencyController::class, "store"])->name("store");
+		Route::get("/edit/{tag}", [CurrencyController::class, "edit"])->name("edit");
+		Route::patch("/update/{tag}", [CurrencyController::class, "update"])->name("update");
+		Route::delete("/delete/{tag}", [CurrencyController::class, "delete"])->name("delete");
+		Route::delete("/delete", [CurrencyController::class, "deleteMany"])->name("delete.many");
+	});
+
+	// Settings
+	Route::resource('settings', SettingsController::class)->only(['edit', 'update']);
 });
 
 // Route::get('/', [App\Http\Controllers\HomeController::class, 'root'])->name('root');
 
-//Update User Details
+// Update User Details
 Route::post('/update-profile/{id}', [App\Http\Controllers\HomeController::class, 'updateProfile'])->name('updateProfile');
 Route::post('/update-password/{id}', [App\Http\Controllers\HomeController::class, 'updatePassword'])->name('updatePassword');
 
 // Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
-//Language Translation
+// Language Translation
 Route::get('index/{locale}', [App\Http\Controllers\HomeController::class, 'lang']);

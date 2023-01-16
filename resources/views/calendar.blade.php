@@ -1,29 +1,35 @@
 @extends('layouts.master')
 
-@section('title') @lang('translation.Calendars') @endsection
+@section('title')
+	@lang('translation.Calendars')
+@endsection
 
-@section('css')
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/tui-time-picker/tui-time-picker.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/tui-date-picker/tui-date-picker.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/tui-calendar/tui-calendar.min.css') }}" />
+@section('page-specific-css')
+	<link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/tui-time-picker/tui-time-picker.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/tui-date-picker/tui-date-picker.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/tui-calendar/tui-calendar.min.css') }}"/>
 @endsection
 
 @section('content')
 
-@component('components.breadcrumb')
-@slot('li_1') Skote @endslot
-@slot('title') Calendar @endslot
-@endcomponent
+	@component('components.breadcrumb')
+		@slot('li_1')
+			Skote
+		@endslot
+		@slot('title')
+			Calendar
+		@endslot
+	@endcomponent
 
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-body">
-                <div id="lnb">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="card">
+				<div class="card-body">
+					<div id="lnb">
 
 
-                    <div id="right">
-                        <div id="menu" class="mb-3">
+						<div id="right">
+							<div id="menu" class="mb-3">
 
                             <span id="menu-navi" class="d-sm-flex flex-wrap text-center text-sm-start justify-content-sm-between">
                                 <div class="d-sm-flex flex-wrap gap-1">
@@ -97,41 +103,42 @@
                                 </div>
                             </span>
 
-                        </div>
-                    </div>
+							</div>
+						</div>
 
-                    <div class="lnb-new-schedule float-sm-end ms-sm-3 mt-4 mt-sm-0">
-                        <button id="btn-new-schedule" type="button" class="btn btn-primary lnb-new-schedule-btn" data-toggle="modal">
-                            New schedule</button>
-                    </div>
-                    <div id="calendarList" class="lnb-calendars-d1 mt-4 mt-sm-0 me-sm-0 mb-4"></div>
+						<div class="lnb-new-schedule float-sm-end ms-sm-3 mt-4 mt-sm-0">
+							<button id="btn-new-schedule" type="button" class="btn btn-primary lnb-new-schedule-btn" data-toggle="modal">
+								New schedule
+							</button>
+						</div>
+						<div id="calendarList" class="lnb-calendars-d1 mt-4 mt-sm-0 me-sm-0 mb-4"></div>
 
 
-                    <div id="calendar" style="height: 800px;"></div>
+						<div id="calendar" style="height: 800px;"></div>
 
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 @endsection
 
 @section('script')
 
-<script src="https://uicdn.toast.com/tui.code-snippet/latest/tui-code-snippet.min.js"></script>
-<script src="{{ asset('assets/libs/tui-dom/tui-dom.min.js') }}"></script>
+	<script src="https://uicdn.toast.com/tui.code-snippet/latest/tui-code-snippet.min.js"></script>
+	<script src="{{ asset('assets/libs/tui-dom/tui-dom.min.js') }}"></script>
 
-<script src="{{ asset('assets/libs/tui-time-picker/tui-time-picker.min.js') }}"></script>
-<script src="{{ asset('assets/libs/tui-date-picker/tui-date-picker.min.js') }}"></script>
+	<script src="{{ asset('assets/libs/tui-time-picker/tui-time-picker.min.js') }}"></script>
+	<script src="{{ asset('assets/libs/tui-date-picker/tui-date-picker.min.js') }}"></script>
 
-<script src="{{ asset('assets/libs//moment/moment.min.js') }}"></script>
-<script src="{{ asset('assets/libs/chance/chance.min.js') }}"></script>
+	<script src="{{ asset('assets/libs//moment/moment.min.js') }}"></script>
+	<script src="{{ asset('assets/libs/chance/chance.min.js') }}"></script>
 
-<script src="{{ asset('assets/libs/tui-calendar/tui-calendar.min.js') }}"></script>
+	<script src="{{ asset('assets/libs/tui-calendar/tui-calendar.min.js') }}"></script>
 
-<script src="{{ asset('assets/js/pages/calendars.js') }}"></script>
-<script src="{{ asset('assets/js/pages/schedules.js') }}"></script>
-<script src="{{ asset('assets/js/pages/calendar.init.js') }}"></script>
+	<script src="{{ asset('assets/js/pages/calendars.js') }}"></script>
+	<script src="{{ asset('assets/js/pages/schedules.js') }}"></script>
+	<script src="{{ asset('assets/js/pages/calendar.init.js') }}"></script>
 
 @endsection

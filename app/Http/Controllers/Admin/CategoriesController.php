@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\categories\MassDestroyCategoryRequest;
+use App\Http\Requests\Categories\MassDestroyCategoryRequest;
 use App\Http\Requests\categories\StoreCategoryRequest;
 use App\Http\Requests\categories\UpdateCategoryRequest;
 use App\Models\Category;
@@ -64,7 +64,6 @@ class CategoriesController extends Controller
 
     public function store(StoreCategoryRequest $request)
     {
-		dd($request->validated());
         Category::create(handleFiles(\request()->segment(2), $request->validated()));
         return redirect()->route('admin.' . request()->segment(2) . '.index')->withToastSuccess('Category Created Successfully!');
     }
@@ -94,9 +93,8 @@ class CategoriesController extends Controller
         return \response()->json('Category Deleted Successfully!');
     }
 
-    public function massDestroy(MassDestroyCategoryRequest $request)
-    {
-        Category::whereIn('id', request('ids'))->delete();
-        return \response()->json('Selected records Deleted Successfully.');
-    }
+	public function massDestroy(MassDestroyCategoryRequest $request) {
+		Category::whereIn('id', request('ids'))->delete();
+		return \response()->json('Selected records Deleted Successfully.');
+	}
 }

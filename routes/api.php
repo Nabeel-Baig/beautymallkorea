@@ -16,20 +16,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
-
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    /* Route::post('/products', [ProductController::class, 'store']);
-    Route::put('/products/{id}', [ProductController::class, 'update']);
-    Route::delete('/products/{id}', [ProductController::class, 'destroy']); */
-    Route::post('/logout', [AuthController::class, 'logout']);
+	/* Route::post('/products', [ProductController::class, 'store']);
+	Route::put('/products/{id}', [ProductController::class, 'update']);
+	Route::delete('/products/{id}', [ProductController::class, 'destroy']); */
+	Route::post('/logout', [AuthController::class, 'logout']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+	return $request->user();
 });
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/greeting', function () {
-    return 'Hello World';
+	return 'Hello World';
 });
