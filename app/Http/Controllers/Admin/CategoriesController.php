@@ -64,6 +64,7 @@ class CategoriesController extends Controller
 
     public function store(StoreCategoryRequest $request)
     {
+		dd($request->validated());
         Category::create(handleFiles(\request()->segment(2), $request->validated()));
         return redirect()->route('admin.' . request()->segment(2) . '.index')->withToastSuccess('Category Created Successfully!');
     }
