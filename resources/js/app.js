@@ -7,7 +7,7 @@
  * File: Main Js File
  */
 
-const app_url = window.location.origin;
+const app_url = "http://localhost/beautymallkorea/public/";
 
 (function ($) {
 

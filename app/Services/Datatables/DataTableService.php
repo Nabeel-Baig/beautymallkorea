@@ -57,9 +57,9 @@ class DataTableService {
 	}
 
 	final public function withViewAction(PermissionEnum $permission): DataTableService {
-		if ($this->request->user()->cannot("access", [$this->model, $permission])) {
+		/*if ($this->request->user()->cannot("access", [$this->model, $permission])) {
 			return $this;
-		}
+		}*/
 
 		$this->additionalColumns["viewAction"] = true;
 
@@ -67,9 +67,9 @@ class DataTableService {
 	}
 
 	final public function withEditAction(PermissionEnum $permission): DataTableService {
-		if ($this->request->user()->cannot("access", [$this->model, $permission])) {
+		/*if ($this->request->user()->cannot("access", [$this->model, $permission])) {
 			return $this;
-		}
+		}*/
 
 		$this->additionalColumns["editAction"] = true;
 
@@ -77,9 +77,9 @@ class DataTableService {
 	}
 
 	final public function withDeleteAction(PermissionEnum $permission): DataTableService {
-		if ($this->request->user()->cannot("access", [$this->model, $permission])) {
+		/*if ($this->request->user()->cannot("access", [$this->model, $permission])) {
 			return $this;
-		}
+		}*/
 
 		$this->additionalColumns["deleteAction"] = true;
 
