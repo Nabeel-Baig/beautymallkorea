@@ -79,32 +79,24 @@
 									<td id="name" align="center"></td>
 								</tr>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','heading'))}}</th>
-									<td id="heading" align="center"></td>
-								</tr>
-								<tr>
 									<th>{{ucwords(str_replace('_',' ','description'))}}</th>
 									<td id="description" align="center"></td>
 								</tr>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','section_heading1'))}}</th>
-									<td id="section_heading1" align="center"></td>
+									<th>{{ucwords(str_replace('_',' ','meta_tag_title'))}}</th>
+									<td id="meta_tag_title" align="center"></td>
 								</tr>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','section_left_text1'))}}</th>
-									<td id="section_left_text1" align="center"></td>
+									<th>{{ucwords(str_replace('_',' ','meta_tag_description'))}}</th>
+									<td id="meta_tag_description" align="center"></td>
 								</tr>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','section_left_text2'))}}</th>
-									<td id="section_left_text2" align="center"></td>
+									<th>{{ucwords(str_replace('_',' ','meta_tag_keywords'))}}</th>
+									<td id="meta_tag_keywords" align="center"></td>
 								</tr>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','section_right_text1'))}}</th>
-									<td id="section_right_text1" align="center"></td>
-								</tr>
-								<tr>
-									<th>{{ucwords(str_replace('_',' ','section_right_text2'))}}</th>
-									<td id="section_right_text2" align="center"></td>
+									<th>{{ucwords(str_replace('_',' ','sort_order'))}}</th>
+									<td id="sort_order" align="center"></td>
 								</tr>
 								<tr>
 									<th>{{ucwords(str_replace('_',' ','image'))}}</th>
@@ -227,15 +219,14 @@
 					url: url.replace(":id", id),
 					dataType: "json",
 					success: function (data) {
+						let image = (data.image === null) ?`<img alt="No Image" src="{{asset('images/placeholder.png')}}" width="100" />` : `<img alt="Category Image" src="{{asset('')}}${ data.image }" width="100" />`;
 						document.getElementById("name").innerText = data.name;
-						document.getElementById("heading").innerText = data.heading;
-						document.getElementById("description").innerText = data.description;
-						document.getElementById("section_heading1").innerText = data.section_heading1;
-						document.getElementById("section_left_text1").innerText = data.section_left_text1;
-						document.getElementById("section_left_text2").innerText = data.section_left_text2;
-						document.getElementById("section_right_text1").innerText = data.section_right_text1;
-						document.getElementById("section_right_text2").innerText = data.section_right_text2;
-						document.getElementById("image").innerHTML = `<img alt="{{asset('')}}${ data.image }" src="{{asset('')}}${ data.image }" width="100" />`;
+						document.getElementById("description").innerHTML = data.description;
+						document.getElementById("meta_tag_title").innerText = data.meta_tag_title;
+						document.getElementById("meta_tag_description").innerText = data.meta_tag_description;
+						document.getElementById("meta_tag_keywords").innerText = data.meta_tag_keywords;
+						document.getElementById("sort_order").innerText = data.sort_order;
+						document.getElementById("image").innerHTML = image;
 						$("#viewModal").modal("show");
 					}
 				});

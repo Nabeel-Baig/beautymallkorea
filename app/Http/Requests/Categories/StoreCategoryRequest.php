@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\categories;
+namespace App\Http\Requests\Categories;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
@@ -8,29 +8,22 @@ use Symfony\Component\HttpFoundation\Response;
 
 class StoreCategoryRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+    final public function authorize(): bool
     {
 		abort_if(Gate::denies('category_create'), Response::HTTP_FORBIDDEN,'403 Forbidden');
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
-    public function rules()
+    final public function rules(): array
     {
         return [
             'type' => ['required','string'],
-            'category_id' => ['required','integer'],
+            'category_id' => ['sometimes','required','integer'],
             'name' => ['required','string'],
             'description' => ['sometimes','required','string'],
+			'meta_tag_title' => ['sometimes','required','string'],
+			'meta_tag_description' => ['sometimes','required','string'],
+			'meta_tag_keywords' => ['sometimes','required','string'],
             'sort_order' => ['required','integer'],
             'image' => ['sometimes','required','image','mimes:jpg,jpeg,png'],
         ];

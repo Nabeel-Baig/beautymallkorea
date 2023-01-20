@@ -25,11 +25,9 @@ class TagController extends Controller {
 	 * @throws AuthorizationException
 	 */
 	final public function index(): View {
-//		$this->authorize("access", [Tag::class, PermissionEnum::TAG_ACCESS]);
-
+		$this->authorize("access", [Tag::class, PermissionEnum::TAG_ACCESS]);
 		$content['title'] = $this->title;
 		$content['headers'] = ["ID", "Tag Name"];
-
 		return view("admin.tags.index")->with($content);
 	}
 
@@ -37,8 +35,7 @@ class TagController extends Controller {
 	 * @throws AuthorizationException
 	 */
 	final public function paginate(): JsonResponse {
-//		$this->authorize("access", [Tag::class, PermissionEnum::TAG_ACCESS]);
-
+		$this->authorize("access", [Tag::class, PermissionEnum::TAG_ACCESS]);
 		return $this->tagService->paginate();
 	}
 
@@ -58,7 +55,7 @@ class TagController extends Controller {
 	 * @throws AuthorizationException
 	 */
 	final public function store(CreateTagRequest $createTagRequest): RedirectResponse {
-//		$this->authorize("access", [Tag::class, PermissionEnum::TAG_CREATE]);
+		$this->authorize("access", [Tag::class, PermissionEnum::TAG_CREATE]);
 
 		$this->tagService->create($createTagRequest);
 
@@ -69,10 +66,8 @@ class TagController extends Controller {
 	 * @throws AuthorizationException
 	 */
 	final public function create(): View {
-//		$this->authorize("access", [Tag::class, PermissionEnum::TAG_CREATE]);
-
+		$this->authorize("access", [Tag::class, PermissionEnum::TAG_CREATE]);
 		$content['title'] = $this->title;
-
 		return view("admin.tags.create")->with($content);
 	}
 

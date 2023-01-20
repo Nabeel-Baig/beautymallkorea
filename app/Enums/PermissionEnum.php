@@ -25,11 +25,6 @@ enum PermissionEnum: string {
 	case CATEGORY_SHOW = "category_show";
 	case CATEGORY_DELETE = "category_delete";
 	case CATEGORY_ACCESS = "category_access";
-	case FUND_CREATE = "fund_create";
-	case FUND_EDIT = "fund_edit";
-	case FUND_SHOW = "fund_show";
-	case FUND_DELETE = "fund_delete";
-	case FUND_ACCESS = "fund_access";
 	case ORDER_CREATE = "order_create";
 	case ORDER_EDIT = "order_edit";
 	case ORDER_SHOW = "order_show";

@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Categories\MassDestroyCategoryRequest;
-use App\Http\Requests\categories\StoreCategoryRequest;
-use App\Http\Requests\categories\UpdateCategoryRequest;
+use App\Http\Requests\Categories\StoreCategoryRequest;
+use App\Http\Requests\Categories\UpdateCategoryRequest;
 use App\Models\Category;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
+use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 
 class CategoriesController extends Controller
@@ -54,7 +58,7 @@ class CategoriesController extends Controller
         return view('admin.' . request()->segment(2) . '.list')->with($content);
     }
 
-    public function create()
+    final public function create(): View
     {
         abort_if(Gate::denies('category_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $categories = Category::latest()->get()->pluck('name', 'id');
@@ -62,38 +66,40 @@ class CategoriesController extends Controller
         return view('admin.' . request()->segment(2) . '.form', compact('title','categories'));
     }
 
-    public function store(StoreCategoryRequest $request)
+    final public function store(StoreCategoryRequest $request): RedirectResponse
     {
-        Category::create(handleFiles(\request()->segment(2), $request->validated()));
+        Category::create(handleFiles(\request()->segment(2), array_merge($request->validated(),['slug' => Str::slug($request->name,'-')])));
         return redirect()->route('admin.' . request()->segment(2) . '.index')->withToastSuccess('Category Created Successfully!');
     }
 
-    public function show(Category $category)
+    final public function show(Category $category): JsonResponse
     {
         return \response()->json($category);
     }
 
-    public function edit(Category $category)
+    final public function edit(Category $category): View
     {
         abort_if(Gate::denies('category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+		$categories = Category::latest()->get()->pluck('name', 'id');
         $title = $this->title;
-        return view('admin.' . request()->segment(2) . '.form', compact('title', 'category'));
+        return view('admin.' . request()->segment(2) . '.form', compact('title', 'category','categories'));
     }
 
-    public function update(UpdateCategoryRequest $request, Category $category)
+    final public function update(UpdateCategoryRequest $request, Category $category): RedirectResponse
     {
         $category->update(handleFilesIfPresent(\request()->segment(2), $request->validated(), $category));
         return redirect()->route('admin.categories.index')->withToastSuccess('Category Updated Successfully!');
     }
 
-    public function destroy(Category $category)
+    final public function destroy(Category $category): JsonResponse
     {
         abort_if(Gate::denies('category_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $category->delete();
         return \response()->json('Category Deleted Successfully!');
     }
 
-	public function massDestroy(MassDestroyCategoryRequest $request) {
+	final public function massDestroy(MassDestroyCategoryRequest $request): JsonResponse
+	{
 		Category::whereIn('id', request('ids'))->delete();
 		return \response()->json('Selected records Deleted Successfully.');
 	}

@@ -149,31 +149,31 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'id' => '23',
-                'title' => 'fund_create',
+                'title' => 'tag_create',
                 'created_at' => '2019-09-27 07:11:07',
                 'updated_at' => '2019-09-27 07:11:07',
             ],
             [
                 'id' => '24',
-                'title' => 'fund_edit',
+                'title' => 'tag_edit',
                 'created_at' => '2019-09-27 07:11:07',
                 'updated_at' => '2019-09-27 07:11:07',
             ],
             [
                 'id' => '25',
-                'title' => 'fund_show',
+                'title' => 'tag_show',
                 'created_at' => '2019-09-27 07:11:07',
                 'updated_at' => '2019-09-27 07:11:07',
             ],
             [
                 'id' => '26',
-                'title' => 'fund_delete',
+                'title' => 'tag_delete',
                 'created_at' => '2019-09-27 07:11:07',
                 'updated_at' => '2019-09-27 07:11:07',
             ],
             [
                 'id' => '27',
-                'title' => 'fund_access',
+                'title' => 'tag_access',
                 'created_at' => '2019-09-27 07:11:07',
                 'updated_at' => '2019-09-27 07:11:07',
             ],
@@ -224,7 +224,37 @@ class PermissionSeeder extends Seeder
                 'title' => 'payment_delete',
                 'created_at' => '2019-09-27 07:11:07',
                 'updated_at' => '2019-09-27 07:11:07',
-            ]
+            ],
+			[
+				'id' => '38',
+				'title' => 'currency_create',
+				'created_at' => '2019-09-27 07:11:07',
+				'updated_at' => '2019-09-27 07:11:07',
+			],
+			[
+				'id' => '39',
+				'title' => 'currency_edit',
+				'created_at' => '2019-09-27 07:11:07',
+				'updated_at' => '2019-09-27 07:11:07',
+			],
+			[
+				'id' => '40',
+				'title' => 'currency_show',
+				'created_at' => '2019-09-27 07:11:07',
+				'updated_at' => '2019-09-27 07:11:07',
+			],
+			[
+				'id' => '41',
+				'title' => 'currency_delete',
+				'created_at' => '2019-09-27 07:11:07',
+				'updated_at' => '2019-09-27 07:11:07',
+			],
+			[
+				'id' => '42',
+				'title' => 'currency_access',
+				'created_at' => '2019-09-27 07:11:07',
+				'updated_at' => '2019-09-27 07:11:07',
+			],
         ];
 
         Permission::insert($permissions);
