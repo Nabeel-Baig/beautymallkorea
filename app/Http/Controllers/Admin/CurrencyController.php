@@ -45,24 +45,12 @@ class CurrencyController extends Controller {
 	/**
 	 * @throws AuthorizationException
 	 */
-	final public function view(Currency $currency): JsonResponse {
-		$this->authorize("access", [Currency::class, PermissionEnum::CURRENCY_SHOW]);
-
-		$content['model'] = $currency;
-		$content['title'] = $this->title;
-
-		return response()->json($content);
-	}
-
-	/**
-	 * @throws AuthorizationException
-	 */
 	final public function store(CreateCurrencyRequest $createCurrencyRequest): RedirectResponse {
 		$this->authorize("access", [Currency::class, PermissionEnum::CURRENCY_CREATE]);
 
 		$this->currencyService->create($createCurrencyRequest);
 
-		return redirect()->route("admin.currencies.index")->withSuccessToastr("Currency created successfully");
+		return redirect()->route("admin.currencies.index")->withCreatedSuccessToastr("Currency");
 	}
 
 	/**
@@ -96,7 +84,7 @@ class CurrencyController extends Controller {
 
 		$this->currencyService->update($currency, $updateCurrencyRequest);
 
-		return redirect()->route("admin.currencies.index")->withSuccessToastr("Currency updated successfully");
+		return redirect()->route("admin.currencies.index")->withUpdatedSuccessToastr("Currency");
 	}
 
 	/**

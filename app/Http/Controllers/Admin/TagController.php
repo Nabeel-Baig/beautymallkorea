@@ -42,24 +42,12 @@ class TagController extends Controller {
 	/**
 	 * @throws AuthorizationException
 	 */
-	final public function view(Tag $tag): JsonResponse {
-		$this->authorize("access", [Tag::class, PermissionEnum::TAG_SHOW]);
-
-		$content['model'] = $tag;
-		$content['title'] = $this->title;
-
-		return response()->json($content);
-	}
-
-	/**
-	 * @throws AuthorizationException
-	 */
 	final public function store(CreateTagRequest $createTagRequest): RedirectResponse {
 		$this->authorize("access", [Tag::class, PermissionEnum::TAG_CREATE]);
 
 		$this->tagService->create($createTagRequest);
 
-		return redirect()->route("admin.tags.index")->withSuccessToastr("Tag created successfully");
+		return redirect()->route("admin.tags.index")->withCreatedSuccessToastr("Tag");
 	}
 
 	/**
@@ -91,7 +79,7 @@ class TagController extends Controller {
 
 		$this->tagService->update($tag, $updateTagRequest);
 
-		return redirect()->route("admin.tag.index")->withSuccessToastr("Tag updated successfully");
+		return redirect()->route("admin.tags.index")->withUpdatedSuccessToastr("Tag");
 	}
 
 	/**

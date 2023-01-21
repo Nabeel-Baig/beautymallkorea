@@ -25,9 +25,9 @@
 		<div class="col-xl-6">
 			<div class="card">
 				<div class="card-body">
-					<form method="POST" action="{{ route('admin.categories.update', $model->id) }}" class="custom-validation" enctype="multipart/form-data">
+					<form method="POST" action="{{ route('admin.tags.update', ["tag" => $model->id]) }}" class="custom-validation" enctype="multipart/form-data">
 						@csrf
-						@method('PUT')
+						@method('PATCH')
 						<div class="mb-3">
 							<label for="tag_name" class="form-label">Tag Name</label>
 							<input name="name" id="tag_name" value="{{ old("name") ?? $model->name }}" class="form-control @error('name') parsley-error @enderror" required>

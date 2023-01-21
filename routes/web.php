@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\PermissionsController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\SettingsController;
@@ -90,7 +91,6 @@ Route::group([
 	Route::group(["prefix" => "tags", "as" => "tags."], static function () {
 		Route::get("/", [TagController::class, "index"])->name("index");
 		Route::get("/paginate", [TagController::class, "paginate"])->name("paginate");
-		Route::get("/view/{tag}", [TagController::class, "view"])->name("view");
 		Route::get("/create", [TagController::class, "create"])->name("create");
 		Route::post("/store", [TagController::class, "store"])->name("store");
 		Route::get("/edit/{tag}", [TagController::class, "edit"])->name("edit");
@@ -103,13 +103,24 @@ Route::group([
 	Route::group(["prefix" => "currencies", "as" => "currencies."], static function () {
 		Route::get("/", [CurrencyController::class, "index"])->name("index");
 		Route::get("/paginate", [CurrencyController::class, "paginate"])->name("paginate");
-		Route::get("/view/{tag}", [CurrencyController::class, "view"])->name("view");
 		Route::get("/create", [CurrencyController::class, "create"])->name("create");
 		Route::post("/store", [CurrencyController::class, "store"])->name("store");
-		Route::get("/edit/{tag}", [CurrencyController::class, "edit"])->name("edit");
-		Route::patch("/update/{tag}", [CurrencyController::class, "update"])->name("update");
-		Route::delete("/delete/{tag}", [CurrencyController::class, "delete"])->name("delete");
+		Route::get("/edit/{currency}", [CurrencyController::class, "edit"])->name("edit");
+		Route::patch("/update/{currency}", [CurrencyController::class, "update"])->name("update");
+		Route::delete("/delete/{currency}", [CurrencyController::class, "delete"])->name("delete");
 		Route::delete("/delete", [CurrencyController::class, "deleteMany"])->name("delete.many");
+	});
+
+	// Option
+	Route::group(["prefix" => "options", "as" => "options."], static function () {
+		Route::get("/", [OptionController::class, "index"])->name("index");
+		Route::get("/paginate", [OptionController::class, "paginate"])->name("paginate");
+		Route::get("/create", [OptionController::class, "create"])->name("create");
+		Route::post("/store", [OptionController::class, "store"])->name("store");
+		Route::get("/edit/{option}", [OptionController::class, "edit"])->name("edit");
+		Route::patch("/update/{option}", [OptionController::class, "update"])->name("update");
+		Route::delete("/delete/{option}", [OptionController::class, "delete"])->name("delete");
+		Route::delete("/delete", [OptionController::class, "deleteMany"])->name("delete.many");
 	});
 
 	// Settings
@@ -122,7 +133,7 @@ Route::group([
 Route::post('/update-profile/{id}', [App\Http\Controllers\HomeController::class, 'updateProfile'])->name('updateProfile');
 Route::post('/update-password/{id}', [App\Http\Controllers\HomeController::class, 'updatePassword'])->name('updatePassword');
 
-// Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
+Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
 // Language Translation
 Route::get('index/{locale}', [App\Http\Controllers\HomeController::class, 'lang']);

@@ -4,21 +4,21 @@
 			<!-- LOGO -->
 			<div class="navbar-brand-box">
 				<a href="index" class="logo logo-dark">
-                    <span class="logo-sm">
-                        <img src="{{ URL::asset($setting->logo) }}" alt="" height="22">
-                    </span>
+					<span class="logo-sm">
+						<img src="{{ URL::asset($setting->logo) }}" alt="" height="22">
+					</span>
 					<span class="logo-lg">
-                        <img src="{{ URL::asset($setting->logo) }}" alt="" height="17">
-                    </span>
+						<img src="{{ URL::asset($setting->logo) }}" alt="" height="17">
+					</span>
 				</a>
 
 				<a href="index" class="logo logo-light">
-                    <span class="logo-sm">
-                        <img src="{{ URL::asset($setting->logo) }}" alt="" height="22">
-                    </span>
+					<span class="logo-sm">
+						<img src="{{ URL::asset($setting->logo) }}" alt="" height="22">
+					</span>
 					<span class="logo-lg">
-                        <img src="{{ URL::asset($setting->logo) }}" alt="" height="19">
-                    </span>
+						<img src="{{ URL::asset($setting->logo) }}" alt="" height="19">
+					</span>
 				</a>
 			</div>
 
@@ -65,19 +65,16 @@
 								@endcan
 								@can('category_access')
 									<div class="col-md-4">
-										<h5 class="font-size-14 mt-0"
-											key="t-applications">@lang('translation.Catalog')</h5>
+										<h5 class="font-size-14 mt-0" key="t-applications">@lang('translation.Catalog')</h5>
 										<ul class="list-unstyled megamenu-list">
 											@can('category_access')
 												<li>
-													<a href="{{ route('admin.categories.index') }}"
-													   key="t-ecommerce">@lang('translation.Categories')</a>
+													<a href="{{ route('admin.categories.index') }}" key="t-ecommerce">@lang('translation.Categories')</a>
 												</li>
 											@endcan
 											@can('tag_access')
 												<li>
-													<a href="{{ route('admin.tags.index') }}"
-													   key="t-ecommerce">@lang('translation.Tags')</a>
+													<a href="{{ route('admin.tags.index') }}" key="t-ecommerce">@lang('translation.Tags')</a>
 												</li>
 											@endcan
 										</ul>
@@ -140,9 +137,9 @@
 						<a href="" class="text-reset notification-item">
 							<div class="d-flex">
 								<div class="avatar-xs me-3">
-                                    <span class="avatar-title bg-primary rounded-circle font-size-16">
-                                        <i class="bx bx-cart"></i>
-                                    </span>
+									<span class="avatar-title bg-primary rounded-circle font-size-16">
+										<i class="bx bx-cart"></i>
+									</span>
 								</div>
 								<div class="flex-grow-1">
 									<h6 class="mt-0 mb-1"
@@ -150,8 +147,11 @@
 									<div class="font-size-12 text-muted">
 										<p class="mb-1"
 										   key="t-grammer">@lang('translation.If_several_languages_coalesce_the_grammar')</p>
-										<p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span
-												key="t-min-ago">@lang('translation.3_min_ago')</span></p>
+										<p class="mb-0">
+											<i class="mdi mdi-clock-outline"></i>
+											<span
+												key="t-min-ago">@lang('translation.3_min_ago')</span>
+										</p>
 									</div>
 								</div>
 							</div>
@@ -165,8 +165,11 @@
 									<div class="font-size-12 text-muted">
 										<p class="mb-1"
 										   key="t-simplified">@lang('translation.It_will_seem_like_simplified_English')</p>
-										<p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span
-												key="t-hours-ago">@lang('translation.1_hours_ago')</span></p>
+										<p class="mb-0">
+											<i class="mdi mdi-clock-outline"></i>
+											<span
+												key="t-hours-ago">@lang('translation.1_hours_ago')</span>
+										</p>
 									</div>
 								</div>
 							</div>
@@ -174,17 +177,20 @@
 						<a href="" class="text-reset notification-item">
 							<div class="d-flex">
 								<div class="avatar-xs me-3">
-                                    <span class="avatar-title bg-success rounded-circle font-size-16">
-                                        <i class="bx bx-badge-check"></i>
-                                    </span>
+									<span class="avatar-title bg-success rounded-circle font-size-16">
+										<i class="bx bx-badge-check"></i>
+									</span>
 								</div>
 								<div class="flex-grow-1">
 									<h6 class="mt-0 mb-1" key="t-shipped">@lang('translation.Your_item_is_shipped')</h6>
 									<div class="font-size-12 text-muted">
 										<p class="mb-1"
 										   key="t-grammer">@lang('translation.If_several_languages_coalesce_the_grammar')</p>
-										<p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span
-												key="t-min-ago">@lang('translation.3_min_ago')</span></p>
+										<p class="mb-0">
+											<i class="mdi mdi-clock-outline"></i>
+											<span
+												key="t-min-ago">@lang('translation.3_min_ago')</span>
+										</p>
 									</div>
 								</div>
 							</div>
@@ -199,8 +205,11 @@
 									<div class="font-size-12 text-muted">
 										<p class="mb-1"
 										   key="t-occidental">@lang('translation.As_a_skeptical_Cambridge_friend_of_mine_occidental')</p>
-										<p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span
-												key="t-hours-ago">@lang('translation.1_hours_ago')</span></p>
+										<p class="mb-0">
+											<i class="mdi mdi-clock-outline"></i>
+											<span
+												key="t-hours-ago">@lang('translation.1_hours_ago')</span>
+										</p>
 									</div>
 								</div>
 							</div>
@@ -208,7 +217,8 @@
 					</div>
 					<div class="p-2 border-top d-grid">
 						<a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
-							<i class="mdi mdi-arrow-right-circle me-1"></i> <span
+							<i class="mdi mdi-arrow-right-circle me-1"></i>
+							<span
 								key="t-view-more">@lang('translation.View_More')</span>
 						</a>
 					</div>
@@ -227,21 +237,33 @@
 				</button>
 				<div class="dropdown-menu dropdown-menu-end">
 					<!-- item-->
-					<a class="dropdown-item" href="contacts-profile"><i
-							class="bx bx-user font-size-16 align-middle me-1"></i> <span
-							key="t-profile">@lang('translation.Profile')</span></a>
-					<a class="dropdown-item" href="{{ route('admin.settings.edit',$setting->id) }}"><i
-							class="bx bx-wrench font-size-16 align-middle me-1"></i> <span
-							key="t-settings">@lang('translation.Settings')</span></a>
-					<a class="dropdown-item" href="javascript:;" data-bs-toggle="modal"
-					   data-bs-target=".change-password"><i
-							class="bx bx-lock-open font-size-16 align-middle me-1"></i> <span
-							key="t-lock-screen">@lang('translation.Change_Password')</span></a>
+					<a class="dropdown-item" href="contacts-profile">
+						<i
+							class="bx bx-user font-size-16 align-middle me-1"></i>
+						<span
+							key="t-profile">@lang('translation.Profile')</span>
+					</a>
+					<a class="dropdown-item" href="{{ route('admin.settings.edit',$setting->id) }}">
+						<i
+							class="bx bx-wrench font-size-16 align-middle me-1"></i>
+						<span
+							key="t-settings">@lang('translation.Settings')</span>
+					</a>
+					<a class="dropdown-item" href="javascript:" data-bs-toggle="modal"
+					   data-bs-target=".change-password">
+						<i
+							class="bx bx-lock-open font-size-16 align-middle me-1"></i>
+						<span
+							key="t-lock-screen">@lang('translation.Change_Password')</span>
+					</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item text-danger" href="javascript:void();"
-					   onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
-							class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span
-							key="t-logout">@lang('translation.Logout')</span></a>
+					<a class="dropdown-item text-danger" href="javascript:void(0);"
+					   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+						<i
+							class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
+						<span
+							key="t-logout">@lang('translation.Logout')</span>
+					</a>
 					<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 						@csrf
 					</form>

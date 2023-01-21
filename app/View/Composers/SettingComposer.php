@@ -2,13 +2,12 @@
 
 namespace App\View\Composers;
 
-use Illuminate\View\View;
 use App\Models\Setting;
+use Illuminate\View\View;
 
-class SettingComposer
-{
-    public function compose(View $view)
-    {
-        $view->with('setting', Setting::findOrFail(1));
-    }
+class SettingComposer {
+	final public function compose(View $view): void {
+		$setting = Setting::findOrFail(1);
+		$view->with(compact('setting'));
+	}
 }

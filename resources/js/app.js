@@ -17,6 +17,11 @@ const app_url = "http://localhost/beautymallkorea/public/";
 	// Default Language
 	var default_lang = "en";
 
+	function showImagePreview(event, previewImageElementSelector) {
+		const previewImageElement = document.querySelector(previewImageElementSelector);
+		previewImageElement.src = URL.createObjectURL(event.target.files[0]);
+	}
+
 	function setLanguage(lang) {
 		if (document.getElementById("header-lang-img")) {
 			if (lang == "en") {

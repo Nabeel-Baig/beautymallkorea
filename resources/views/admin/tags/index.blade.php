@@ -56,35 +56,6 @@
 		</div> <!-- end col -->
 	</div> <!-- end row -->
 
-	@can(PermissionEnum::TAG_SHOW->value)
-		<!-- sample modal content -->
-		<div id="viewModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title mt-0" id="myModalLabel">View {{ $title }}</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<div class="table-responsive">
-							<table class="table table-hover table-striped">
-								<tbody>
-									<tr>
-										<th>Tag Name</th>
-										<td id="name" align="center"></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
-					</div>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
-	@endcan
-
 	@can(PermissionEnum::TAG_DELETE->value)
 		<!-- Delete content -->
 		<div id="confirmModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -173,28 +144,6 @@
 						orderable: false
 					}
 				]
-			});
-
-			// View Records
-			$(document, this).on("click", ".view", function () {
-				let id = $(this).attr("id");
-				let url = "{{ route('admin.tags.view', ':id') }}";
-				$.ajax({
-					url: url.replace(":id", id),
-					dataType: "json",
-					success: function (data) {
-						document.getElementById("name").innerText = data.name;
-						document.getElementById("heading").innerText = data.heading;
-						document.getElementById("description").innerText = data.description;
-						document.getElementById("section_heading1").innerText = data.section_heading1;
-						document.getElementById("section_left_text1").innerText = data.section_left_text1;
-						document.getElementById("section_left_text2").innerText = data.section_left_text2;
-						document.getElementById("section_right_text1").innerText = data.section_right_text1;
-						document.getElementById("section_right_text2").innerText = data.section_right_text2;
-						document.getElementById("image").innerHTML = `<img alt="{{ asset('') }}${ data.image }" src="{{ asset('') }}${ data.image }" width="100" />`;
-						$("#viewModal").modal("show");
-					}
-				});
 			});
 
 			let delete_id;

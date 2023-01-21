@@ -2,18 +2,14 @@
 
 namespace App\Services;
 
-use App\Enums\PermissionEnum;
 use App\Http\Requests\Tag\CreateTagRequest;
 use App\Http\Requests\Tag\DeleteManyTagsRequest;
 use App\Http\Requests\Tag\UpdateTagRequest;
 use App\Models\Tag;
-use App\Services\Datatables\DataTableService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 
 class TagService {
-	public function __construct(private readonly DataTableService $datatable) {}
-
 	final public function paginate(): JsonResponse {
 		/*$model = Tag::class;
 		$routeModelName = "tags";
@@ -34,7 +30,7 @@ class TagService {
 				$view = '';
 				$delete = '';
 				if (Gate::allows('tag_edit')) {
-					$edit = '<a title="Edit" href="' . route('admin.categories.edit', $data->id) . '" class="btn btn-primary btn-sm"><i class="fas fa-pen"></i></a>&nbsp;';
+					$edit = '<a title="Edit" href="' . route('admin.tags.edit', $data->id) . '" class="btn btn-primary btn-sm"><i class="fas fa-pen"></i></a>&nbsp;';
 				}
 				if (Gate::allows('tag_show')) {
 					$view = '<button title="View" type="button" name="view" id="' . $data['id'] . '" class="view btn btn-info btn-sm"><i class="fa fa-eye"></i></button>&nbsp;';

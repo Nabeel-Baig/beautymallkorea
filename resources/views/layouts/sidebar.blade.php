@@ -1,4 +1,5 @@
-<!-- ========== Left Sidebar Start ========== -->
+@php use App\Enums\PermissionEnum; @endphp
+	<!-- ========== Left Sidebar Start ========== -->
 <div class="vertical-menu">
 
 	<div data-simplebar class="h-100">
@@ -23,16 +24,22 @@
 						</a>
 						<ul class="sub-menu" aria-expanded="false">
 							@can('permission_access')
-								<li><a href="{{ route('admin.permissions.index') }}"
-									   key="t-products">@lang('translation.Permissions')</a></li>
+								<li>
+									<a href="{{ route('admin.permissions.index') }}"
+									   key="t-products">@lang('translation.Permissions')</a>
+								</li>
 							@endcan
 							@can('role_access')
-								<li><a href="{{ route('admin.roles.index') }}"
-									   key="t-product-detail">@lang('translation.Roles')</a></li>
+								<li>
+									<a href="{{ route('admin.roles.index') }}"
+									   key="t-product-detail">@lang('translation.Roles')</a>
+								</li>
 							@endcan
 							@can('user_access')
-								<li><a href="{{ route('admin.users.index') }}"
-									   key="t-product-detail">@lang('translation.Users')</a></li>
+								<li>
+									<a href="{{ route('admin.users.index') }}"
+									   key="t-product-detail">@lang('translation.Users')</a>
+								</li>
 							@endcan
 						</ul>
 					</li>
@@ -45,12 +52,30 @@
 						</a>
 						<ul class="sub-menu" aria-expanded="false">
 							@can('category_access')
-								<li><a href="{{ route('admin.categories.index') }}"
-									   key="t-products">@lang('translation.Categories')</a></li>
+								<li>
+									<a href="{{ route('admin.categories.index') }}"
+									   key="t-products">@lang('translation.Categories')</a>
+								</li>
 							@endcan
 							@can('tag_access')
-								<li><a href="{{ route('admin.tags.index') }}"
-									   key="t-products">@lang('translation.Tags')</a></li>
+								<li>
+									<a href="{{ route('admin.tags.index') }}"
+									   key="t-products">@lang('translation.Tags')</a>
+								</li>
+							@endcan
+							@can(PermissionEnum::OPTION_ACCESS->value)
+								<li>
+									<a href="{{ route('admin.options.index') }}"
+									   key="t-products">Options
+									</a>
+								</li>
+							@endcan
+							@can(PermissionEnum::CURRENCY_ACCESS->value)
+								<li>
+									<a href="{{ route('admin.currencies.index') }}"
+									   key="t-products">Currencies
+									</a>
+								</li>
 							@endcan
 						</ul>
 					</li>

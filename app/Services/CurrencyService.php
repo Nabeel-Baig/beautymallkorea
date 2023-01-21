@@ -21,7 +21,6 @@ class CurrencyService {
 		return $this->datatable->of($model)
 			->withColumns($columns)
 			->withSelectionColumn()
-			->withViewAction(PermissionEnum::CURRENCY_SHOW)
 			->withEditAction(PermissionEnum::CURRENCY_EDIT)
 			->withDeleteAction(PermissionEnum::CURRENCY_DELETE)
 			->paginate($routeModelName);

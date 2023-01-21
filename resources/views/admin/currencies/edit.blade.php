@@ -25,13 +25,29 @@
 		<div class="col-xl-6">
 			<div class="card">
 				<div class="card-body">
-					<form method="POST" action="{{ route('admin.categories.update', $model->id) }}" class="custom-validation" enctype="multipart/form-data">
+					<form method="POST" action="{{ route('admin.currencies.update', ["currency" => $model->id]) }}" class="custom-validation" enctype="multipart/form-data">
 						@csrf
-						@method('PUT')
+						@method('PATCH')
 						<div class="mb-3">
-							<label for="tag_name" class="form-label">Tag Name</label>
-							<input name="name" id="tag_name" value="{{ old("name") ?? $model->name }}" class="form-control @error('name') parsley-error @enderror" required>
+							<label for="currency_name" class="form-label">Currency Name</label>
+							<input name="name" id="currency_name" value="{{ old("name") ?? $model->name }}" minlength="3" maxlength="50" class="form-control @error('name') parsley-error @enderror" required>
 							@error('name')
+							<span class="text-red">{{ $message }}</span>
+							@enderror
+						</div>
+
+						<div class="mb-3">
+							<label for="currency_symbol" class="form-label">Currency Symbol</label>
+							<input name="symbol" id="currency_symbol" value="{{ old("symbol") ?? $model->symbol }}" maxlength="3" class="form-control @error('symbol') parsley-error @enderror" required>
+							@error('symbol')
+							<span class="text-red">{{ $message }}</span>
+							@enderror
+						</div>
+
+						<div class="mb-3">
+							<label for="currency_short_name" class="form-label">Currency Short Name</label>
+							<input name="short_name" id="currency_short_name" value="{{ old("short_name") ?? $model->short_name }}" maxlength="3" class="form-control @error('short_name') parsley-error @enderror" required>
+							@error('short_name')
 							<span class="text-red">{{ $message }}</span>
 							@enderror
 						</div>
