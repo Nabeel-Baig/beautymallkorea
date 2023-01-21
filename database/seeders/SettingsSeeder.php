@@ -15,14 +15,14 @@ class SettingsSeeder extends Seeder
     public function run()
     {
         Setting::create([
-            'name' => 'Start Fundraising',
-            'title' => 'Start Fundraising',
-            'logo' => '/assets/uploads/settings/IUiCWdBDtVeeJ7cNf9oe5QWCUgPW8bhaGpEMLfeh.png',
-            'favico' => '/assets/uploads/settings/pHyip36xXyByrHb3DhZjfOPlqvEc55PxlsUhJy32.png',
-            'email' => 'info@fundraising.com',
+            'name' => 'Beauty Mall Korea',
+            'title' => 'Beauty Mall Korea',
+            'logo' => '/images/logo.png',
+            'favico' => '/images/logo.png',
+            'email' => 'info@beautymallkorea.com',
             'phone' => '923333906233',
             'address' => 'Gulistan-e-Jauhar, Karachi.',
-            'link' => 'outsourcetoasia.io',
+            'link' => 'beautymallkorea.com',
         ]);
     }
 }

@@ -17,6 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+	Route::get('/users',function () {
+		return response()->json([
+			'users' => \App\Models\User::all()
+		]);
+	});
 	/* Route::post('/products', [ProductController::class, 'store']);
 	Route::put('/products/{id}', [ProductController::class, 'update']);
 	Route::delete('/products/{id}', [ProductController::class, 'destroy']); */
@@ -28,6 +33,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register',[AuthController::class,'register']);
 Route::get('/greeting', function () {
-	return 'Hello World';
+	return response()->json('Hello World');
 });
