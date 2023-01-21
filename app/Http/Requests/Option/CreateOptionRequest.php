@@ -1,0 +1,16 @@
+<?php
+
+namespace App\Http\Requests\Option;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class CreateOptionRequest extends FormRequest {
+	final public function rules(): array {
+		return [
+			"name" => "required|string|max:100",
+			"option_values" => "required|array",
+			"option_values.*.name" => "required|string",
+			"option_values.*.image" => "nullable|file|mimetypes:image/*",
+		];
+	}
+}
