@@ -45,12 +45,6 @@ enum PermissionEnum: string {
 	case TAG_DELETE = "tag_delete";
 	case TAG_ACCESS = "tag_access";
 
-	// Currency
-	case CURRENCY_CREATE = "currency_create";
-	case CURRENCY_EDIT = "currency_edit";
-	case CURRENCY_DELETE = "currency_delete";
-	case CURRENCY_ACCESS = "currency_access";
-
 	// Options
 	case OPTION_CREATE = "option_create";
 	case OPTION_EDIT = "option_edit";

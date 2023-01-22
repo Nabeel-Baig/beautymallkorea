@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\Currency;
 use App\Models\Option;
 use App\Models\Product;
 use App\Models\Tag;
@@ -17,7 +16,6 @@ class AuthServiceProvider extends ServiceProvider {
 	 */
 	protected $policies = [
 		Tag::class => AccessPolicy::class,
-		Currency::class => AccessPolicy::class,
 		Option::class => AccessPolicy::class,
 		Product::class => AccessPolicy::class,
 	];
