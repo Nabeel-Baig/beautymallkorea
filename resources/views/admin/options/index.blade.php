@@ -139,14 +139,6 @@
 						name: "name"
 					},
 					{
-						data: "symbol",
-						name: "symbol"
-					},
-					{
-						data: "short_name",
-						name: "short_name"
-					},
-					{
 						data: "actions",
 						name: "actions",
 						orderable: false

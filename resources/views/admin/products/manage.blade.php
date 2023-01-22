@@ -11,7 +11,7 @@
 @section('page-specific-css')
 	<!-- Plugins css -->
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/select2/select2.min.css') }}">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css"/>
+	<link href="{{ asset('assets/libs/dropzone/dropzone.min.css') }}" rel="stylesheet" type="text/css"/>
 @endsection
 
 @section('content')
@@ -228,10 +228,15 @@
 							</div>
 
 							<div class="tab-pane" id="image" role="tabpanel">
-								<div class="mb-3">
+								<div class="mb-3 dropzone" id="product_image">
 									<label for="product_image" class="form-label">Image</label>
-									<input type="file" name="product[image]" id="product_image" class="inner form-control">
+									<input type="file" name="product[image]" class="form-control" data-height="200">
 									<input type="hidden" name="product[old_image]" value="{{ $model?->old_image ?? old("product.old_image") }}">
+								</div>
+
+								<div class="mb-3 dropzone" id="product_multi_image">
+									<label for="product_multi_image" class="form-label">Multiple Image</label>
+									<input type="file" name="product[multi_image][]" class="form-control" data-height="200"/>
 								</div>
 							</div>
 						</div>
@@ -256,12 +261,25 @@
 	<script src="{{ asset('assets/js/pages/form-editor.init.js') }}"></script>
 	<!-- select2 -->
 	<script src="{{ asset('assets/libs/select2/select2.min.js') }}"></script>
+	<script src="{{ asset('assets/libs/dropzone/dropzone.min.js') }}"></script>
 @endsection
 
 @section("script-bottom")
 	<script>
+		Dropzone.autoDiscover = false;
 		$(function () {
 			$(".select2").select2();
+			$("#product_image").dropzone({
+				addRemoveLinks: true,
+				url: "{{ asset('images/placeholder.png') }}",
+				acceptedFiles: ".jpeg,.jpg,.png,.gif",
+				maxFiles: 1,
+			});
+			$("#product_multi_image").dropzone({
+				addRemoveLinks: true,
+				url: "{{ asset('images/placeholder.png') }}",
+				acceptedFiles: ".jpeg,.jpg,.png,.gif",
+			});
 		});
 	</script>
 @endsection
