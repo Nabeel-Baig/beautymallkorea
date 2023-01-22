@@ -2,7 +2,7 @@
 @section('title')
 	Create {{ $title }}
 @endsection
-@section('css')
+@section('page-specific-css')
 	<!-- Plugins css -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css"/>
 @endsection
@@ -160,12 +160,12 @@
 @section('script-bottom')
 	<script>
 		$(function () {
-			$('#image').dropify({
+			$("#image").dropify({
 				defaultFile: "{{ asset($category->image ?? '') }}",
 				messages: {
-					'default': 'Drop a file OR click',
+					"default": "Drop a file OR click",
 				}
 			});
-		})
+		});
 	</script>
 @endsection

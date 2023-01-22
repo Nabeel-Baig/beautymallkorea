@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
-class Currency extends BaseModel {
+use Illuminate\Database\Eloquent\Model;
+
+class Currency extends Model {
 	public $fillable = ["name", "symbol", "short_name"];
 }

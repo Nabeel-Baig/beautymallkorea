@@ -7,6 +7,7 @@ use App\Http\Requests\Tag\DeleteManyTagsRequest;
 use App\Http\Requests\Tag\UpdateTagRequest;
 use App\Models\Tag;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 
 class TagService {
@@ -40,6 +41,10 @@ class TagService {
 				}
 				return $edit . $view . $delete;
 			})->rawColumns(['selection', 'actions'])->make(true);
+	}
+
+	final public function getTagsForDropdown(): Collection {
+		return Tag::select(["id", "name"])->get();
 	}
 
 	final public function create(CreateTagRequest $createTagRequest): Tag {

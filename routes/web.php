@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\PermissionsController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\TagController;
@@ -121,6 +122,16 @@ Route::group([
 		Route::patch("/update/{option}", [OptionController::class, "update"])->name("update");
 		Route::delete("/delete/{option}", [OptionController::class, "delete"])->name("delete");
 		Route::delete("/delete", [OptionController::class, "deleteMany"])->name("delete.many");
+	});
+
+	// Products
+	Route::group(["prefix" => "products", "as" => "products."], static function () {
+		Route::get("/", [ProductController::class, "index"])->name("index");
+		Route::get("/paginate", [ProductController::class, "paginate"])->name("paginate");
+		Route::get("/manage/{product?}", [ProductController::class, "showManage"])->name("manage.show");
+		Route::patch("/manage/{product?}", [ProductController::class, "manage"])->name("manage.update");
+		Route::delete("/delete/{product}", [ProductController::class, "delete"])->name("delete");
+		Route::delete("/delete", [ProductController::class, "deleteMany"])->name("delete.many");
 	});
 
 	// Settings

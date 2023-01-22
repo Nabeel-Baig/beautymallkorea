@@ -22,6 +22,9 @@ class DatabaseSeeder extends Seeder {
 			CategorySeeder::class,
 			TagSeeder::class,
 			CurrencySeeder::class,
+			OptionSeeder::class,
+			OptionValueSeeder::class,
+			ProductSeeder::class,
 		]);
 	}
 }
