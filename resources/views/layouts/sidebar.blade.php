@@ -70,10 +70,10 @@
 									</a>
 								</li>
 							@endcan
-							@can(PermissionEnum::CURRENCY_ACCESS->value)
+							@can(PermissionEnum::PRODUCT_ACCESS->value)
 								<li>
-									<a href="{{ route('admin.currencies.index') }}"
-									   key="t-products">Currencies
+									<a href="{{ route('admin.products.index') }}"
+									   key="t-products">Products
 									</a>
 								</li>
 							@endcan

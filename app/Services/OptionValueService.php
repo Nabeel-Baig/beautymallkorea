@@ -8,6 +8,7 @@ use App\Models\Option;
 use App\Models\OptionValue;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 
 class OptionValueService {
 	/**
@@ -53,5 +54,9 @@ class OptionValueService {
 		$option->load(["optionValues:id,option_id,name,image"]);
 
 		return $option;
+	}
+
+	final public function getOptionValuesForDropdown(int $optionId): Collection {
+		return OptionValue::whereOptionId($optionId)->select(["id", "name"])->get();
 	}
 }

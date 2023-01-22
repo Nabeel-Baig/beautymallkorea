@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoriesController;
-use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OptionController;
+use App\Http\Controllers\Admin\OptionValueController;
 use App\Http\Controllers\Admin\PermissionsController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RolesController;
@@ -100,18 +100,6 @@ Route::group([
 		Route::delete("/delete", [TagController::class, "deleteMany"])->name("delete.many");
 	});
 
-	// Currency
-	Route::group(["prefix" => "currencies", "as" => "currencies."], static function () {
-		Route::get("/", [CurrencyController::class, "index"])->name("index");
-		Route::get("/paginate", [CurrencyController::class, "paginate"])->name("paginate");
-		Route::get("/create", [CurrencyController::class, "create"])->name("create");
-		Route::post("/store", [CurrencyController::class, "store"])->name("store");
-		Route::get("/edit/{currency}", [CurrencyController::class, "edit"])->name("edit");
-		Route::patch("/update/{currency}", [CurrencyController::class, "update"])->name("update");
-		Route::delete("/delete/{currency}", [CurrencyController::class, "delete"])->name("delete");
-		Route::delete("/delete", [CurrencyController::class, "deleteMany"])->name("delete.many");
-	});
-
 	// Option
 	Route::group(["prefix" => "options", "as" => "options."], static function () {
 		Route::get("/", [OptionController::class, "index"])->name("index");
@@ -122,6 +110,11 @@ Route::group([
 		Route::patch("/update/{option}", [OptionController::class, "update"])->name("update");
 		Route::delete("/delete/{option}", [OptionController::class, "delete"])->name("delete");
 		Route::delete("/delete", [OptionController::class, "deleteMany"])->name("delete.many");
+	});
+
+	// Option Values
+	Route::group(["prefix" => "option-values", "as" => "option-values."], static function () {
+		Route::get("/{optionId}", [OptionValueController::class, "getOptionValuesFromOption"])->name("index.dropdown");
 	});
 
 	// Products

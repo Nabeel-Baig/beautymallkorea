@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\ManageProductRequest;
 use App\Models\Product;
 use App\Services\CategoryService;
+use App\Services\OptionService;
 use App\Services\ProductService;
 use App\Services\TagService;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -17,8 +18,9 @@ class ProductController extends Controller {
 	private readonly string $title;
 
 	public function __construct(
-		private readonly ProductService $productService,
 		private readonly TagService $tagService,
+		private readonly OptionService $optionService,
+		private readonly ProductService $productService,
 		private readonly CategoryService $categoryService,
 	) {
 		$this->title = "Products";
@@ -31,15 +33,16 @@ class ProductController extends Controller {
 		$this->authorize("access", [Product::class, PermissionEnum::PRODUCT_MANAGE]);
 
 		$content["title"] = $this->title;
+
 		$content["tags"] = $this->tagService->getTagsForDropdown();
 		$content["categories"] = $this->categoryService->getCategoriesForDropdown();
 		$content["relatedProducts"] = $this->productService->getProductsForDropdown();
+		$content["productOptions"] = $this->optionService->getOptionsForDropdown();
 
+		$productData = $this->productService->fetchProductDataForManagement($product);
 
-		$content["model"] = $product === null ? null : $this->productService->fetchProductDataForManagement($product);
-		$content["assignedTags"] = $product === null ? [] : $content["model"]->tags->pluck("id")->toArray();
-		$content["assignedCategories"] = $product === null ? [] : $content["model"]->categories->pluck("id")->toArray();
-		$content["assignedRelatedProducts"] = $product === null ? [] : $content["model"]->relatedProducts->pluck("id")->toArray();
+		$content = array_merge($content, $productData);
+
 		return view("admin.products.manage")->with($content);
 	}
 

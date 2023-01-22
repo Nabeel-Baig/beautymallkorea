@@ -11,7 +11,7 @@ use Illuminate\Validation\Rule;
 class ManageProductRequest extends FormRequest {
 	final public function rules(): array {
 		$product = $this->route("product");
-		$uniqueValidationUpdateConstraint = $product !== null ? ',' . $product->id : '';
+		$uniqueValidationUpdateConstraint = $product !== null ? ",$product->id" : "";
 
 		$subtractStockPossibilities = array_map(static function (SubtractStock $subtractStock) {
 			return $subtractStock->value;
@@ -25,6 +25,10 @@ class ManageProductRequest extends FormRequest {
 			return $adjustment->value;
 		}, ProductOptionPriceAdjustment::cases());
 
+		/**
+		 * The input is taken as multidimensional array in separate keys
+		 * to feed the input in different functions identified by key
+		 */
 		return [
 			"product" => "required|array",
 			"product.name" => "required|string",
@@ -50,10 +54,13 @@ class ManageProductRequest extends FormRequest {
 			"options.*.price_adjustment" => ["nullable", Rule::in($priceAdjustmentPossibilities)],
 
 			"tags" => "nullable|array",
+			"tags.*" => "required|numeric",
 
 			"related_products" => "nullable|array",
+			"related_products.*" => "required|numeric",
 
 			"categories" => "nullable|array",
+			"categories.*" => "required|numeric",
 		];
 	}
 }

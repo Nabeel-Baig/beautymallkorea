@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Requests\Product\ManageProductRequest;
+use App\Models\OptionValue;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -12,8 +13,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class ProductService {
-	final public function fetchProductDataForManagement(Product $product): Product {
-		$product->load([
+	final public function fetchProductDataForManagement(Product|null $product): array {
+		$product?->load([
 			"relatedProducts" => static function (BelongsToMany $query) {
 				return $query->select(["products.id", "products.name"]);
 			},
@@ -23,8 +24,8 @@ class ProductService {
 			"categories" => static function (BelongsToMany $query) {
 				return $query->select(["categories.id", "categories.name"]);
 			},
-			"options" => static function (BelongsToMany $query) {
-				return $query->select(["option_values.id", "option_values.name", "option_id", "option_values.image"])->with([
+			"optionValues" => static function (BelongsToMany $query) {
+				return $query->select(["option_values.id", "option_values.name", "option_values.option_id", "option_values.image"])->with([
 					"option" => static function (BelongsTo $query) {
 						return $query->select(["options.id", "options.name"]);
 					},
@@ -32,7 +33,15 @@ class ProductService {
 			},
 		]);
 
-		return $product;
+		$content["model"] = $product;
+		$content["assignedTags"] = $product === null ? [] : $product->tags->pluck("id")->toArray();
+		$content["assignedCategories"] = $product === null ? [] : $product->categories->pluck("id")->toArray();
+		$content["assignedRelatedProducts"] = $product === null ? [] : $product->relatedProducts->pluck("id")->toArray();
+		$content["assignedProductOptionValues"] = $product === null ? [] : $product->optionValues->groupBy(static function (OptionValue $optionValue) {
+			return $optionValue->option->id;
+		});
+
+		return $content;
 	}
 
 	final public function getProductsForDropdown(): Collection {
@@ -45,13 +54,13 @@ class ProductService {
 
 			$product = $this->manageProductsBasicData($product, $data["product"]);
 
-			$this->manageProductOptionsData($product, $data["options"]);
+			$this->manageProductOptionsData($product, $data["options"] ?? null);
 
-			$this->manageProductTagsData($product, $data["tags"]);
+			$this->manageProductTagsData($product, $data["tags"] ?? null);
 
-			$this->manageProductCategoriesData($product, $data["categories"]);
+			$this->manageProductCategoriesData($product, $data["categories"] ?? null);
 
-			$this->manageRelatedProductsData($product, $data["related_products"]);
+			$this->manageRelatedProductsData($product, $data["related_products"] ?? null);
 		});
 	}
 
@@ -76,7 +85,7 @@ class ProductService {
 
 	private function manageProductOptionsData(Product $product, array|null $productOptionsData): void {
 		if ($productOptionsData === null) {
-			return;
+			$productOptionsData = [];
 		}
 
 		$synchronizedData = [];
@@ -92,12 +101,12 @@ class ProductService {
 			$synchronizedData[$optionValueId] = $filteredOptionData;
 		}
 
-		$product->options()->sync($synchronizedData);
+		$product->optionValues()->sync($synchronizedData);
 	}
 
 	private function manageProductTagsData(Product $product, array|null $productTags): void {
 		if ($productTags === null) {
-			return;
+			$productTags = [];
 		}
 
 		$product->tags()->sync($productTags);
@@ -105,7 +114,7 @@ class ProductService {
 
 	private function manageProductCategoriesData(Product $product, array|null $productCategories): void {
 		if ($productCategories === null) {
-			return;
+			$productCategories = [];
 		}
 
 		$product->categories()->sync($productCategories);
@@ -113,7 +122,7 @@ class ProductService {
 
 	private function manageRelatedProductsData(Product $product, array|null $relatedProducts): void {
 		if ($relatedProducts === null) {
-			return;
+			$relatedProducts = [];
 		}
 
 		$product->relatedProducts()->sync($relatedProducts);

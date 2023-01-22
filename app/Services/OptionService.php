@@ -6,9 +6,9 @@ use App\Enums\PermissionEnum;
 use App\Http\Requests\Option\CreateOptionRequest;
 use App\Http\Requests\Option\DeleteManyOptionRequest;
 use App\Http\Requests\Option\UpdateOptionRequest;
-use App\Models\Currency;
 use App\Models\Option;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 
 class OptionService {
@@ -31,6 +31,10 @@ class OptionService {
 			})->rawColumns(['selection', 'actions'])->make(true);
 	}
 
+	final public function getOptionsForDropdown(): Collection {
+		return Option::select(["id", "name"])->get();
+	}
+
 	final public function create(CreateOptionRequest $createOptionRequest): Option {
 		$optionData = $createOptionRequest->only(["name"]);
 
@@ -47,7 +51,7 @@ class OptionService {
 	final public function deleteMany(DeleteManyOptionRequest $deleteManyOptionRequest): void {
 		$recordsToDelete = $deleteManyOptionRequest->get("ids");
 
-		Currency::whereIn("id", $recordsToDelete)->delete();
+		Option::whereIn("id", $recordsToDelete)->delete();
 	}
 
 	final public function delete(Option $option): void {

@@ -39,13 +39,13 @@ class Product extends Model {
 		return $this->belongsToMany(Tag::class, "product_tags", "product_id", "tag_id")->withTimestamps();
 	}
 
-	final public function options(): BelongsToMany {
+	final public function optionValues(): BelongsToMany {
 		return $this->belongsToMany(OptionValue::class, "product_options", "product_id", "option_value_id")
 			->withPivot(["quantity", "subtract_stock", "price_difference", "price_adjustment"])
 			->withTimestamps();
 	}
 
 	final public function relatedProducts(): BelongsToMany {
-		return $this->belongsToMany(__CLASS__, "related_products", "product_id", "related_product_id")->withTimestamps();
+		return $this->belongsToMany(self::class, "related_products", "product_id", "related_product_id")->withTimestamps();
 	}
 }
