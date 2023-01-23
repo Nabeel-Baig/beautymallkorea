@@ -21,10 +21,8 @@ class DatabaseSeeder extends Seeder {
 			RoleUserSeeder::class,
 			CategorySeeder::class,
 			TagSeeder::class,
-			CurrencySeeder::class,
 			OptionSeeder::class,
 			OptionValueSeeder::class,
-			ProductSeeder::class,
 		]);
 	}
 }

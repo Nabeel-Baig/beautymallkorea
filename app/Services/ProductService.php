@@ -2,17 +2,39 @@
 
 namespace App\Services;
 
+use App\Enums\PermissionEnum;
 use App\Http\Requests\Product\ManageProductRequest;
 use App\Models\OptionValue;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
 class ProductService {
+
+	final public function paginate(): JsonResponse {
+		return datatables()->of(Product::orderBy('id', 'desc')->get())
+			->addColumn('selection', function ($data) {
+				return '<input type="checkbox" class="delete_checkbox flat" value="' . $data['id'] . '">';
+			})->addColumn('image', function ($data) {
+				return '<img width="65" src="' . asset($data->image) . '">';
+			})->addColumn('actions', function ($data) {
+				$edit = '';
+				$delete = '';
+				if (Gate::allows(PermissionEnum::PRODUCT_MANAGE->value)) {
+					$edit = '<a title="Edit" href="' . route('admin.products.manage.show', $data->id) . '" class="btn btn-primary btn-sm"><i class="fas fa-pen"></i></a>&nbsp;';
+				}
+				if (Gate::allows(PermissionEnum::PRODUCT_DELETE->value)) {
+					$delete = '<button title="Delete" type="button" name="delete" id="' . $data['id'] . '" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
+				}
+				return $edit . $delete;
+			})->rawColumns(['selection', 'actions', 'image'])->make(true);
+	}
 	final public function fetchProductDataForManagement(Product|null $product): array {
 		$product?->load([
 			"relatedProducts" => static function (BelongsToMany $query) {
@@ -70,9 +92,13 @@ class ProductService {
 		}
 
 		unset($productData["old_image"]);
+//		dd($productData);
 
 		$productData = handleFiles("products", $productData);
 
+		if ($productData["secondary_images"]) {
+			$productData["secondary_images"] = json_encode($productData["secondary_images"]);
+		}
 		if ($product === null) {
 			$productData["slug"] = Str::slug($productData["name"]);
 			$product = Product::create($productData);

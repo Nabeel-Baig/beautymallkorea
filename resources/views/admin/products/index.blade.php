@@ -91,7 +91,7 @@
 @section('script-bottom')
 	<script>
 		$(function () {
-			const source = `{{ route("admin.options.paginate") }}`;
+			const source = `{{ route("admin.products.paginate") }}`;
 
 			const DataTable = $("#example1").DataTable({
 				dom: "Blfrtip",
@@ -135,16 +135,21 @@
 						name: "id"
 					},
 					{
+						data: "image",
+						name: "image",
+						orderable: false
+					},
+					{
 						data: "name",
 						name: "name"
 					},
 					{
-						data: "symbol",
-						name: "symbol"
+						data: "price",
+						name: "price"
 					},
 					{
-						data: "short_name",
-						name: "short_name"
+						data: "quantity",
+						name: "quantity"
 					},
 					{
 						data: "actions",

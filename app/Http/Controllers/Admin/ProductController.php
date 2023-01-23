@@ -11,6 +11,7 @@ use App\Services\OptionService;
 use App\Services\ProductService;
 use App\Services\TagService;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -26,9 +27,18 @@ class ProductController extends Controller {
 		$this->title = "Products";
 	}
 
-	/**
-	 * @throws AuthorizationException
-	 */
+	final public function index(): View {
+		$this->authorize("access", [Product::class, PermissionEnum::PRODUCT_ACCESS]);
+		$content['title'] = $this->title;
+		$content['headers'] = ["ID", "Image", "Name", "Price", "Quantity"];
+		return view("admin.products.index")->with($content);
+	}
+
+	final public function paginate(): JsonResponse {
+		$this->authorize("access", [Product::class, PermissionEnum::PRODUCT_ACCESS]);
+		return $this->productService->paginate();
+	}
+
 	final public function showManage(Product $product = null): View {
 		$this->authorize("access", [Product::class, PermissionEnum::PRODUCT_MANAGE]);
 

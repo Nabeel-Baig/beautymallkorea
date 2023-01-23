@@ -42,6 +42,8 @@ class ManageProductRequest extends FormRequest {
 			"product.quantity" => "required|numeric",
 			"product.image" => "nullable|image",
 			"product.old_image" => "nullable|string",
+			"product.secondary_images" => "nullable|array",
+			"product.old_secondary_images" => "nullable|array",
 			"product.min_order_quantity" => "nullable|numeric",
 			"product.subtract_stock" => ["nullable", Rule::in($subtractStockPossibilities)],
 			"product.require_shipping" => ["nullable", Rule::in($requireShippingPossibilities)],

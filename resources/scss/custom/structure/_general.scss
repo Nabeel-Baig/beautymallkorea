@@ -1,0 +1,64 @@
+.image-upload img {
+	width: 130px;
+	height: auto;
+	max-height: 250px;
+	overflow: hidden;
+}
+
+.image-upload label {
+	position: relative;
+}
+
+.image-upload input[type=file] {
+	width: 69px;
+	height: 34px;
+	position: absolute;
+	z-index: 999;
+	opacity: 0;
+}
+
+.image-upload  i.fa.fa-times {
+	position: absolute;
+	top: -10px;
+	left: 135px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.multi-image-upload img {
+	width: 130px;
+	height: auto;
+	max-height: 250px;
+	overflow: hidden;
+}
+
+.multi-image-upload label {
+	position: relative;
+}
+
+.multi-image-upload input[type=file] {
+	width: 69px;
+	height: 34px;
+	position: absolute;
+	z-index: 999;
+	opacity: 0;
+}
+
+.multi-image-upload  i.fa.fa-times {
+	position: absolute;
+	top: -10px;
+	left: 135px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.multi-image-upload {
+	display: inline-block;
+	margin-right: 30px;
+	vertical-align: middle;
+	position: relative;
+}
+
+.file-btn {
+	margin-top: 15px;
+}
