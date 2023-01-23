@@ -31,7 +31,7 @@
 						@endcan
 
 						@can(PermissionEnum::OPTION_CREATE->value)
-							<a class="btn btn-info" href="{{ route('admin.options.create') }}">Add</a>
+							<a class="btn btn-info" href="{{ route('admin.products.manage.show') }}">Add</a>
 						@endcan
 					</div>
 					<table id="example1" class="table table-striped table-bordered dt-responsive nowrap">
