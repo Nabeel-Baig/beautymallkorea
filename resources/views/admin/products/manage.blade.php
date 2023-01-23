@@ -406,42 +406,50 @@
 
 							<div class="tab-pane" id="image" role="tabpanel">
 
-								<div class="mb-3 input-group-btn">
-									<div class="image-upload">
-										<img src="{{ asset($model?->image ?? 'images/placeholder.png') }}">
-										<div class="file-btn">
-											<input type="file" id="product_image" name="product[image]">
-											<input type="hidden" name="product[old_image]"
-												   value="{{ $model?->image ?? old("product.old_image") }}">
-											<label class="btn btn-info">Upload</label>
+								<div class="mb-3">
+									<label for="product_image" class="form-label">Product Image</label>
+									<div class="input-group-btn">
+										<div class="image-upload">
+											<img src="{{ asset($model?->image ?? 'images/placeholder.png') }}">
+											<div class="file-btn">
+												<input type="file" id="product_image" name="product[image]">
+												<input type="hidden" name="product[old_image]"
+													   value="{{ $model?->image ?? old("product.old_image") }}">
+												<label class="btn btn-info">Upload</label>
+											</div>
 										</div>
 									</div>
 								</div>
 
-								<div class="mb-3 input-group-btn">
-									@if(!empty($model->secondary_images))
-									@php
-										$secondary_images = json_decode($model->secondary_images, false);
-									@endphp
-									@if (is_array($secondary_images))
-										@foreach ($secondary_images as $secondary_image)
-											<div class="multi-image-upload">
-												<i class="fa fa-times" aria-hidden="true"></i>
-												<img src="{{ asset($secondary_image ?? 'images/placeholder.png') }}">
-												<div class="file-btn">
-													<input type="hidden" id="old_secondary_images"
-														   name="product[old_secondary_images][]" value="{{ $secondary_image ?? old('product.old_secondary_images') }}">
-												</div>
+								<div class="mb-3">
+									<label for="secondary_images" class="form-label">Product Multiple Images</label>
+									<div class="input-group-btn">
+										@if(!empty($model->secondary_images))
+											@php
+												$secondary_images = json_decode($model->secondary_images, false);
+											@endphp
+											@if (is_array($secondary_images))
+												@foreach ($secondary_images as $secondary_image)
+													<div class="multi-image-upload">
+														<i class="fa fa-times" aria-hidden="true"></i>
+														<img
+															src="{{ asset($secondary_image ?? 'images/placeholder.png') }}">
+														<div class="file-btn">
+															<input type="hidden" id="old_secondary_images"
+																   name="product[old_secondary_images][]"
+																   value="{{ $secondary_image ?? old('product.old_secondary_images') }}">
+														</div>
+													</div>
+												@endforeach
+											@endif
+										@endif
+										<div class="multi-image-upload">
+											<img src="{{ asset('images/placeholder.png') }}">
+											<div class="file-btn">
+												<input type="file" id="secondary_images"
+													   name="product[secondary_images][]">
+												<label class="btn btn-info">Upload</label>
 											</div>
-										@endforeach
-									@endif
-									@endif
-									<div class="multi-image-upload">
-										<img src="{{ asset('images/placeholder.png') }}">
-										<div class="file-btn">
-											<input type="file" id="secondary_images"
-												   name="product[secondary_images][]">
-											<label class="btn btn-info">Upload</label>
 										</div>
 									</div>
 								</div>
