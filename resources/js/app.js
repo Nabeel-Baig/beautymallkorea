@@ -7,8 +7,7 @@
  * File: Main Js File
  */
 
-const app_url = "http://localhost/beautymallkorea/public/";
-
+const app_url = baseUrl;
 (function ($) {
 
 	"use strict";

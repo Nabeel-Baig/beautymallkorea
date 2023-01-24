@@ -22,6 +22,6 @@ yarn-error.log
 /.idea
 /.vscode
 
-/public/assets/
+#/public/assets/
 !/public/assets/uploads
 /public/mix-manifest.json
