@@ -67,23 +67,39 @@
 		const emptySlots = [];
 
 		const optionValueRowGenerator = (optionValueId) => {
+			const placeholderImage = '{{ asset('images/placeholder.png') }}';
+
 			return `
 				<div class="row mt-2" id="option-value-row-${ optionValueId }">
-					<div class="col-xl-6">
+					<div class="col-5">
 						<input type="text" class="inner form-control" placeholder="Option Value Name" name="option_values[${ optionValueId }][name]" minlength="3" maxlength="50" required>
 					</div>
-					<div class="col-xl-5">
-						<input type="file" accept="image/*" class="inner form-control" placeholder="Option Value Image" name="option_values[${ optionValueId }][image]">
+					<div class="col-5">
+						<div class="input-group-btn">
+							<div class="image-upload">
+								<img id="option-value-image-${ optionValueId }" src="${ placeholderImage }" alt="option-image">
+								<div class="file-btn">
+									<input type="file" id="option_image_${ optionValueId }" onchange="previewImage(event, ${ optionValueId })" name="option_values[${ optionValueId }][image]">
+									<label class="btn btn-info">Upload</label>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="col-xl-1">
+					<div class="col-2">
 						<div class="d-grid">
 							<button title="Delete" type="button" class="btn btn-danger inner" onclick="deleteOptionValueRow(${ optionValueId })">
 								<i class="fa fa-trash"></i>
+								Remove Option Value
 							</button>
 						</div>
 					</div>
 				</div>
 			`;
+		};
+
+		const previewImage = (event, optionValueId) => {
+			const previewImageContainer = document.getElementById(`option-value-image-${ optionValueId }`);
+			previewImageContainer.src = URL.createObjectURL(event.target.files[0]);
 		};
 
 		const addOptionValueRow = () => {

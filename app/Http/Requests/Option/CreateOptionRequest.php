@@ -10,7 +10,8 @@ class CreateOptionRequest extends FormRequest {
 			"name" => "required|string|max:100",
 			"option_values" => "required|array",
 			"option_values.*.name" => "required|string",
-			"option_values.*.image" => "nullable|file|mimetypes:image/*",
+			"option_values.*.image" => "nullable|image",
+			"option_values.*.old_image" => "nullable|string",
 		];
 	}
 }

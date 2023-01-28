@@ -11,7 +11,7 @@ class UpdateOptionRequest extends FormRequest {
 			"option_values" => "nullable|array",
 			"option_values.*.id" => "nullable|numeric",
 			"option_values.*.name" => "required|string",
-			"option_values.*.image" => "nullable|file|mimetypes:image/*",
+			"option_values.*.image" => "nullable|image",
 			"option_values.*.old_image" => "nullable|string",
 		];
 	}
