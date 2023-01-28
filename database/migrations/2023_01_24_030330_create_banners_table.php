@@ -19,12 +19,7 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    final public function down(): void
     {
         Schema::dropIfExists('banners');
     }

@@ -91,6 +91,14 @@
 							<span class="text-red">{{ $message }}</span>
 							@enderror
 						</div>
+
+						<div class="form-group">
+							<label>{{ ucwords(str_replace('_',' ','footer_logo')) }}</label>
+							<input type="file" id="footer_logo" class="dropify" name="footer_logo" data-height="200">
+							@error('footer_logo')
+							<span class="text-red">{{ $message }}</span>
+							@enderror
+						</div>
 						<div class="form-group">
 							<div>
 								<button type="submit" class="btn btn-primary waves-effect waves-light mr-1">Submit
@@ -123,6 +131,13 @@
 
 			$("#favico").dropify({
 				defaultFile: "{{ asset($setting->favico) }}",
+				messages: {
+					"default": "Drop a file OR click",
+				}
+			});
+
+			$("#footer_logo").dropify({
+				defaultFile: "{{ asset($setting->footer_logo) }}",
 				messages: {
 					"default": "Drop a file OR click",
 				}

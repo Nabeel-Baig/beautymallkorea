@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BannersController;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OptionController;
@@ -25,45 +26,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
-/* Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Controllers\Admin', 'middleware' => ['auth', 'twofactor']], function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    // Permissions
-    Route::delete('permissions/destroy', [PermissionsController::class, 'massDestroy'])->name('permissions.massDestroy');
-    Route::resource('permissions', PermissionsController::class);
-
-    // Roles
-    Route::delete('roles/destroy', [RolesController::class, 'massDestroy'])->name('roles.massDestroy');
-    Route::resource('roles', RolesController::class);
-
-    // Users
-    Route::delete('users/destroy', [UsersController::class, 'massDestroy'])->name('users.massDestroy');
-    Route::resource('users', UsersController::class);
-
-    //    Settings
-    Route::resource('settings', SettingsController::class)->only(['edit', 'update']);
-
-    // Categories
-    Route::delete('categories/destroy', [CategoriesController::class, 'massDestroy'])->name('categories.massDestroy');
-    Route::resource('categories', CategoriesController::class);
-
-    // Funds
-    Route::delete('funds/destroy', [FundsController::class, 'massDestroy'])->name('funds.massDestroy');
-    Route::resource('funds', FundsController::class);
-
-    // Orders
-    Route::delete('orders/destroy', [OrdersController::class, 'massDestroy'])->name('orders.massDestroy');
-    Route::resource('orders', OrdersController::class);
-
-    // Payments
-    Route::delete('payments/destroy', [PaymentsController::class, 'massDestroy'])->name('payments.massDestroy');
-    Route::resource('payments', PaymentsController::class);
-
-    // Update User Details
-    Route::put('/update-profile/{user}', [App\Http\Controllers\HomeController::class, 'updateProfile'])->name('updateProfile');
-    Route::get('/edit-profile', [App\Http\Controllers\HomeController::class, 'editProfile'])->name('editProfile');
-
-    Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
-}); */
 
 Route::group([
 	'prefix' => 'admin',
@@ -83,6 +45,11 @@ Route::group([
 	// Users
 	Route::delete('users/destroy', [UsersController::class, 'massDestroy'])->name('users.massDestroy');
 	Route::resource('users', UsersController::class);
+
+	// Banners
+	Route::delete('banners/destroy', [BannersController::class, 'massDestroy'])->name('banners.massDestroy');
+	Route::get("banners/paginate", [BannersController::class, "paginate"])->name("banners.paginate");
+	Route::resource('banners', BannersController::class);
 
 	// Categories
 	Route::delete('categories/destroy', [CategoriesController::class, 'massDestroy'])->name('categories.massDestroy');

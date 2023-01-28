@@ -18,6 +18,7 @@ class SettingsSeeder extends Seeder
             'name' => 'Beauty Mall Korea',
             'title' => 'Beauty Mall Korea',
             'logo' => '/images/logo.png',
+            'footer_logo' => '/images/footerlogo.png',
             'favico' => '/images/logo.png',
             'email' => 'info@beautymallkorea.com',
             'phone' => '923333906233',

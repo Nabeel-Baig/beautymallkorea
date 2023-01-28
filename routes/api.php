@@ -35,6 +35,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register',[AuthController::class,'register']);
 Route::get('/categories',[\App\Http\Controllers\Api\CategoryController::class,'index']);
+Route::get('/setting',[\App\Http\Controllers\Api\GeneralController::class,'setting']);
 Route::get('/greeting', function () {
 	return response()->json('Hello World');
 });
