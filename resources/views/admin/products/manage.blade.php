@@ -1,7 +1,7 @@
+<!--suppress HtmlFormInputWithoutLabel, SpellCheckingInspection -->
 @php
 	use App\Enums\ProductOptionPriceAdjustment;use App\Enums\RequireShipping;use App\Enums\SubtractStock;use App\Services\OptionValueService;
 @endphp
-	<!--suppress HtmlFormInputWithoutLabel, SpellCheckingInspection -->
 
 @extends('layouts.master')
 
@@ -116,7 +116,8 @@
 
 								<div class="mb-3">
 									<label for="product_meta_description" class="form-label">Meta Tag
-										Description</label>
+										Description
+									</label>
 									<input type="text" name="product[meta_description]" id="product_meta_description"
 										   value="{{ $model->meta_description ?? old("product.meta_description") }}"
 										   minlength="3" maxlength="50"
@@ -198,7 +199,8 @@
 
 								<div class="mb-3">
 									<label for="product_min_order_quantity" class="form-label">Minimum Orderable
-										Quantity</label>
+										Quantity
+									</label>
 									<input type="number" name="product[min_order_quantity]"
 										   id="product_min_order_quantity"
 										   value="{{ $model->min_order_quantity ?? old("product.min_order_quantity") ?? 1 }}"
@@ -346,7 +348,8 @@
 															</div>
 															<div class="col-2">
 																<label class="form-label">Option Value Subtract
-																	Stock</label>
+																	Stock
+																</label>
 																<select
 																	name="options[{{ $productOptionValueIndexCounter }}][subtract_stock]"
 																	class="form-control">
@@ -358,7 +361,8 @@
 															</div>
 															<div class="col-2">
 																<label class="form-label">Option Value Price
-																	Adjustment</label>
+																	Adjustment
+																</label>
 																<select
 																	name="options[{{ $productOptionValueIndexCounter }}][price_adjustment]"
 																	class="form-control">
@@ -410,11 +414,10 @@
 									<label for="product_image" class="form-label">Product Image</label>
 									<div class="input-group-btn">
 										<div class="image-upload">
-											<img src="{{ asset($model?->image ?? 'images/placeholder.png') }}">
+											<img src="{{ asset($model?->image ?? 'images/placeholder.png') }}" alt="product-main-image">
 											<div class="file-btn">
 												<input type="file" id="product_image" name="product[image]">
-												<input type="hidden" name="product[old_image]"
-													   value="{{ $model?->image ?? old("product.old_image") }}">
+												<input type="hidden" name="product[old_image]" value="{{ $model?->image ?? old("product.old_image") }}">
 												<label class="btn btn-info">Upload</label>
 											</div>
 										</div>
@@ -424,30 +427,21 @@
 								<div class="mb-3">
 									<label for="secondary_images" class="form-label">Product Multiple Images</label>
 									<div class="input-group-btn">
-										@if(!empty($model->secondary_images))
-											@php
-												$secondary_images = json_decode($model->secondary_images, false);
-											@endphp
-											@if (is_array($secondary_images))
-												@foreach ($secondary_images as $secondary_image)
-													<div class="multi-image-upload">
-														<i class="fa fa-times" aria-hidden="true"></i>
-														<img
-															src="{{ asset($secondary_image ?? 'images/placeholder.png') }}">
-														<div class="file-btn">
-															<input type="hidden" id="old_secondary_images"
-																   name="product[old_secondary_images][]"
-																   value="{{ $secondary_image ?? old('product.old_secondary_images') }}">
-														</div>
+										@if($model?->secondary_images !== null)
+											@foreach ($model->secondary_images as $index => $secondaryImage)
+												<div class="multi-image-upload">
+													<i class="fa fa-times" aria-hidden="true"></i>
+													<img src="{{ asset($secondaryImage ?? 'images/placeholder.png') }}" alt="Secondary Image {{ $index + 1 }}">
+													<div class="file-btn">
+														<input type="hidden" id="old_secondary_images" name="product[old_secondary_images][]" value="{{ $secondaryImage ?? old('product.old_secondary_images') }}">
 													</div>
-												@endforeach
-											@endif
+												</div>
+											@endforeach
 										@endif
 										<div class="multi-image-upload">
-											<img src="{{ asset('images/placeholder.png') }}">
+											<img src="{{ asset('images/placeholder.png') }}" alt="placeholder-secondary-image">
 											<div class="file-btn">
-												<input type="file" id="secondary_images"
-													   name="product[secondary_images][]">
+												<input type="file" id="secondary_images" name="product[secondary_images][]">
 												<label class="btn btn-info">Upload</label>
 											</div>
 										</div>
@@ -493,24 +487,24 @@
 
 			#generateProductOptionDropdownHtml(optionToAdd) {
 				return `
-					<div id="product-available-option-${optionToAdd.id}" class="card border border-light border-3">
+					<div id="product-available-option-${ optionToAdd.id }" class="card border border-light border-3">
 						<div class="card-body">
 							<div class="row mb-3">
 								<div class="col-10">
 									<label class="form-label">Option Name</label>
-									<input data-option-name="${optionToAdd.id}" value="${optionToAdd.name}" type="text" class="form-control" disabled>
+									<input data-option-name="${ optionToAdd.id }" value="${ optionToAdd.name }" type="text" class="form-control" disabled>
 								</div>
 								<div class="col-2 d-flex align-items-end">
 									<div class="w-100">
-										<button title="Delete" type="button" class="w-100 btn btn-danger inner" onclick="productOptionsManagement.removeProductOption(${optionToAdd.id})">Remove Product Option</button>
+										<button title="Delete" type="button" class="w-100 btn btn-danger inner" onclick="productOptionsManagement.removeProductOption(${ optionToAdd.id })">Remove Product Option</button>
 									</div>
 								</div>
 							</div>
 
-							<div id="product-option-${optionToAdd.id}-option-value"></div>
+							<div id="product-option-${ optionToAdd.id }-option-value"></div>
 
-							<div id="product-option-add-${optionToAdd.id}">
-								<button type="button" class="btn btn-primary waves-effect waves-light mr-1" onclick="productOptionsManagement.addProductOptionValue(${optionToAdd.id})">Add Product Option Value</button>
+							<div id="product-option-add-${ optionToAdd.id }">
+								<button type="button" class="btn btn-primary waves-effect waves-light mr-1" onclick="productOptionsManagement.addProductOptionValue(${ optionToAdd.id })">Add Product Option Value</button>
 							</div>
 						</div>
 					</div>
@@ -519,74 +513,74 @@
 
 			#generateProductOptionValueRowHtml(optionId, productOptionValueIndexCounter, optionValues) {
 				const {
-					name: noSubtractStockName,
-					value: noSubtractStockValue
+					noSubtractStockName,
+					noSubtractStockValue
 				} = {
-					name: "{{ SubtractStock::NO->name }}",
-					value: "{{ SubtractStock::NO->value }}"
+					noSubtractStockName: "{{ SubtractStock::NO->name }}",
+					noSubtractStockValue: "{{ SubtractStock::NO->value }}"
 				};
 				const {
-					name: yesSubtractStockName,
-					value: yesSubtractStockValue
+					yesSubtractStockName,
+					yesSubtractStockValue
 				} = {
-					name: "{{ SubtractStock::YES->name }}",
-					value: "{{ SubtractStock::YES->value }}"
+					yesSubtractStockName: "{{ SubtractStock::YES->name }}",
+					yesSubtractStockValue: "{{ SubtractStock::YES->value }}"
 				};
 
 				const {
-					name: positiveProductOptionPriceAdjustmentName,
-					value: positiveProductOptionPriceAdjustmentValue
+					positiveProductOptionPriceAdjustmentName,
+					positiveProductOptionPriceAdjustmentValue
 				} = {
-					name: "{{ ProductOptionPriceAdjustment::POSITIVE->name }}",
-					value: "{{ ProductOptionPriceAdjustment::POSITIVE->value }}"
+					positiveProductOptionPriceAdjustmentName: "{{ ProductOptionPriceAdjustment::POSITIVE->name }}",
+					positiveProductOptionPriceAdjustmentValue: "{{ ProductOptionPriceAdjustment::POSITIVE->value }}"
 				};
 				const {
-					name: negativeProductOptionPriceAdjustmentName,
-					value: negativeProductOptionPriceAdjustmentValue
+					negativeProductOptionPriceAdjustmentName,
+					negativeProductOptionPriceAdjustmentValue
 				} = {
-					name: "{{ ProductOptionPriceAdjustment::NEGATIVE->name }}",
-					value: "{{ ProductOptionPriceAdjustment::NEGATIVE->value }}"
+					negativeProductOptionPriceAdjustmentName: "{{ ProductOptionPriceAdjustment::NEGATIVE->name }}",
+					negativeProductOptionPriceAdjustmentValue: "{{ ProductOptionPriceAdjustment::NEGATIVE->value }}"
 				};
 
 				const dropdownOptionsHtml = optionValues.reduce((generatedDropdownOptionsHtml, optionValue) => {
-					generatedDropdownOptionsHtml = `${generatedDropdownOptionsHtml}<option value="${optionValue.id}">${optionValue.name}</option>`;
+					generatedDropdownOptionsHtml = `${ generatedDropdownOptionsHtml }<option value="${ optionValue.id }">${ optionValue.name }</option>`;
 
 					return generatedDropdownOptionsHtml;
 				}, "");
 
 				return `
-					<div id="product-option-value-${productOptionValueIndexCounter}" class="row mb-3">
+					<div id="product-option-value-${ productOptionValueIndexCounter }" class="row mb-3">
 						<div class="col-3">
 							<label class="form-label">Option Value Name</label>
-							<select name="options[${productOptionValueIndexCounter}][option_value_id]" class="form-control">
-								${dropdownOptionsHtml}
+							<select name="options[${ productOptionValueIndexCounter }][option_value_id]" class="form-control">
+								${ dropdownOptionsHtml }
 							</select>
 						</div>
 						<div class="col-2">
 							<label class="form-label">Option Value Quantity</label>
-							<input type="number" name="options[${productOptionValueIndexCounter}][quantity]" min="1" step="0.01" class="form-control" required>
+							<input type="number" name="options[${ productOptionValueIndexCounter }][quantity]" min="1" step="0.01" class="form-control" required>
 						</div>
 						<div class="col-2">
 							<label class="form-label">Option Value Subtract Stock</label>
-							<select name="options[${productOptionValueIndexCounter}][subtract_stock]" class="form-control">
-								<option value="${noSubtractStockValue}">${noSubtractStockName}</option>
-								<option value="${yesSubtractStockValue}">${yesSubtractStockName}</option>
+							<select name="options[${ productOptionValueIndexCounter }][subtract_stock]" class="form-control">
+								<option value="${ noSubtractStockValue }">${ noSubtractStockName }</option>
+								<option value="${ yesSubtractStockValue }">${ yesSubtractStockName }</option>
 							</select>
 						</div>
 						<div class="col-2">
 							<label class="form-label">Option Value Price Adjustment</label>
-							<select name="options[${productOptionValueIndexCounter}][price_adjustment]" class="form-control">
-								<option value="${positiveProductOptionPriceAdjustmentValue}">${positiveProductOptionPriceAdjustmentName}</option>
-								<option value="${negativeProductOptionPriceAdjustmentValue}">${negativeProductOptionPriceAdjustmentName}</option>
+							<select name="options[${ productOptionValueIndexCounter }][price_adjustment]" class="form-control">
+								<option value="${ positiveProductOptionPriceAdjustmentValue }">${ positiveProductOptionPriceAdjustmentName }</option>
+								<option value="${ negativeProductOptionPriceAdjustmentValue }">${ negativeProductOptionPriceAdjustmentName }</option>
 							</select>
 						</div>
 						<div class="col-2">
 							<label class="form-label">Option Value Price</label>
-							<input type="number" name="options[${productOptionValueIndexCounter}][price_difference]" min="1" step="1" class="form-control" required>
+							<input type="number" name="options[${ productOptionValueIndexCounter }][price_difference]" min="1" step="1" class="form-control" required>
 						</div>
 						<div class="col-1 d-flex align-items-end">
 							<div class="w-100">
-								<button title="Delete" type="button" class="w-100 btn btn-danger inner" onclick="productOptionsManagement.removeProductOptionValue(${productOptionValueIndexCounter})">
+								<button title="Delete" type="button" class="w-100 btn btn-danger inner" onclick="productOptionsManagement.removeProductOptionValue(${ productOptionValueIndexCounter })">
 									<i class="fa fa-trash"></i>
 								</button>
 							</div>
@@ -619,7 +613,7 @@
 				const productOptionToAddIdIndex = this.#productOptionsAlreadyPresentIds.indexOf(optionIdToRemove);
 				if (productOptionToAddIdIndex === -1) return;
 
-				document.getElementById(`product-available-option-${optionIdToRemove}`).remove();
+				document.getElementById(`product-available-option-${ optionIdToRemove }`).remove();
 				this.#productOptionsAlreadyPresentIds.splice(productOptionToAddIdIndex, 1);
 			}
 
@@ -635,12 +629,12 @@
 				const indexToUse = availableIndex ?? this.#productOptionValueIndex++;
 				const generatedHtml = this.#generateProductOptionValueRowHtml(optionId, indexToUse, response.optionValues);
 
-				const generatedHtmlContainer = document.getElementById(`product-option-${optionId}-option-value`);
+				const generatedHtmlContainer = document.getElementById(`product-option-${ optionId }-option-value`);
 				generatedHtmlContainer.insertAdjacentHTML("beforeend", generatedHtml);
 			}
 
 			removeProductOptionValue(indexCounter) {
-				const productOptionValueRow = document.getElementById(`product-option-value-${indexCounter}`);
+				const productOptionValueRow = document.getElementById(`product-option-value-${ indexCounter }`);
 				if (!productOptionValueRow) return;
 
 				productOptionValueRow.remove();

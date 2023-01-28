@@ -6,6 +6,7 @@ use App\Enums\RequireShipping;
 use App\Enums\SubtractStock;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Str;
 
 class Product extends Model {
 	protected $fillable = [
@@ -29,6 +30,7 @@ class Product extends Model {
 	protected $casts = [
 		"subtract_stock" => SubtractStock::class,
 		"require_shipping" => RequireShipping::class,
+		"secondary_images" => "array",
 	];
 
 	final public function categories(): BelongsToMany {
@@ -47,5 +49,12 @@ class Product extends Model {
 
 	final public function relatedProducts(): BelongsToMany {
 		return $this->belongsToMany(self::class, "related_products", "product_id", "related_product_id")->withTimestamps();
+	}
+
+	/** @noinspection MethodVisibilityInspection */
+	protected static function booted(): void {
+		static::creating(static function (self $product) {
+			$product->slug = Str::slug($product->name);
+		});
 	}
 }

@@ -15,66 +15,76 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
-class ProductController extends Controller
-{
+class ProductController extends Controller {
 	private readonly string $title;
 
 	public function __construct(
-		private readonly TagService      $tagService,
-		private readonly OptionService   $optionService,
-		private readonly ProductService  $productService,
+		private readonly TagService $tagService,
+		private readonly OptionService $optionService,
+		private readonly ProductService $productService,
 		private readonly CategoryService $categoryService,
-	)
-	{
+	) {
 		$this->title = "Products";
-	}
-
-	final public function index(): View
-	{
-		$this->authorize("access", [Product::class, PermissionEnum::PRODUCT_ACCESS]);
-		$content['title'] = $this->title;
-		$content['headers'] = ["ID", "Image", "Name", "Price", "Quantity"];
-		return view("admin.products.index")->with($content);
-	}
-
-	final public function paginate(): JsonResponse
-	{
-		$this->authorize("access", [Product::class, PermissionEnum::PRODUCT_ACCESS]);
-		return $this->productService->paginate();
-	}
-
-	final public function showManage(Product $product = null): View
-	{
-		$this->authorize("access", [Product::class, PermissionEnum::PRODUCT_MANAGE]);
-		$content = $this->show($product);
-		return view("admin.products.manage")->with($content);
-	}
-	final public function view(Product $product): View
-	{
-		$content = $this->show($product);
-		return view('admin.products.view')->with($content);
-	}
-	final public function show(Product $product = null): array
-	{
-		$content["title"] = $this->title;
-		$content["tags"] = $this->tagService->getTagsForDropdown();
-		$content["categories"] = $this->categoryService->getCategoriesForDropdown();
-		$content["relatedProducts"] = $this->productService->getProductsForDropdown();
-		$content["productOptions"] = $this->optionService->getOptionsForDropdown();
-		$productData = $this->productService->fetchProductDataForManagement($product);
-		return array_merge($content, $productData);
 	}
 
 	/**
 	 * @throws AuthorizationException
 	 */
-	final public function manage(ManageProductRequest $manageProductRequest, Product $product = null): RedirectResponse
-	{
+	final public function index(): View {
+		$this->authorize("access", [Product::class, PermissionEnum::PRODUCT_ACCESS]);
+
+		$content['title'] = $this->title;
+		$content['headers'] = ["ID", "Image", "Name", "Price", "Quantity"];
+
+		return view("admin.products.index")->with($content);
+	}
+
+	/**
+	 * @throws AuthorizationException
+	 */
+	final public function paginate(): JsonResponse {
+		$this->authorize("access", [Product::class, PermissionEnum::PRODUCT_ACCESS]);
+
+		return $this->productService->paginate();
+	}
+
+	/**
+	 * @throws AuthorizationException
+	 */
+	final public function showManage(Product $product = null): View {
+		$this->authorize("access", [Product::class, PermissionEnum::PRODUCT_MANAGE]);
+
+		$content = $this->show($product);
+
+		return view("admin.products.manage")->with($content);
+	}
+
+	private function show(Product $product = null): array {
+		$content["title"] = $this->title;
+		$content["tags"] = $this->tagService->getTagsForDropdown();
+		$content["categories"] = $this->categoryService->getCategoriesForDropdown();
+		$content["relatedProducts"] = $this->productService->getProductsForDropdown();
+		$content["productOptions"] = $this->optionService->getOptionsForDropdown();
+
+		$productData = $this->productService->fetchProductDataForManagement($product);
+
+		return array_merge($content, $productData);
+	}
+
+	final public function view(Product $product): View {
+		$content = $this->show($product);
+
+		return view('admin.products.view')->with($content);
+	}
+
+	/**
+	 * @throws AuthorizationException
+	 */
+	final public function manage(ManageProductRequest $manageProductRequest, Product $product = null): RedirectResponse {
 		$this->authorize("access", [Product::class, PermissionEnum::PRODUCT_MANAGE]);
 
 		$this->productService->manage($manageProductRequest, $product);
 
 		return redirect()->route("admin.products.index")->withUpdatedSuccessToastr("Product");
 	}
-
 }

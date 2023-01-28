@@ -30,6 +30,7 @@ class ManageProductRequest extends FormRequest {
 		 * to feed the input in different functions identified by key
 		 */
 		return [
+			// Product
 			"product" => "required|array",
 			"product.name" => "required|string",
 			"product.description" => "required|string",
@@ -40,14 +41,21 @@ class ManageProductRequest extends FormRequest {
 			"product.upc" => "required|string|unique:products,upc$uniqueValidationUpdateConstraint",
 			"product.price" => "required|numeric",
 			"product.quantity" => "required|numeric",
-			"product.image" => "nullable|image",
-			"product.old_image" => "nullable|string",
-			"product.secondary_images" => "nullable|array",
-			"product.old_secondary_images" => "nullable|array",
 			"product.min_order_quantity" => "nullable|numeric",
 			"product.subtract_stock" => ["nullable", Rule::in($subtractStockPossibilities)],
 			"product.require_shipping" => ["nullable", Rule::in($requireShippingPossibilities)],
 
+			// Product Images
+			"product.image" => "required|image",
+			"product.old_image" => "nullable|string",
+
+			"product.secondary_images.*" => "image",
+			"product.secondary_images" => "nullable|array",
+
+			"product.old_secondary_images.*" => "string",
+			"product.old_secondary_images" => "nullable|array",
+
+			// Product Options
 			"options" => "nullable|array",
 			"options.*.option_value_id" => "required|numeric",
 			"options.*.quantity" => "required|numeric",
@@ -55,12 +63,15 @@ class ManageProductRequest extends FormRequest {
 			"options.*.price_difference" => "nullable|numeric",
 			"options.*.price_adjustment" => ["nullable", Rule::in($priceAdjustmentPossibilities)],
 
+			// Product Tags
 			"tags" => "nullable|array",
 			"tags.*" => "required|numeric",
 
+			// Product Related Suggestions
 			"related_products" => "nullable|array",
 			"related_products.*" => "required|numeric",
 
+			// Product Categories
 			"categories" => "nullable|array",
 			"categories.*" => "required|numeric",
 		];

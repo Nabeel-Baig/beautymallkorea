@@ -27,6 +27,10 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get("/", static function () {
+	return redirect()->route("admin.dashboard");
+});
+
 Route::group([
 	'prefix' => 'admin',
 	'as' => 'admin.',

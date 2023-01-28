@@ -20,7 +20,8 @@ class OptionValueService {
 	final public function manageOptionValues(Option $option, CreateOptionRequest|UpdateOptionRequest $createOrUpdateOptionRequest): void {
 		$optionValuesToCreate = [];
 		$optionValuesNotToDeleteIds = [];
-		$optionValues = $createOrUpdateOptionRequest->get("option_values", []);
+		$manageOptionsData = $createOrUpdateOptionRequest->validated();
+		$optionValues = $manageOptionsData["option_values"];
 		$timestamp = Carbon::now()->toDateTimeString();
 
 		foreach ($optionValues as $optionValue) {
