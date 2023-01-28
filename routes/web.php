@@ -123,6 +123,7 @@ Route::group([
 		Route::get("/paginate", [ProductController::class, "paginate"])->name("paginate");
 		Route::get("/manage/{product?}", [ProductController::class, "showManage"])->name("manage.show");
 		Route::patch("/manage/{product?}", [ProductController::class, "manage"])->name("manage.update");
+		Route::get("/view/{product}", [ProductController::class, "view"])->name("manage.view");
 		Route::delete("/delete/{product}", [ProductController::class, "delete"])->name("delete");
 		Route::delete("/delete", [ProductController::class, "deleteMany"])->name("delete.many");
 	});

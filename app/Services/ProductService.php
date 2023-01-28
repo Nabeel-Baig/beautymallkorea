@@ -15,9 +15,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
-class ProductService {
+class ProductService
+{
 
-	final public function paginate(): JsonResponse {
+	final public function paginate(): JsonResponse
+	{
 		return datatables()->of(Product::orderBy('id', 'desc')->get())
 			->addColumn('selection', function ($data) {
 				return '<input type="checkbox" class="delete_checkbox flat" value="' . $data['id'] . '">';
@@ -25,17 +27,23 @@ class ProductService {
 				return '<img width="65" src="' . asset($data->image) . '">';
 			})->addColumn('actions', function ($data) {
 				$edit = '';
+				$view = '';
 				$delete = '';
 				if (Gate::allows(PermissionEnum::PRODUCT_MANAGE->value)) {
 					$edit = '<a title="Edit" href="' . route('admin.products.manage.show', $data->id) . '" class="btn btn-primary btn-sm"><i class="fas fa-pen"></i></a>&nbsp;';
 				}
-				if (Gate::allows(PermissionEnum::PRODUCT_DELETE->value)) {
-					$delete = '<button title="Delete" type="button" name="delete" id="' . $data['id'] . '" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
+				if (Gate::allows(PermissionEnum::PRODUCT_SHOW->value)) {
+					$view = '<a title="View" href="' . route('admin.products.manage.view', $data->id) . '" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>&nbsp;';
 				}
-				return $edit . $delete;
+				if (Gate::allows(PermissionEnum::PRODUCT_DELETE->value)) {
+					$delete = '<button title="Delete" type="button" name="delete" id="' . $data['id'] . '" class="delete btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>';
+				}
+				return $edit . $view . $delete;
 			})->rawColumns(['selection', 'actions', 'image'])->make(true);
 	}
-	final public function fetchProductDataForManagement(Product|null $product): array {
+
+	final public function fetchProductDataForManagement(Product|null $product): array
+	{
 		$product?->load([
 			"relatedProducts" => static function (BelongsToMany $query) {
 				return $query->select(["products.id", "products.name"]);
@@ -66,11 +74,13 @@ class ProductService {
 		return $content;
 	}
 
-	final public function getProductsForDropdown(): Collection {
+	final public function getProductsForDropdown(): Collection
+	{
 		return Product::select(["id", "name"])->get();
 	}
 
-	final public function manage(ManageProductRequest $manageProductRequest, Product $product = null): void {
+	final public function manage(ManageProductRequest $manageProductRequest, Product $product = null): void
+	{
 		DB::transaction(function () use ($product, $manageProductRequest) {
 			$data = $manageProductRequest->validated();
 
@@ -86,7 +96,8 @@ class ProductService {
 		});
 	}
 
-	private function manageProductsBasicData(Product|null $product, array $productData): Product {
+	private function manageProductsBasicData(Product|null $product, array $productData): Product
+	{
 		if (!Arr::exists($productData, "image") || $productData["image"] === null) {
 			$productData["image"] = $productData["old_image"] ?? null;
 		}
@@ -109,7 +120,8 @@ class ProductService {
 		return $product;
 	}
 
-	private function manageProductOptionsData(Product $product, array|null $productOptionsData): void {
+	private function manageProductOptionsData(Product $product, array|null $productOptionsData): void
+	{
 		if ($productOptionsData === null) {
 			$productOptionsData = [];
 		}
@@ -130,7 +142,8 @@ class ProductService {
 		$product->optionValues()->sync($synchronizedData);
 	}
 
-	private function manageProductTagsData(Product $product, array|null $productTags): void {
+	private function manageProductTagsData(Product $product, array|null $productTags): void
+	{
 		if ($productTags === null) {
 			$productTags = [];
 		}
@@ -138,7 +151,8 @@ class ProductService {
 		$product->tags()->sync($productTags);
 	}
 
-	private function manageProductCategoriesData(Product $product, array|null $productCategories): void {
+	private function manageProductCategoriesData(Product $product, array|null $productCategories): void
+	{
 		if ($productCategories === null) {
 			$productCategories = [];
 		}
@@ -146,7 +160,8 @@ class ProductService {
 		$product->categories()->sync($productCategories);
 	}
 
-	private function manageRelatedProductsData(Product $product, array|null $relatedProducts): void {
+	private function manageRelatedProductsData(Product $product, array|null $relatedProducts): void
+	{
 		if ($relatedProducts === null) {
 			$relatedProducts = [];
 		}

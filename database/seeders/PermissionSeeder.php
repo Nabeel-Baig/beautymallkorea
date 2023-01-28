@@ -8,11 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class PermissionSeeder extends Seeder {
-	/**
-	 * Run the database seeds.
-	 *
-	 * @return void
-	 */
+
 	final public function run(): void {
 		$timestamp = Carbon::now()->toDateTimeString();
 
