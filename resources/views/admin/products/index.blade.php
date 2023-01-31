@@ -167,7 +167,7 @@
 
 			const okDeleteSelector = "#ok_delete";
 			$(document).on("click", okDeleteSelector, function () {
-				const url = '{{ route('admin.options.delete', ':id') }}';
+				const url = '{{ route('admin.products.delete', ':id') }}';
 				$.ajax({
 					type: "delete",
 					url: url.replace(":id", delete_id),
@@ -205,7 +205,7 @@
 						return checkboxValue;
 					}, []);
 
-					fetch(`{{ route('admin.options.delete.many') }}`, {
+					fetch(`{{ route('admin.products.delete.many') }}`, {
 						method: "delete",
 						headers: {
 							"Content-Type": "application/json",

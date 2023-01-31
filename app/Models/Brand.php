@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Brand extends Model {
 	protected $table = "brands";
-	protected $fillable = ["name", "country", "image", "sort_order"];
+	protected $fillable = ["name", "country", "country_image", "brand_image", "sort_order"];
 	protected $casts = [
 		"country" => BrandCountry::class,
 	];

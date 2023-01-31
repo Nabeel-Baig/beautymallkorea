@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\PermissionEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Product\DeleteManyProductRequest;
 use App\Http\Requests\Product\ManageProductRequest;
 use App\Models\Product;
 use App\Services\CategoryService;
@@ -59,19 +60,12 @@ class ProductController extends Controller {
 		return view("admin.products.manage")->with($content);
 	}
 
-	private function show(Product $product = null): array {
-		$content["title"] = $this->title;
-		$content["tags"] = $this->tagService->getTagsForDropdown();
-		$content["categories"] = $this->categoryService->getCategoriesForDropdown();
-		$content["relatedProducts"] = $this->productService->getProductsForDropdown();
-		$content["productOptions"] = $this->optionService->getOptionsForDropdown();
-
-		$productData = $this->productService->fetchProductDataForManagement($product);
-
-		return array_merge($content, $productData);
-	}
-
+	/**
+	 * @throws AuthorizationException
+	 */
 	final public function view(Product $product): View {
+		$this->authorize("access", [Product::class, PermissionEnum::PRODUCT_SHOW]);
+
 		$content = $this->show($product);
 
 		return view('admin.products.view')->with($content);
@@ -86,5 +80,41 @@ class ProductController extends Controller {
 		$this->productService->manage($manageProductRequest, $product);
 
 		return redirect()->route("admin.products.index")->withUpdatedSuccessToastr("Product");
+	}
+
+	/**
+	 * @throws AuthorizationException
+	 */
+	final public function delete(Product $product): JsonResponse {
+		$this->authorize("access", [Product::class, PermissionEnum::PRODUCT_DELETE]);
+
+		$this->productService->delete($product);
+
+		$content["message"] = "Product deleted successfully";
+		return response()->json($content);
+	}
+
+	/**
+	 * @throws AuthorizationException
+	 */
+	final public function deleteMany(DeleteManyProductRequest $deleteManyProductRequest): JsonResponse {
+		$this->authorize("access", [Product::class, PermissionEnum::PRODUCT_DELETE]);
+
+		$this->productService->deleteMany($deleteManyProductRequest);
+
+		$content["message"] = "Products deleted successfully";
+		return response()->json($content);
+	}
+
+	private function show(Product $product = null): array {
+		$content["title"] = $this->title;
+		$content["tags"] = $this->tagService->getTagsForDropdown();
+		$content["categories"] = $this->categoryService->getCategoriesForDropdown();
+		$content["relatedProducts"] = $this->productService->getProductsForDropdown();
+		$content["productOptions"] = $this->optionService->getOptionsForDropdown();
+
+		$productData = $this->productService->fetchProductDataForManagement($product);
+
+		return array_merge($content, $productData);
 	}
 }

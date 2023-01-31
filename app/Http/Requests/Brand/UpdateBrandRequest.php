@@ -4,10 +4,10 @@ namespace App\Http\Requests\Brand;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateBannerRequest extends FormRequest {
+class UpdateBrandRequest extends FormRequest {
 	final public function rules(): array {
 		return [
-			"country" => "required",
+
 		];
 	}
 }

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Enums\PermissionEnum;
+use App\Http\Requests\Product\DeleteManyProductRequest;
 use App\Http\Requests\Product\ManageProductRequest;
 use App\Models\OptionValue;
 use App\Models\Product;
@@ -13,7 +14,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
-use JsonException;
 
 class ProductService {
 
@@ -91,9 +91,16 @@ class ProductService {
 		});
 	}
 
-	/**
-	 * @throws JsonException
-	 */
+	final public function delete(Product $product): void {
+		$product->delete();
+	}
+
+	final public function deleteMany(DeleteManyProductRequest $deleteManyProductRequest): void {
+		$productIds = $deleteManyProductRequest->validated("ids");
+
+		Product::whereIn("id", $productIds)->delete();
+	}
+
 	private function manageProductsBasicData(Product|null $product, array $productData): Product {
 		$productData = $this->handleProductImagesData($productData);
 

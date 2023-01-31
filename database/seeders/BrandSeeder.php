@@ -29,7 +29,8 @@ class BrandSeeder extends Seeder {
 				$brands[] = [
 					"name" => "Brand $identifier",
 					"country" => $country["country-name"],
-					"image" => asset("countries/images/{$country["country-code"]}.svg"),
+					"country_image" => "countries/images/{$country["country-code"]}.svg",
+					"brand_image" => null,
 					"sort_order" => $index,
 					"created_at" => $timestamp,
 					"updated_at" => $timestamp,

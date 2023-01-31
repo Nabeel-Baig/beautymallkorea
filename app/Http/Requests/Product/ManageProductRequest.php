@@ -44,6 +44,8 @@ class ManageProductRequest extends FormRequest {
 			"product.min_order_quantity" => "nullable|numeric",
 			"product.subtract_stock" => ["nullable", Rule::in($subtractStockPossibilities)],
 			"product.require_shipping" => ["nullable", Rule::in($requireShippingPossibilities)],
+			"product.brand_id" => ["nullable", Rule::in($requireShippingPossibilities)],
+			// ============================================================================================
 
 			// Product Images
 			"product.image" => "required|image",
@@ -54,6 +56,7 @@ class ManageProductRequest extends FormRequest {
 
 			"product.old_secondary_images.*" => "string",
 			"product.old_secondary_images" => "nullable|array",
+			// ============================================================================================
 
 			// Product Options
 			"options" => "nullable|array",
@@ -62,18 +65,22 @@ class ManageProductRequest extends FormRequest {
 			"options.*.subtract_stock" => ["nullable", Rule::in($subtractStockPossibilities)],
 			"options.*.price_difference" => "nullable|numeric",
 			"options.*.price_adjustment" => ["nullable", Rule::in($priceAdjustmentPossibilities)],
+			// ============================================================================================
 
 			// Product Tags
 			"tags" => "nullable|array",
 			"tags.*" => "required|numeric",
+			// ============================================================================================
 
 			// Product Related Suggestions
 			"related_products" => "nullable|array",
 			"related_products.*" => "required|numeric",
+			// ============================================================================================
 
 			// Product Categories
 			"categories" => "nullable|array",
 			"categories.*" => "required|numeric",
+			// ============================================================================================
 		];
 	}
 }
