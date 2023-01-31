@@ -10,6 +10,7 @@ class CreateProductsTable extends Migration {
 	final public function up(): void {
 		Schema::create('products', static function (Blueprint $table) {
 			$table->id();
+			$table->foreignId("brand_id")->nullable()->constrained("brands")->nullOnDelete();
 			$table->string("name");
 			$table->string("slug");
 			$table->text("description")->nullable();

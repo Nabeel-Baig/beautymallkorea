@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 class Product extends Model {
 	protected $table = "products";
 	protected $fillable = [
+		"brand_id",
 		"name",
 		"slug",
 		"description",

@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder {
 			TagSeeder::class,
 			OptionSeeder::class,
 			OptionValueSeeder::class,
+			BrandSeeder::class,
 			ProductSeeder::class,
 		]);
 	}

@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Enums\ProductOptionPriceAdjustment;
 use App\Enums\RequireShipping;
 use App\Enums\SubtractStock;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\OptionValue;
 use App\Models\Product;
@@ -28,13 +29,14 @@ class ProductSeeder extends Seeder {
 		[$products, $productTags, $productOptions, $productCategories, $productRelatedProducts] = [[], [], [], [], []];
 
 		$tags = Tag::all();
+		$brands = Brand::all();
 		$categories = Category::all();
 		$optionValues = OptionValue::all();
 
 		$timestamp = Carbon::now()->toDateTimeString();
 
 		for ($index = 1; $index <= 1500; $index++) {
-			$products[] = $this->generateProduct($index, $index, $timestamp);
+			$products[] = $this->generateProduct($brands, $index, $timestamp);
 
 			$productTags = [...$productTags, ...$this->generateProductTags($tags, $index, $timestamp)];
 
@@ -51,11 +53,12 @@ class ProductSeeder extends Seeder {
 	/**
 	 * @throws Exception
 	 */
-	private function generateProduct(int $index, int $productId, string $timestamp): array {
-		$identifier = str_pad($index, 4, "0", STR_PAD_LEFT);
+	private function generateProduct(Collection $brands, int $productId, string $timestamp): array {
+		$identifier = str_pad($productId, 4, "0", STR_PAD_LEFT);
 
 		return [
 			"id" => $productId,
+			"brand_id" => $brands->random()->id,
 			"name" => "Product - $identifier",
 			"slug" => Str::snake("Product - $identifier"),
 			"description" => "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda distinctio ducimus eaque eveniet harum in iure mollitia natus, nostrum perspiciatis qui quod repellendus sapiente soluta tenetur totam ullam. Amet beatae doloremque ipsum laborum magnam modi molestias non praesentium quaerat, quasi! Alias architecto, consectetur deserunt dignissimos distinctio eaque error, hic, iure laboriosam magni nisi quod repellat sint. Animi at, cupiditate ducimus eum facere illum laudantium, maxime minus, molestiae nostrum numquam perspiciatis qui sapiente tempore ut veniam vitae. Ab laboriosam perferendis recusandae voluptate voluptatem? Atque eius facere numquam perspiciatis quaerat quas reprehenderit, sed sit! Amet architecto esse magni molestiae rerum? Ab consectetur distinctio dolores eum exercitationem obcaecati placeat quod rem soluta, velit! Accusamus animi at consectetur dolore dolorum eveniet id ipsa mollitia, praesentium provident reprehenderit sequi ut veniam? Ab adipisci atque commodi cum distinctio dolor doloribus eius fugiat fugit incidunt labore, natus nemo nisi officiis optio perspiciatis quia quod saepe sed tempora tempore temporibus vitae voluptates. Beatae corporis eius et exercitationem id magni nesciunt quaerat qui, quisquam. Accusantium atque eum ex exercitationem fuga fugiat fugit nisi quis? A accusamus adipisci asperiores assumenda at atque blanditiis consectetur consequatur corporis debitis deserunt distinctio esse eum ex excepturi facere fuga id ipsum, magni maiores modi non nulla odio odit pariatur quae quam, quod rem saepe sed soluta unde vel velit veniam vitae voluptas voluptatem. Cumque dolor inventore placeat saepe similique? Amet aperiam architecto aspernatur beatae cupiditate, dolor dolorem ducimus ex facere facilis fugit in molestias pariatur perferendis praesentium quam quibusdam rerum sapiente sed ullam!",

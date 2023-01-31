@@ -51,6 +51,12 @@ enum PermissionEnum: string {
 	case OPTION_DELETE = "option_delete";
 	case OPTION_ACCESS = "option_access";
 
+	// Brands
+	case BRAND_ACCESS = "brand_access";
+	case BRAND_CREATE = "brand_create";
+	case BRAND_EDIT = "brand_edit";
+	case BRAND_DELETE = "brand_delete";
+
 	// Product
 	case PRODUCT_MANAGE = "product_manage";
 	case PRODUCT_SHOW = "product_show";
