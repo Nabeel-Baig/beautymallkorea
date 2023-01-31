@@ -6,6 +6,7 @@ use App\Models\Brand;
 use Exception;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use JsonException;
 
 class BrandSeeder extends Seeder {
@@ -20,14 +21,16 @@ class BrandSeeder extends Seeder {
 		$brands = [];
 		$timestamp = Carbon::now()->toDateTimeString();
 
-		foreach ($countries as $country) {
+		foreach ($countries as $countryIndex => $country) {
 			$numOfBrandsToGenerateForThisCountry = random_int(1, 6);
+			$countryIdentifier = str_pad($countryIndex, 3, "0", STR_PAD_LEFT);
 
 			for ($index = 1; $index <= $numOfBrandsToGenerateForThisCountry; $index++) {
 				$identifier = str_pad($index, 4, "0", STR_PAD_LEFT);
 
 				$brands[] = [
-					"name" => "Brand $identifier",
+					"name" => "Brand $countryIdentifier - $identifier",
+					"slug" => Str::slug("Brand $countryIdentifier - $identifier"),
 					"country" => $country["country-name"],
 					"country_image" => "countries/images/{$country["country-code"]}.svg",
 					"brand_image" => null,
@@ -37,7 +40,6 @@ class BrandSeeder extends Seeder {
 				];
 			}
 		}
-
 
 		Brand::insert($brands);
 	}

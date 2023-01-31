@@ -11,8 +11,8 @@ class CreateProductsTable extends Migration {
 		Schema::create('products', static function (Blueprint $table) {
 			$table->id();
 			$table->foreignId("brand_id")->nullable()->constrained("brands")->nullOnDelete();
-			$table->string("name");
-			$table->string("slug");
+			$table->string("name")->unique();
+			$table->string("slug")->unique();
 			$table->text("description")->nullable();
 			$table->string("meta_title")->nullable();
 			$table->string("meta_description")->nullable();

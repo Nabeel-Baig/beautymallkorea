@@ -61,7 +61,7 @@ class ProductSeeder extends Seeder {
 			"id" => $productId,
 			"brand_id" => $brands->random()->id,
 			"name" => "Product - $identifier",
-			"slug" => Str::snake("Product - $identifier"),
+			"slug" => Str::slug("Product - $identifier"),
 			"description" => "Lorem ipsum dolor sit amet",
 			"meta_title" => "SEO Title $identifier",
 			"meta_description" => "SEO Description $identifier",

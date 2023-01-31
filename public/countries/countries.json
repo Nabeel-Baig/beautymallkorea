@@ -101,7 +101,7 @@
 	},
 	{
 		"country-code": "BO",
-		"country-name": "Bolivia, Plurinational State of"
+		"country-name": "Bolivia"
 	},
 	{
 		"country-code": "BA",
@@ -385,7 +385,7 @@
 	},
 	{
 		"country-code": "VA",
-		"country-name": "Holy See (Vatican City State)"
+		"country-name": "Holy City (Vatican City State)"
 	},
 	{
 		"country-code": "HN",
@@ -413,7 +413,7 @@
 	},
 	{
 		"country-code": "IR",
-		"country-name": "Iran, Islamic Republic of"
+		"country-name": "Islamic Republic of Iran"
 	},
 	{
 		"country-code": "IQ",
@@ -469,11 +469,11 @@
 	},
 	{
 		"country-code": "KP",
-		"country-name": "Korea, Democratic People's Republic of"
+		"country-name": "Democratic People's Republic of Korea"
 	},
 	{
 		"country-code": "KR",
-		"country-name": "Korea, Republic of"
+		"country-name": "Republic of Korea"
 	},
 	{
 		"country-code": "XK",
@@ -581,7 +581,7 @@
 	},
 	{
 		"country-code": "MD",
-		"country-name": "Moldova, Republic of"
+		"country-name": "Republic of Moldova"
 	},
 	{
 		"country-code": "MC",
