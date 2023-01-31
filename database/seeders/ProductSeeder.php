@@ -55,7 +55,7 @@ class ProductSeeder extends Seeder {
 	 * @throws Exception
 	 */
 	private function generateProduct(Collection $brands, int $productId, string $timestamp): array {
-		$identifier = str_pad($productId, 4, "0", STR_PAD_LEFT);
+		$identifier = str_pad($productId, 3, "0", STR_PAD_LEFT);
 
 		return [
 			"id" => $productId,
