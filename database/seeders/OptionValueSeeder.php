@@ -14,17 +14,17 @@ class OptionValueSeeder extends Seeder {
 		$timestamp = Carbon::now()->toDateTimeString();
 
 		foreach ($options as $option) {
-			$optionValuePartialNames = ["1", "2", "3", "4", "5"];
 
-			foreach ($optionValuePartialNames as $optionValue) {
-				$eachOptionValue = [
+			for ($index = 1; $index <= 25; $index++) {
+				$optionIdentifier = str_pad($option->id, 3, "0", STR_PAD_LEFT);
+				$optionValueIdentifier = str_pad($index, 2, "0", STR_PAD_LEFT);
+
+				$optionValues[] = [
 					"option_id" => $option->id,
-					"name" => "Option Value $option->id - $optionValue",
+					"name" => "Option Value $optionIdentifier - $optionValueIdentifier",
 					"created_at" => $timestamp,
 					"updated_at" => $timestamp,
 				];
-
-				$optionValues[] = $eachOptionValue;
 			}
 		}
 

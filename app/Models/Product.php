@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
 class Product extends Model {
+	protected $table = "products";
 	protected $fillable = [
 		"name",
 		"slug",

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Tag extends Model {
-
+	protected $table = "tags";
 	public $fillable = ["name", "is_active"];
 
 	final public function products(): BelongsToMany {

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class OptionValue extends Model {
+	protected $table = "option_values";
 	protected $fillable = ["name", "image"];
 
 	final public function option(): BelongsTo {

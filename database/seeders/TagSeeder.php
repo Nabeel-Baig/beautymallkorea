@@ -9,17 +9,18 @@ use Illuminate\Database\Seeder;
 class TagSeeder extends Seeder {
 	final public function run(): void {
 		$timestamp = Carbon::now()->toDateTimeString();
+		$tags = [];
 
-		$tags = ["lipstick", "nailpolish"];
+		for ($index = 1; $index <= 500; $index++) {
+			$identifier = str_pad($index, 3, "0", STR_PAD_LEFT);
 
-		$tagRecords = array_map(static function (string $tagName) use ($timestamp) {
-			return [
-				"name" => $tagName,
+			$tags[] = [
+				"name" => "Tag $identifier",
 				"created_at" => $timestamp,
 				"updated_at" => $timestamp,
 			];
-		}, $tags);
+		}
 
-		Tag::insert($tagRecords);
+		Tag::insert($tags);
 	}
 }

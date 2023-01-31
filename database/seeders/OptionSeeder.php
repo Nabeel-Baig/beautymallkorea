@@ -9,16 +9,18 @@ use Illuminate\Database\Seeder;
 class OptionSeeder extends Seeder {
 	final public function run(): void {
 		$timestamp = Carbon::now()->toDateTimeString();
-		$optionNames = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"];
+		$options = [];
 
-		$tags = array_map(static function (string $optionName) use ($timestamp) {
-			return [
-				"name" => $optionName,
+		for ($index = 1; $index <= 100; $index++) {
+			$identifier = str_pad($index, 3, "0", STR_PAD_LEFT);
+
+			$options[] = [
+				"name" => "Option $identifier",
 				"created_at" => $timestamp,
 				"updated_at" => $timestamp,
 			];
-		}, $optionNames);
+		}
 
-		Option::insert($tags);
+		Option::insert($options);
 	}
 }

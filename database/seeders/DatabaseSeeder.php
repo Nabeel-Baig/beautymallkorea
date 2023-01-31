@@ -10,8 +10,7 @@ class DatabaseSeeder extends Seeder {
 	 *
 	 * @return void
 	 */
-	public function run() {
-		// \App\Models\User::factory(10)->create();
+	final public function run(): void {
 		$this->call([
 			SettingsSeeder::class,
 			UserSeeder::class,
@@ -23,6 +22,7 @@ class DatabaseSeeder extends Seeder {
 			TagSeeder::class,
 			OptionSeeder::class,
 			OptionValueSeeder::class,
+			ProductSeeder::class,
 		]);
 	}
 }
