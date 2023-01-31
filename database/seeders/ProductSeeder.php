@@ -34,8 +34,9 @@ class ProductSeeder extends Seeder {
 		$optionValues = OptionValue::all();
 
 		$timestamp = Carbon::now()->toDateTimeString();
+		$productCountToGenerate = 500;
 
-		for ($index = 1; $index <= 500; $index++) {
+		for ($index = 1; $index <= $productCountToGenerate; $index++) {
 			$products[] = $this->generateProduct($brands, $index, $timestamp);
 
 			$productTags = [...$productTags, ...$this->generateProductTags($tags, $index, $timestamp)];
@@ -44,7 +45,7 @@ class ProductSeeder extends Seeder {
 
 			$productCategories = [...$productCategories, ...$this->generateProductCategories($categories, $index, $timestamp)];
 
-			$productRelatedProducts = [...$productRelatedProducts, ...$this->generateProductRelatedProducts($index, $timestamp)];
+			$productRelatedProducts = [...$productRelatedProducts, ...$this->generateProductRelatedProducts($productCountToGenerate, $index, $timestamp)];
 		}
 
 		$this->insertProductAndRelatedDataInChunks($products, $productTags, $productOptions, $productCategories, $productRelatedProducts);
@@ -146,7 +147,7 @@ class ProductSeeder extends Seeder {
 	/**
 	 * @throws Exception
 	 */
-	private function generateProductRelatedProducts(int $productId, string $timestamp): array {
+	private function generateProductRelatedProducts(int $productCountToGenerate, int $productId, string $timestamp): array {
 		$relatedProductsForThisProduct = [];
 		$numOfRelatedProductsForThisProduct = random_int(1, 10);
 
@@ -154,7 +155,7 @@ class ProductSeeder extends Seeder {
 			$randomRelatedProductId = $productId;
 
 			while ($randomRelatedProductId === $productId) {
-				$randomRelatedProductId = random_int(1, 1500);
+				$randomRelatedProductId = random_int(1, $productCountToGenerate);
 			}
 
 			$relatedProductsForThisProduct[] = [
