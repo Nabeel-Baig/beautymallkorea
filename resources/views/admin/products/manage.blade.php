@@ -158,7 +158,7 @@
 								<div class="mb-3">
 									<label for="product_sku" class="form-label">SKU</label>
 									<input type="text" name="product[sku]" id="product_sku"
-										   value="{{ $model->sku ?? old("product.sku") }}" minlength="3" maxlength="50"
+										   value="{{ $model?->sku ?? old("product.sku") }}" minlength="3" maxlength="50"
 										   class="form-control @error('product.sku') parsley-error @enderror" required>
 									@error('product.sku')
 									<span class="text-red">{{ $message }}</span>
@@ -168,7 +168,7 @@
 								<div class="mb-3">
 									<label for="product_upc" class="form-label">UPC</label>
 									<input type="text" name="product[upc]" id="product_upc"
-										   value="{{ $model->upc ?? old("product.upc") }}" minlength="3" maxlength="50"
+										   value="{{ $model?->upc ?? old("product.upc") }}" minlength="3" maxlength="50"
 										   class="form-control @error('product.upc') parsley-error @enderror" required>
 									@error('product.upc')
 									<span class="text-red">{{ $message }}</span>
@@ -177,11 +177,25 @@
 
 								<div class="mb-3">
 									<label for="product_price" class="form-label">Price</label>
-									<input type="number" name="product[price]" id="product_price"
-										   value="{{ $model->price ?? old("product.price") }}" min="0" step="0.01"
-										   class="form-control @error('product.price') parsley-error @enderror"
-										   required>
+									<input
+										type="number" name="product[price]" id="product_price"
+										value="{{ $model?->price ?? old("product.price") }}" min="0" step="0.01"
+										class="form-control @error('product.price') parsley-error @enderror"
+										required
+									>
 									@error('product.price')
+									<span class="text-red">{{ $message }}</span>
+									@enderror
+								</div>
+
+								<div class="mb-3">
+									<label for="product_discount_price" class="form-label">Discount Price</label>
+									<input
+										type="number" name="product[discount_price]" id="product_discount_price"
+										value="{{ $model?->discount_price ?? old("product.discount_price") }}" min="0" step="0.01"
+										class="form-control @error('product.discount_price') parsley-error @enderror"
+									>
+									@error('product.discount_price')
 									<span class="text-red">{{ $message }}</span>
 									@enderror
 								</div>
@@ -189,7 +203,7 @@
 								<div class="mb-3">
 									<label for="product_quantity" class="form-label">Quantity</label>
 									<input type="number" name="product[quantity]" id="product_quantity"
-										   value="{{ $model->quantity ?? old("product.quantity") }}" min="1" step="1"
+										   value="{{ $model?->quantity ?? old("product.quantity") }}" min="1" step="1"
 										   class="form-control @error('product.quantity') parsley-error @enderror"
 										   required>
 									@error('product.quantity')
@@ -198,12 +212,10 @@
 								</div>
 
 								<div class="mb-3">
-									<label for="product_min_order_quantity" class="form-label">Minimum Orderable
-										Quantity
-									</label>
+									<label for="product_min_order_quantity" class="form-label">Minimum Order-able Quantity</label>
 									<input type="number" name="product[min_order_quantity]"
 										   id="product_min_order_quantity"
-										   value="{{ $model->min_order_quantity ?? old("product.min_order_quantity") ?? 1 }}"
+										   value="{{ $model?->min_order_quantity ?? old("product.min_order_quantity") ?? 1 }}"
 										   min="1" step="1"
 										   class="form-control @error('product.min_order_quantity') parsley-error @enderror">
 									@error('product.min_order_quantity')
@@ -247,6 +259,19 @@
 							</div>
 
 							<div class="tab-pane" id="links" role="tabpanel">
+								<div class="mb-3">
+									<label for="product_brand" class="form-label">Brand</label>
+									<select name="product[brand_id]" id="product_brand" style="width: 100%" class="form-control select2 @error('product.brand_id') parsley-error @enderror" required>
+										@php $brandIds = array_map(static function (array $brand) { return $brand["id"]; }, $brands->toArray()) @endphp
+										@foreach($brands as $brand)
+											<option value="{{ $brand->id }}" data-country-image="{{ asset($brand->country->countryFlag) }}" @if(in_array($model?->brand_id, $brandIds, true)) selected @endif>{{ $brand->country->countryName }} - {{ $brand->name }}</option>
+										@endforeach
+									</select>
+									@error("product.brand_id")
+									<span class="text-red">{{ $message }}</span>
+									@enderror
+								</div>
+
 								<div class="mb-3">
 									<label for="product_categories" class="form-label">Categories</label>
 									<select name="categories[]" id="product_categories" style="width: 100%"
@@ -379,7 +404,7 @@
 																<input type="number"
 																	   name="options[{{ $productOptionValueIndexCounter }}][price_difference]"
 																	   value="{{ $productOptionValue->pivot->price_difference }}"
-																	   min="1" step="1" class="form-control" required>
+																	   min="1" step="0.01" class="form-control" required>
 															</div>
 															<div class="col-1 d-flex align-items-end">
 																<div class="w-100">
@@ -514,32 +539,32 @@
 			#generateProductOptionValueRowHtml(optionId, productOptionValueIndexCounter, optionValues) {
 				const {
 					noSubtractStockName,
-					noSubtractStockValue
+					noSubtractStockValue,
 				} = {
 					noSubtractStockName: "{{ SubtractStock::NO->name }}",
-					noSubtractStockValue: "{{ SubtractStock::NO->value }}"
+					noSubtractStockValue: "{{ SubtractStock::NO->value }}",
 				};
 				const {
 					yesSubtractStockName,
-					yesSubtractStockValue
+					yesSubtractStockValue,
 				} = {
 					yesSubtractStockName: "{{ SubtractStock::YES->name }}",
-					yesSubtractStockValue: "{{ SubtractStock::YES->value }}"
+					yesSubtractStockValue: "{{ SubtractStock::YES->value }}",
 				};
 
 				const {
 					positiveProductOptionPriceAdjustmentName,
-					positiveProductOptionPriceAdjustmentValue
+					positiveProductOptionPriceAdjustmentValue,
 				} = {
 					positiveProductOptionPriceAdjustmentName: "{{ ProductOptionPriceAdjustment::POSITIVE->name }}",
-					positiveProductOptionPriceAdjustmentValue: "{{ ProductOptionPriceAdjustment::POSITIVE->value }}"
+					positiveProductOptionPriceAdjustmentValue: "{{ ProductOptionPriceAdjustment::POSITIVE->value }}",
 				};
 				const {
 					negativeProductOptionPriceAdjustmentName,
-					negativeProductOptionPriceAdjustmentValue
+					negativeProductOptionPriceAdjustmentValue,
 				} = {
 					negativeProductOptionPriceAdjustmentName: "{{ ProductOptionPriceAdjustment::NEGATIVE->name }}",
-					negativeProductOptionPriceAdjustmentValue: "{{ ProductOptionPriceAdjustment::NEGATIVE->value }}"
+					negativeProductOptionPriceAdjustmentValue: "{{ ProductOptionPriceAdjustment::NEGATIVE->value }}",
 				};
 
 				const dropdownOptionsHtml = optionValues.reduce((generatedDropdownOptionsHtml, optionValue) => {
@@ -576,7 +601,7 @@
 						</div>
 						<div class="col-2">
 							<label class="form-label">Option Value Price</label>
-							<input type="number" name="options[${ productOptionValueIndexCounter }][price_difference]" min="1" step="1" class="form-control" required>
+							<input type="number" name="options[${ productOptionValueIndexCounter }][price_difference]" min="1" step="0.01" class="form-control" required>
 						</div>
 						<div class="col-1 d-flex align-items-end">
 							<div class="w-100">
@@ -644,8 +669,22 @@
 
 		const productOptionsManagement = new ProductOptionManagement();
 
-		$(function () {
-			$(".select2").select2();
+		const formatBrandOptions = (state) => {
+			if (!state.id) return state.text;
+			const countryImageUrl = $(state.element).data("country-image");
+			const countryImage = `<span><img src="${ countryImageUrl }" width="50" alt="country-flag"/>  ${ state.text }</span>`;
+
+			return $(countryImage);
+		};
+
+		$(function() {
+			$("#product_tags, #product_categories, #product_related_products").select2({
+				closeOnSelect: false,
+			});
+
+			$("#product_brand").select2({
+				templateResult: formatBrandOptions,
+			});
 		});
 	</script>
 @endsection

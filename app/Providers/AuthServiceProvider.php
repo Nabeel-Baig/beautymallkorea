@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Brand;
 use App\Models\Option;
 use App\Models\Product;
 use App\Models\Tag;
@@ -18,6 +19,7 @@ class AuthServiceProvider extends ServiceProvider {
 		Tag::class => AccessPolicy::class,
 		Option::class => AccessPolicy::class,
 		Product::class => AccessPolicy::class,
+		Brand::class => AccessPolicy::class,
 	];
 
 	/**

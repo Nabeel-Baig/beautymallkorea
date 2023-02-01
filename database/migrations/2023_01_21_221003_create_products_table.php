@@ -19,10 +19,11 @@ class CreateProductsTable extends Migration {
 			$table->string("meta_keywords")->nullable();
 			$table->string("sku")->unique();
 			$table->string("upc")->unique();
-			$table->unsignedInteger("price");
+			$table->decimal("price");
+			$table->decimal("discount_price")->nullable();
 			$table->unsignedInteger("quantity");
-			$table->string("image")->nullable();
-			$table->text("secondary_images")->nullable();
+			$table->string("image");
+			$table->text("secondary_images");
 			$table->unsignedInteger("min_order_quantity")->default(1);
 			$table->boolean("subtract_stock")->default(SubtractStock::YES->value);
 			$table->boolean("require_shipping")->default(RequireShipping::YES->value);

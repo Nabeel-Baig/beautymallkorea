@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\PermissionEnum;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Product\DeleteManyProductRequest;
-use App\Http\Requests\Product\ManageProductRequest;
+use App\Http\Requests\Admin\Product\DeleteManyProductRequest;
+use App\Http\Requests\Admin\Product\ManageProductRequest;
 use App\Models\Product;
+use App\Services\BrandService;
 use App\Services\CategoryService;
 use App\Services\OptionService;
 use App\Services\ProductService;
@@ -21,6 +22,7 @@ class ProductController extends Controller {
 
 	public function __construct(
 		private readonly TagService $tagService,
+		private readonly BrandService $brandService,
 		private readonly OptionService $optionService,
 		private readonly ProductService $productService,
 		private readonly CategoryService $categoryService,
@@ -55,7 +57,16 @@ class ProductController extends Controller {
 	final public function showManage(Product $product = null): View {
 		$this->authorize("access", [Product::class, PermissionEnum::PRODUCT_MANAGE]);
 
-		$content = $this->show($product);
+		$content["title"] = $this->title;
+		$content["tags"] = $this->tagService->getTagsForDropdown();
+		$content["brands"] = $this->brandService->getBrandsForDropdown();
+		$content["categories"] = $this->categoryService->getCategoriesForDropdown();
+		$content["relatedProducts"] = $this->productService->getProductsForDropdown();
+		$content["productOptions"] = $this->optionService->getOptionsForDropdown();
+
+		$productData = $this->productService->fetchProductDataForManagement($product);
+
+		$content = array_merge($content, $productData);
 
 		return view("admin.products.manage")->with($content);
 	}
@@ -66,7 +77,7 @@ class ProductController extends Controller {
 	final public function view(Product $product): View {
 		$this->authorize("access", [Product::class, PermissionEnum::PRODUCT_SHOW]);
 
-		$content = $this->show($product);
+		$content = $this->productService->fetchProductDataForManagement($product);
 
 		return view('admin.products.view')->with($content);
 	}
@@ -104,17 +115,5 @@ class ProductController extends Controller {
 
 		$content["message"] = "Products deleted successfully";
 		return response()->json($content);
-	}
-
-	private function show(Product $product = null): array {
-		$content["title"] = $this->title;
-		$content["tags"] = $this->tagService->getTagsForDropdown();
-		$content["categories"] = $this->categoryService->getCategoriesForDropdown();
-		$content["relatedProducts"] = $this->productService->getProductsForDropdown();
-		$content["productOptions"] = $this->optionService->getOptionsForDropdown();
-
-		$productData = $this->productService->fetchProductDataForManagement($product);
-
-		return array_merge($content, $productData);
 	}
 }

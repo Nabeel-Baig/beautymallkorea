@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use App\Http\Requests\Tag\CreateTagRequest;
-use App\Http\Requests\Tag\DeleteManyTagsRequest;
-use App\Http\Requests\Tag\UpdateTagRequest;
+use App\Http\Requests\Admin\Tag\CreateTagRequest;
+use App\Http\Requests\Admin\Tag\DeleteManyTagsRequest;
+use App\Http\Requests\Admin\Tag\UpdateTagRequest;
 use App\Models\Tag;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;

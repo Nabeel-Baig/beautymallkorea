@@ -21,6 +21,7 @@ class Product extends Model {
 		"sku",
 		"upc",
 		"price",
+		"discount_price",
 		"quantity",
 		"image",
 		"secondary_images",

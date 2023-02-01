@@ -14,7 +14,7 @@ class CreateProductOptionsTable extends Migration {
 			$table->foreignId("option_value_id")->constrained("option_values")->cascadeOnUpdate()->cascadeOnDelete();
 			$table->unsignedInteger("quantity");
 			$table->boolean("subtract_stock")->default(SubtractStock::YES->value);
-			$table->unsignedInteger("price_difference")->default(0);
+			$table->decimal("price_difference")->default(0);
 			$table->boolean("price_adjustment")->default(ProductOptionPriceAdjustment::POSITIVE->value);
 			$table->timestamps();
 		});

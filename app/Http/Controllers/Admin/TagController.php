@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\PermissionEnum;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Tag\CreateTagRequest;
-use App\Http\Requests\Tag\DeleteManyTagsRequest;
-use App\Http\Requests\Tag\UpdateTagRequest;
+use App\Http\Requests\Admin\Tag\CreateTagRequest;
+use App\Http\Requests\Admin\Tag\DeleteManyTagsRequest;
+use App\Http\Requests\Admin\Tag\UpdateTagRequest;
 use App\Models\Tag;
 use App\Services\TagService;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -36,6 +36,7 @@ class TagController extends Controller {
 	 */
 	final public function paginate(): JsonResponse {
 		$this->authorize("access", [Tag::class, PermissionEnum::TAG_ACCESS]);
+
 		return $this->tagService->paginate();
 	}
 

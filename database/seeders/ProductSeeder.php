@@ -57,6 +57,10 @@ class ProductSeeder extends Seeder {
 	private function generateProduct(Collection $brands, int $productId, string $timestamp): array {
 		$identifier = str_pad($productId, 3, "0", STR_PAD_LEFT);
 
+		$price = random_int(50 * 100, 2500 * 100) / 100;
+		$hasDiscountPrice = random_int(0, 1) === 1;
+		$discountPrice = $hasDiscountPrice ? random_int(25 * 100, $price * 100) / 100 : null;
+
 		return [
 			"id" => $productId,
 			"brand_id" => $brands->random()->id,
@@ -68,9 +72,10 @@ class ProductSeeder extends Seeder {
 			"meta_keywords" => "SEO Keyword $identifier",
 			"sku" => Str::uuid(),
 			"upc" => Str::uuid(),
-			"price" => random_int(50, 2500),
+			"price" => $price,
+			"discount_price" => $discountPrice,
 			"quantity" => random_int(0, 50),
-			"image" => null,
+			"image" => "images/product.png",
 			"secondary_images" => "[]",
 			"min_order_quantity" => random_int(1, 3),
 			"subtract_stock" => random_int(SubtractStock::NO->value, SubtractStock::YES->value),
@@ -114,7 +119,7 @@ class ProductSeeder extends Seeder {
 				"product_id" => $productId,
 				"quantity" => random_int(1, 100),
 				"subtract_stock" => random_int(SubtractStock::NO->value, SubtractStock::YES->value),
-				"price_difference" => random_int(0, 50),
+				"price_difference" => random_int(0 * 100, 50 * 100) / 100,
 				"price_adjustment" => random_int(ProductOptionPriceAdjustment::NEGATIVE->value, ProductOptionPriceAdjustment::POSITIVE->value),
 				"created_at" => $timestamp,
 				"updated_at" => $timestamp,

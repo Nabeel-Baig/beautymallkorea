@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Users\MassDestroyUserRequest;
-use App\Http\Requests\Users\StoreUserRequest;
-use App\Http\Requests\Users\UpdateUserRequest;
+use App\Http\Requests\Admin\Users\MassDestroyUserRequest;
+use App\Http\Requests\Admin\Users\StoreUserRequest;
+use App\Http\Requests\Admin\Users\UpdateUserRequest;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
@@ -13,15 +13,12 @@ use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 use function request;
 
-class UsersController extends Controller
-{
-	public function __construct()
-	{
+class UsersController extends Controller {
+	public function __construct() {
 		$this->title = ucwords('users');
 	}
 
-	public function index()
-	{
+	public function index() {
 		abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 		if (request()->ajax()) {
 			$users = User::orderBy('id', 'desc')->get();
@@ -51,8 +48,7 @@ class UsersController extends Controller
 		return view('admin.users.list')->with($content);
 	}
 
-	public function store(StoreUserRequest $request)
-	{
+	public function store(StoreUserRequest $request) {
 		$user = User::create(handleFiles(request()->segment(2), $request->validated()));
 		$user->password = Hash::make($request->get('password'));
 		$user->save();
@@ -60,8 +56,7 @@ class UsersController extends Controller
 		return redirect()->route('admin.users.index')->withToastSuccess('User Created Successfully!');
 	}
 
-	public function create()
-	{
+	public function create() {
 		abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
 		$roles = Role::where('id', '!=', 1)->latest()->get()->pluck('title', 'id');
@@ -69,13 +64,11 @@ class UsersController extends Controller
 		return view('admin.users.create', compact('roles', 'title'));
 	}
 
-	public function show(User $user)
-	{
+	public function show(User $user) {
 		return \response()->json($user);
 	}
 
-	public function edit(User $user)
-	{
+	public function edit(User $user) {
 		abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 		$roles = Role::where('id', '!=', 1)->latest()->get()->pluck('title', 'id');
 		$user->load('roles');
@@ -83,8 +76,7 @@ class UsersController extends Controller
 		return view('admin.users.edit', compact('roles', 'user', 'title'));
 	}
 
-	public function update(UpdateUserRequest $request, User $user)
-	{
+	public function update(UpdateUserRequest $request, User $user) {
 		$user->update(handleFilesIfPresent(request()->segment(2), $request->validated(), $user));
 		$user->password = Hash::make($request->get('password'));
 		$user->save();
@@ -92,15 +84,13 @@ class UsersController extends Controller
 		return redirect()->route('admin.users.index')->withToastSuccess('User Updated Successfully!');
 	}
 
-	public function destroy(User $user)
-	{
+	public function destroy(User $user) {
 		abort_if(Gate::denies('user_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 		$user->delete();
 		return \response()->json('User Deleted Successfully!');
 	}
 
-	public function massDestroy(MassDestroyUserRequest $request)
-	{
+	public function massDestroy(MassDestroyUserRequest $request) {
 		User::whereIn('id', request('ids'))->delete();
 		return \response()->json('Selected records Deleted Successfully.');
 	}

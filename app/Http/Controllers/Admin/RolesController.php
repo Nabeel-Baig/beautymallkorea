@@ -3,23 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Roles\MassDestroyRoleRequest;
-use App\Http\Requests\Roles\StoreRoleRequest;
-use App\Http\Requests\Roles\UpdateRoleRequest;
+use App\Http\Requests\Admin\Roles\MassDestroyRoleRequest;
+use App\Http\Requests\Admin\Roles\StoreRoleRequest;
+use App\Http\Requests\Admin\Roles\UpdateRoleRequest;
 use App\Models\Permission;
 use App\Models\Role;
 use Gate;
 use Symfony\Component\HttpFoundation\Response;
 
-class RolesController extends Controller
-{
-	public function __construct()
-	{
+class RolesController extends Controller {
+	public function __construct() {
 		$this->title = ucwords('roles');
 	}
 
-	public function index()
-	{
+	public function index() {
 		abort_if(Gate::denies('role_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
 		if (request()->ajax()) {
@@ -48,29 +45,25 @@ class RolesController extends Controller
 		return view('admin.roles.list')->with($content);
 	}
 
-	public function store(StoreRoleRequest $request)
-	{
+	public function store(StoreRoleRequest $request) {
 		$role = Role::create($request->all());
 		$role->permissions()->sync($request->input('permissions', []));
 		return redirect()->route('admin.roles.index')->withToastSuccess('Role Created Successfully!');
 	}
 
-	public function create()
-	{
+	public function create() {
 		abort_if(Gate::denies('role_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 		$permissions = Permission::latest()->get()->pluck('title', 'id');
 		$title = $this->title;
 		return view('admin.roles.create', compact('title', 'permissions'));
 	}
 
-	public function show(Role $role)
-	{
+	public function show(Role $role) {
 		$role->load('permissions');
 		return \response()->json($role);
 	}
 
-	public function edit(Role $role)
-	{
+	public function edit(Role $role) {
 		abort_if(Gate::denies('role_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 		$permissions = Permission::latest()->get()->pluck('title', 'id');
 		$role->load('permissions');
@@ -78,22 +71,19 @@ class RolesController extends Controller
 		return view('admin.roles.edit', compact('title', 'role', 'permissions'));
 	}
 
-	public function update(UpdateRoleRequest $request, Role $role)
-	{
+	public function update(UpdateRoleRequest $request, Role $role) {
 		$role->update($request->all());
 		$role->permissions()->sync($request->input('permissions', []));
 		return redirect()->route('admin.roles.index')->withToastSuccess('Role Updated Successfully!');
 	}
 
-	public function destroy(Role $role)
-	{
+	public function destroy(Role $role) {
 		abort_if(Gate::denies('role_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 		$role->delete();
 		return \response()->json('Role Deleted Successfully!');
 	}
 
-	public function massDestroy(MassDestroyRoleRequest $request)
-	{
+	public function massDestroy(MassDestroyRoleRequest $request) {
 		Role::whereIn('id', request('ids'))->delete();
 		return \response()->json('Selected records Deleted Successfully.');
 	}

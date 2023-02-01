@@ -3,18 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Permissions\MassDestroyPermissionRequest;
-use App\Http\Requests\Permissions\StorePermissionRequest;
-use App\Http\Requests\Permissions\UpdatePermissionRequest;
+use App\Http\Requests\Admin\Permissions\MassDestroyPermissionRequest;
+use App\Http\Requests\Admin\Permissions\StorePermissionRequest;
+use App\Http\Requests\Admin\Permissions\UpdatePermissionRequest;
 use App\Models\Permission;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class PermissionsController extends Controller
-{
-	public function __construct()
-	{
+class PermissionsController extends Controller {
+	public function __construct() {
 		$this->title = ucwords(str_replace('-', ' ', request()->segment(2)));
 	}
 
@@ -23,8 +21,7 @@ class PermissionsController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index()
-	{
+	public function index() {
 		abort_if(Gate::denies('permission_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
 		if (request()->ajax()) {
@@ -57,10 +54,10 @@ class PermissionsController extends Controller
 	 * Store a newly created resource in storage.
 	 *
 	 * @param Request $request
+	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store(StorePermissionRequest $request)
-	{
+	public function store(StorePermissionRequest $request) {
 		Permission::create($request->all());
 		return redirect()->route('admin.permissions.index')->withToastSuccess('Permission Created Successfully!');
 	}
@@ -70,8 +67,7 @@ class PermissionsController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function create()
-	{
+	public function create() {
 		abort_if(Gate::denies('permission_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 		$title = $this->title;
 		return view('admin.' . request()->segment(2) . '.form', compact('title'));
@@ -81,10 +77,10 @@ class PermissionsController extends Controller
 	 * Display the specified resource.
 	 *
 	 * @param int $id
+	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show(Permission $permission)
-	{
+	public function show(Permission $permission) {
 		return \response()->json($permission);
 	}
 
@@ -92,10 +88,10 @@ class PermissionsController extends Controller
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param int $id
+	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit(Permission $permission)
-	{
+	public function edit(Permission $permission) {
 		abort_if(Gate::denies('permission_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 		$title = $this->title;
 		return view('admin.' . request()->segment(2) . '.form', compact('title', 'permission'));
@@ -105,11 +101,11 @@ class PermissionsController extends Controller
 	 * Update the specified resource in storage.
 	 *
 	 * @param Request $request
-	 * @param int $id
+	 * @param int     $id
+	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(UpdatePermissionRequest $request, Permission $permission)
-	{
+	public function update(UpdatePermissionRequest $request, Permission $permission) {
 		$permission->update($request->all());
 		return redirect()->route('admin.permissions.index')->withToastSuccess('Permission Updated Successfully!');
 	}
@@ -118,17 +114,16 @@ class PermissionsController extends Controller
 	 * Remove the specified resource from storage.
 	 *
 	 * @param int $id
+	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(Permission $permission)
-	{
+	public function destroy(Permission $permission) {
 		abort_if(Gate::denies('permission_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 		$permission->delete();
 		return \response()->json('Permission Deleted Successfully!');
 	}
 
-	public function massDestroy(MassDestroyPermissionRequest $request)
-	{
+	public function massDestroy(MassDestroyPermissionRequest $request) {
 		Permission::whereIn('id', request('ids'))->delete();
 		return \response()->json('Selected records Deleted Successfully.');
 	}
