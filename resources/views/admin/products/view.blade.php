@@ -17,61 +17,59 @@
 		<div class="col-xl-8">
 			<div class="card">
 				<div class="card-body">
-					@foreach($assignedProductOptionValues as $optionId => $productOptionValueGroup)
-						@php
-							$productOptionValueGroup
-						@endphp
-						<h2></h2>
-					@endforeach
 					<div class="table-responsive">
 						<table class="table table-hover table-striped">
 							<tbody>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','name'))}}</th>
-									<td align="center">{{ $model->name ?? '' }}</td>
+									<th>Name</th>
+									<td style="text-align: center">{{ $model->name ?? '' }}</td>
 								</tr>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','description'))}}</th>
-									<td align="center">{!! $model->description ?? '' !!}</td>
+									<th>Description</th>
+									<td style="text-align: center">{!! $model->description ?? '' !!}</td>
 								</tr>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','meta_title'))}}</th>
-									<td align="center">{{ $model->meta_title ?? '' }}</td>
+									<th>Meta Title</th>
+									<td style="text-align: center">{{ $model->meta_title ?? '' }}</td>
 								</tr>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','meta_description'))}}</th>
-									<td align="center">{{ $model->meta_description ?? '' }}</td>
+									<th>Meta Description</th>
+									<td style="text-align: center">{{ $model->meta_description ?? '' }}</td>
 								</tr>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','meta_keywords'))}}</th>
-									<td align="center">{{ $model->meta_keywords ?? '' }}</td>
+									<th>Meta Keywords</th>
+									<td style="text-align: center">{{ $model->meta_keywords ?? '' }}</td>
 								</tr>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','sku'))}}</th>
-									<td align="center">{{ $model->sku ?? '' }}</td>
+									<th>SKU</th>
+									<td style="text-align: center">{{ $model->sku ?? '' }}</td>
 								</tr>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','upc'))}}</th>
-									<td align="center">{{ $model->upc ?? '' }}</td>
+									<th>UPC</th>
+									<td style="text-align: center">{{ $model->upc ?? '' }}</td>
 								</tr>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','price'))}}</th>
-									<td align="center">{{ $model->price ?? '' }}</td>
+									<th>Price</th>
+									<td style="text-align: center">{{ $model->price ?? '' }}</td>
 								</tr>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','quantity'))}}</th>
-									<td align="center">{{ $model->quantity ?? '' }}</td>
+									<th>Discount Price</th>
+									<td style="text-align: center">{{ $model->discount_price ?? '' }}</td>
 								</tr>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','image'))}}</th>
-									<td align="center">
+									<th>Quantity</th>
+									<td style="text-align: center">{{ $model->quantity ?? '' }}</td>
+								</tr>
+								<tr>
+									<th>Image</th>
+									<td style="text-align: center">
 										<img src="{{ asset($model->image ?? 'images/placeholder.png') }}"
-											 width="80">
+											 width="80" alt="Product Main Image">
 									</td>
 								</tr>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','multiple_image'))}}</th>
-									<td align="center">
+									<th>Secondary Images</th>
+									<td style="text-align: center">
 										@if(!empty($model->secondary_images))
 											@foreach ($model->secondary_images as $index => $secondary_image)
 												<img src="{{ asset($secondary_image ?? 'images/placeholder.png') }}" width="80" alt="Secondary Image {{ $index }}">
@@ -80,16 +78,16 @@
 									</td>
 								</tr>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','min_order_quantity'))}}</th>
-									<td align="center">{{ $model->min_order_quantity ?? '' }}</td>
+									<th>Minimum Order-able Quantity</th>
+									<td style="text-align: center">{{ $model->min_order_quantity ?? '' }}</td>
 								</tr>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','subtract_stock'))}}</th>
-									<td align="center">{{ $model->subtract_stock ?? '' }}</td>
+									<th>Subtract From Stock</th>
+									<td style="text-align: center">{{ $model->subtract_stock ?? '' }}</td>
 								</tr>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','require_shipping'))}}</th>
-									<td align="center">{{ $model->require_shipping ?? '' }}</td>
+									<th>Shipping Required</th>
+									<td style="text-align: center">{{ $model->require_shipping ?? '' }}</td>
 								</tr>
 							</tbody>
 						</table>

@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use App\Enums\PermissionEnum;
-use App\Http\Requests\Product\DeleteManyProductRequest;
-use App\Http\Requests\Product\ManageProductRequest;
+use App\Http\Requests\Admin\Product\DeleteManyProductRequest;
+use App\Http\Requests\Admin\Product\ManageProductRequest;
 use App\Models\OptionValue;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -104,7 +104,13 @@ class ProductService {
 	private function manageProductsBasicData(Product|null $product, array $productData): Product {
 		$productData = $this->handleProductImagesData($productData);
 
-		return Product::updateOrCreate(["id" => $product?->id], $productData);
+		if ($product === null) {
+			return Product::create($productData);
+		}
+
+		$product->update($productData);
+
+		return $product;
 	}
 
 	private function handleProductImagesData(array $productData): array {

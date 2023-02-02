@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use App\Enums\PermissionEnum;
-use App\Http\Requests\Banner\MassDestroyBannerRequest;
-use App\Http\Requests\Banner\ManageBannerRequest;
 use App\Models\Banner;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
@@ -29,7 +27,7 @@ class BannerService {
 					$delete = '<button title="Delete" type="button" name="delete" id="' . $data['id'] . '" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
 				}
 				return $edit . $delete;
-			})->rawColumns(['selection', 'actions','image'])->make(true);
+			})->rawColumns(['selection', 'actions', 'image'])->make(true);
 	}
 
 	final public function getOptionsForDropdown(): Collection {

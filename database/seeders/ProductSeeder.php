@@ -4,8 +4,9 @@
 namespace Database\Seeders;
 
 use App\Enums\ProductOptionPriceAdjustment;
-use App\Enums\RequireShipping;
-use App\Enums\SubtractStock;
+use App\Enums\ProductPromotion;
+use App\Enums\ProductShipping;
+use App\Enums\ProductStockBehaviour;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\OptionValue;
@@ -57,24 +58,30 @@ class ProductSeeder extends Seeder {
 	private function generateProduct(Collection $brands, int $productId, string $timestamp): array {
 		$identifier = str_pad($productId, 3, "0", STR_PAD_LEFT);
 
+		$price = random_int(50 * 100, 2500 * 100) / 100;
+		$hasDiscountPrice = random_int(0, 1) === 1;
+		$discountPrice = $hasDiscountPrice ? random_int(25 * 100, $price * 100) / 100 : null;
+
 		return [
 			"id" => $productId,
 			"brand_id" => $brands->random()->id,
 			"name" => "Product - $identifier",
-			"slug" => Str::snake("Product - $identifier"),
+			"slug" => Str::slug("Product - $identifier"),
 			"description" => "Lorem ipsum dolor sit amet",
 			"meta_title" => "SEO Title $identifier",
 			"meta_description" => "SEO Description $identifier",
 			"meta_keywords" => "SEO Keyword $identifier",
 			"sku" => Str::uuid(),
 			"upc" => Str::uuid(),
-			"price" => random_int(50, 2500),
+			"price" => $price,
+			"discount_price" => $discountPrice,
 			"quantity" => random_int(0, 50),
-			"image" => null,
+			"image" => "images/product.png",
 			"secondary_images" => "[]",
 			"min_order_quantity" => random_int(1, 3),
-			"subtract_stock" => random_int(SubtractStock::NO->value, SubtractStock::YES->value),
-			"require_shipping" => random_int(RequireShipping::NO->value, RequireShipping::YES->value),
+			"subtract_stock" => random_int(ProductStockBehaviour::CONSISTENT_STOCK->value, ProductStockBehaviour::SUBTRACT_STOCK->value),
+			"require_shipping" => random_int(ProductShipping::SHIPPING_NOT_REQUIRED->value, ProductShipping::SHIPPING_REQUIRED->value),
+			"promotion_status" => random_int(ProductPromotion::NOT_IN_PROMOTION->value, ProductPromotion::IN_PROMOTION->value),
 			"created_at" => $timestamp,
 			"updated_at" => $timestamp,
 		];
@@ -113,8 +120,8 @@ class ProductSeeder extends Seeder {
 				"option_value_id" => $randomOptionValuesForThisProduct[$productOptionValueIndex]->id,
 				"product_id" => $productId,
 				"quantity" => random_int(1, 100),
-				"subtract_stock" => random_int(SubtractStock::NO->value, SubtractStock::YES->value),
-				"price_difference" => random_int(0, 50),
+				"subtract_stock" => random_int(ProductStockBehaviour::CONSISTENT_STOCK->value, ProductStockBehaviour::SUBTRACT_STOCK->value),
+				"price_difference" => random_int(0 * 100, 50 * 100) / 100,
 				"price_adjustment" => random_int(ProductOptionPriceAdjustment::NEGATIVE->value, ProductOptionPriceAdjustment::POSITIVE->value),
 				"created_at" => $timestamp,
 				"updated_at" => $timestamp,

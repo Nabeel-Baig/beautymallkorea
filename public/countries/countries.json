@@ -1,1022 +1,1277 @@
 [
 	{
-		"country-code": "AF",
-		"country-name": "Afghanistan"
+		"countryFlag": "countries/images/af.svg",
+		"countryCode": "af",
+		"countryName": "Afghanistan"
 	},
 	{
-		"country-code": "AL",
-		"country-name": "Albania"
+		"countryFlag": "countries/images/al.svg",
+		"countryCode": "al",
+		"countryName": "Albania"
 	},
 	{
-		"country-code": "DZ",
-		"country-name": "Algeria"
+		"countryFlag": "countries/images/dz.svg",
+		"countryCode": "dz",
+		"countryName": "Algeria"
 	},
 	{
-		"country-code": "AS",
-		"country-name": "American Samoa"
+		"countryFlag": "countries/images/as.svg",
+		"countryCode": "as",
+		"countryName": "American Samoa"
 	},
 	{
-		"country-code": "AD",
-		"country-name": "Andorra"
+		"countryFlag": "countries/images/ad.svg",
+		"countryCode": "ad",
+		"countryName": "Andorra"
 	},
 	{
-		"country-code": "AO",
-		"country-name": "Angola"
+		"countryFlag": "countries/images/ao.svg",
+		"countryCode": "ao",
+		"countryName": "Angola"
 	},
 	{
-		"country-code": "AI",
-		"country-name": "Anguilla"
+		"countryFlag": "countries/images/ai.svg",
+		"countryCode": "ai",
+		"countryName": "Anguilla"
 	},
 	{
-		"country-code": "AQ",
-		"country-name": "Antarctica"
+		"countryFlag": "countries/images/aq.svg",
+		"countryCode": "aq",
+		"countryName": "Antarctica"
 	},
 	{
-		"country-code": "AG",
-		"country-name": "Antigua and Barbuda"
+		"countryFlag": "countries/images/ag.svg",
+		"countryCode": "ag",
+		"countryName": "Antigua and Barbuda"
 	},
 	{
-		"country-code": "AR",
-		"country-name": "Argentina"
+		"countryFlag": "countries/images/ar.svg",
+		"countryCode": "ar",
+		"countryName": "Argentina"
 	},
 	{
-		"country-code": "AM",
-		"country-name": "Armenia"
+		"countryFlag": "countries/images/am.svg",
+		"countryCode": "am",
+		"countryName": "Armenia"
 	},
 	{
-		"country-code": "AW",
-		"country-name": "Aruba"
+		"countryFlag": "countries/images/aw.svg",
+		"countryCode": "aw",
+		"countryName": "Aruba"
 	},
 	{
-		"country-code": "AU",
-		"country-name": "Australia"
+		"countryFlag": "countries/images/au.svg",
+		"countryCode": "au",
+		"countryName": "Australia"
 	},
 	{
-		"country-code": "AT",
-		"country-name": "Austria"
+		"countryFlag": "countries/images/at.svg",
+		"countryCode": "at",
+		"countryName": "Austria"
 	},
 	{
-		"country-code": "AZ",
-		"country-name": "Azerbaijan"
+		"countryFlag": "countries/images/az.svg",
+		"countryCode": "az",
+		"countryName": "Azerbaijan"
 	},
 	{
-		"country-code": "BS",
-		"country-name": "Bahamas"
+		"countryFlag": "countries/images/bs.svg",
+		"countryCode": "bs",
+		"countryName": "Bahamas"
 	},
 	{
-		"country-code": "BH",
-		"country-name": "Bahrain"
+		"countryFlag": "countries/images/bh.svg",
+		"countryCode": "bh",
+		"countryName": "Bahrain"
 	},
 	{
-		"country-code": "BD",
-		"country-name": "Bangladesh"
+		"countryFlag": "countries/images/bd.svg",
+		"countryCode": "bd",
+		"countryName": "Bangladesh"
 	},
 	{
-		"country-code": "BB",
-		"country-name": "Barbados"
+		"countryFlag": "countries/images/bb.svg",
+		"countryCode": "bb",
+		"countryName": "Barbados"
 	},
 	{
-		"country-code": "BY",
-		"country-name": "Belarus"
+		"countryFlag": "countries/images/by.svg",
+		"countryCode": "by",
+		"countryName": "Belarus"
 	},
 	{
-		"country-code": "BE",
-		"country-name": "Belgium"
+		"countryFlag": "countries/images/be.svg",
+		"countryCode": "be",
+		"countryName": "Belgium"
 	},
 	{
-		"country-code": "BZ",
-		"country-name": "Belize"
+		"countryFlag": "countries/images/bz.svg",
+		"countryCode": "bz",
+		"countryName": "Belize"
 	},
 	{
-		"country-code": "BJ",
-		"country-name": "Benin"
+		"countryFlag": "countries/images/bj.svg",
+		"countryCode": "bj",
+		"countryName": "Benin"
 	},
 	{
-		"country-code": "BM",
-		"country-name": "Bermuda"
+		"countryFlag": "countries/images/bm.svg",
+		"countryCode": "bm",
+		"countryName": "Bermuda"
 	},
 	{
-		"country-code": "BT",
-		"country-name": "Bhutan"
+		"countryFlag": "countries/images/bt.svg",
+		"countryCode": "bt",
+		"countryName": "Bhutan"
 	},
 	{
-		"country-code": "BO",
-		"country-name": "Bolivia, Plurinational State of"
+		"countryFlag": "countries/images/bo.svg",
+		"countryCode": "bo",
+		"countryName": "Bolivia"
 	},
 	{
-		"country-code": "BA",
-		"country-name": "Bosnia and Herzegovina"
+		"countryFlag": "countries/images/ba.svg",
+		"countryCode": "ba",
+		"countryName": "Bosnia and Herzegovina"
 	},
 	{
-		"country-code": "BW",
-		"country-name": "Botswana"
+		"countryFlag": "countries/images/bw.svg",
+		"countryCode": "bw",
+		"countryName": "Botswana"
 	},
 	{
-		"country-code": "BV",
-		"country-name": "Bouvet Island"
+		"countryFlag": "countries/images/bv.svg",
+		"countryCode": "bv",
+		"countryName": "Bouvet Island"
 	},
 	{
-		"country-code": "BR",
-		"country-name": "Brazil"
+		"countryFlag": "countries/images/br.svg",
+		"countryCode": "br",
+		"countryName": "Brazil"
 	},
 	{
-		"country-code": "IO",
-		"country-name": "British Indian Ocean Territory"
+		"countryFlag": "countries/images/io.svg",
+		"countryCode": "io",
+		"countryName": "British Indian Ocean Territory"
 	},
 	{
-		"country-code": "BN",
-		"country-name": "Brunei Darussalam"
+		"countryFlag": "countries/images/bn.svg",
+		"countryCode": "bn",
+		"countryName": "Brunei Darussalam"
 	},
 	{
-		"country-code": "BG",
-		"country-name": "Bulgaria"
+		"countryFlag": "countries/images/bg.svg",
+		"countryCode": "bg",
+		"countryName": "Bulgaria"
 	},
 	{
-		"country-code": "BF",
-		"country-name": "Burkina Faso"
+		"countryFlag": "countries/images/bf.svg",
+		"countryCode": "bf",
+		"countryName": "Burkina Faso"
 	},
 	{
-		"country-code": "BI",
-		"country-name": "Burundi"
+		"countryFlag": "countries/images/bi.svg",
+		"countryCode": "bi",
+		"countryName": "Burundi"
 	},
 	{
-		"country-code": "KH",
-		"country-name": "Cambodia"
+		"countryFlag": "countries/images/kh.svg",
+		"countryCode": "kh",
+		"countryName": "Cambodia"
 	},
 	{
-		"country-code": "CM",
-		"country-name": "Cameroon"
+		"countryFlag": "countries/images/cm.svg",
+		"countryCode": "cm",
+		"countryName": "Cameroon"
 	},
 	{
-		"country-code": "CA",
-		"country-name": "Canada"
+		"countryFlag": "countries/images/ca.svg",
+		"countryCode": "ca",
+		"countryName": "Canada"
 	},
 	{
-		"country-code": "CV",
-		"country-name": "Cape Verde"
+		"countryFlag": "countries/images/cv.svg",
+		"countryCode": "cv",
+		"countryName": "Cape Verde"
 	},
 	{
-		"country-code": "BQ",
-		"country-name": "Caribbean Netherlands"
+		"countryFlag": "countries/images/bq.svg",
+		"countryCode": "bq",
+		"countryName": "Caribbean Netherlands"
 	},
 	{
-		"country-code": "KY",
-		"country-name": "Cayman Islands"
+		"countryFlag": "countries/images/ky.svg",
+		"countryCode": "ky",
+		"countryName": "Cayman Islands"
 	},
 	{
-		"country-code": "CF",
-		"country-name": "Central African Republic"
+		"countryFlag": "countries/images/cf.svg",
+		"countryCode": "cf",
+		"countryName": "Central African Republic"
 	},
 	{
-		"country-code": "TD",
-		"country-name": "Chad"
+		"countryFlag": "countries/images/td.svg",
+		"countryCode": "td",
+		"countryName": "Chad"
 	},
 	{
-		"country-code": "CL",
-		"country-name": "Chile"
+		"countryFlag": "countries/images/cl.svg",
+		"countryCode": "cl",
+		"countryName": "Chile"
 	},
 	{
-		"country-code": "CN",
-		"country-name": "China (People's Republic of China)"
+		"countryFlag": "countries/images/cn.svg",
+		"countryCode": "cn",
+		"countryName": "China (People's Republic of China)"
 	},
 	{
-		"country-code": "CX",
-		"country-name": "Christmas Island"
+		"countryFlag": "countries/images/cx.svg",
+		"countryCode": "cx",
+		"countryName": "Christmas Island"
 	},
 	{
-		"country-code": "CC",
-		"country-name": "Cocos (Keeling) Islands"
+		"countryFlag": "countries/images/cc.svg",
+		"countryCode": "cc",
+		"countryName": "Cocos (Keeling) Islands"
 	},
 	{
-		"country-code": "CO",
-		"country-name": "Colombia"
+		"countryFlag": "countries/images/co.svg",
+		"countryCode": "co",
+		"countryName": "Colombia"
 	},
 	{
-		"country-code": "KM",
-		"country-name": "Comoros"
+		"countryFlag": "countries/images/km.svg",
+		"countryCode": "km",
+		"countryName": "Comoros"
 	},
 	{
-		"country-code": "CD",
-		"country-name": "Congo, the Democratic Republic of the"
+		"countryFlag": "countries/images/cd.svg",
+		"countryCode": "cd",
+		"countryName": "The Democratic Republic of the Congo"
 	},
 	{
-		"country-code": "CK",
-		"country-name": "Cook Islands"
+		"countryFlag": "countries/images/ck.svg",
+		"countryCode": "ck",
+		"countryName": "Cook Islands"
 	},
 	{
-		"country-code": "CR",
-		"country-name": "Costa Rica"
+		"countryFlag": "countries/images/cr.svg",
+		"countryCode": "cr",
+		"countryName": "Costa Rica"
 	},
 	{
-		"country-code": "HR",
-		"country-name": "Croatia"
+		"countryFlag": "countries/images/hr.svg",
+		"countryCode": "hr",
+		"countryName": "Croatia"
 	},
 	{
-		"country-code": "CU",
-		"country-name": "Cuba"
+		"countryFlag": "countries/images/cu.svg",
+		"countryCode": "cu",
+		"countryName": "Cuba"
 	},
 	{
-		"country-code": "CW",
-		"country-name": "Curaçao"
+		"countryFlag": "countries/images/cw.svg",
+		"countryCode": "cw",
+		"countryName": "Curaçao"
 	},
 	{
-		"country-code": "CY",
-		"country-name": "Cyprus"
+		"countryFlag": "countries/images/cy.svg",
+		"countryCode": "cy",
+		"countryName": "Cyprus"
 	},
 	{
-		"country-code": "CZ",
-		"country-name": "Czech Republic"
+		"countryFlag": "countries/images/cz.svg",
+		"countryCode": "cz",
+		"countryName": "Czech Republic"
 	},
 	{
-		"country-code": "DK",
-		"country-name": "Denmark"
+		"countryFlag": "countries/images/dk.svg",
+		"countryCode": "dk",
+		"countryName": "Denmark"
 	},
 	{
-		"country-code": "DJ",
-		"country-name": "Djibouti"
+		"countryFlag": "countries/images/dj.svg",
+		"countryCode": "dj",
+		"countryName": "Djibouti"
 	},
 	{
-		"country-code": "DM",
-		"country-name": "Dominica"
+		"countryFlag": "countries/images/dm.svg",
+		"countryCode": "dm",
+		"countryName": "Dominica"
 	},
 	{
-		"country-code": "DO",
-		"country-name": "Dominican Republic"
+		"countryFlag": "countries/images/do.svg",
+		"countryCode": "do",
+		"countryName": "Dominican Republic"
 	},
 	{
-		"country-code": "EC",
-		"country-name": "Ecuador"
+		"countryFlag": "countries/images/ec.svg",
+		"countryCode": "ec",
+		"countryName": "Ecuador"
 	},
 	{
-		"country-code": "EG",
-		"country-name": "Egypt"
+		"countryFlag": "countries/images/eg.svg",
+		"countryCode": "eg",
+		"countryName": "Egypt"
 	},
 	{
-		"country-code": "SV",
-		"country-name": "El Salvador"
+		"countryFlag": "countries/images/sv.svg",
+		"countryCode": "sv",
+		"countryName": "El Salvador"
 	},
 	{
-		"country-code": "GB-ENG",
-		"country-name": "England"
+		"countryFlag": "countries/images/gb-eng.svg",
+		"countryCode": "gb-eng",
+		"countryName": "England"
 	},
 	{
-		"country-code": "GQ",
-		"country-name": "Equatorial Guinea"
+		"countryFlag": "countries/images/gq.svg",
+		"countryCode": "gq",
+		"countryName": "Equatorial Guinea"
 	},
 	{
-		"country-code": "ER",
-		"country-name": "Eritrea"
+		"countryFlag": "countries/images/er.svg",
+		"countryCode": "er",
+		"countryName": "Eritrea"
 	},
 	{
-		"country-code": "EE",
-		"country-name": "Estonia"
+		"countryFlag": "countries/images/ee.svg",
+		"countryCode": "ee",
+		"countryName": "Estonia"
 	},
 	{
-		"country-code": "ET",
-		"country-name": "Ethiopia"
+		"countryFlag": "countries/images/et.svg",
+		"countryCode": "et",
+		"countryName": "Ethiopia"
 	},
 	{
-		"country-code": "EU",
-		"country-name": "Europe"
+		"countryFlag": "countries/images/eu.svg",
+		"countryCode": "eu",
+		"countryName": "Europe"
 	},
 	{
-		"country-code": "FK",
-		"country-name": "Falkland Islands (Malvinas)"
+		"countryFlag": "countries/images/fk.svg",
+		"countryCode": "fk",
+		"countryName": "Falkland Islands (Malvinas)"
 	},
 	{
-		"country-code": "FO",
-		"country-name": "Faroe Islands"
+		"countryFlag": "countries/images/fo.svg",
+		"countryCode": "fo",
+		"countryName": "Faroe Islands"
 	},
 	{
-		"country-code": "FJ",
-		"country-name": "Fiji"
+		"countryFlag": "countries/images/fj.svg",
+		"countryCode": "fj",
+		"countryName": "Fiji"
 	},
 	{
-		"country-code": "FI",
-		"country-name": "Finland"
+		"countryFlag": "countries/images/fi.svg",
+		"countryCode": "fi",
+		"countryName": "Finland"
 	},
 	{
-		"country-code": "FR",
-		"country-name": "France"
+		"countryFlag": "countries/images/fr.svg",
+		"countryCode": "fr",
+		"countryName": "France"
 	},
 	{
-		"country-code": "GF",
-		"country-name": "French Guiana"
+		"countryFlag": "countries/images/gf.svg",
+		"countryCode": "gf",
+		"countryName": "French Guiana"
 	},
 	{
-		"country-code": "PF",
-		"country-name": "French Polynesia"
+		"countryFlag": "countries/images/pf.svg",
+		"countryCode": "pf",
+		"countryName": "French Polynesia"
 	},
 	{
-		"country-code": "TF",
-		"country-name": "French Southern Territories"
+		"countryFlag": "countries/images/tf.svg",
+		"countryCode": "tf",
+		"countryName": "French Southern Territories"
 	},
 	{
-		"country-code": "GA",
-		"country-name": "Gabon"
+		"countryFlag": "countries/images/ga.svg",
+		"countryCode": "ga",
+		"countryName": "Gabon"
 	},
 	{
-		"country-code": "GM",
-		"country-name": "Gambia"
+		"countryFlag": "countries/images/gm.svg",
+		"countryCode": "gm",
+		"countryName": "Gambia"
 	},
 	{
-		"country-code": "GE",
-		"country-name": "Georgia"
+		"countryFlag": "countries/images/ge.svg",
+		"countryCode": "ge",
+		"countryName": "Georgia"
 	},
 	{
-		"country-code": "DE",
-		"country-name": "Germany"
+		"countryFlag": "countries/images/de.svg",
+		"countryCode": "de",
+		"countryName": "Germany"
 	},
 	{
-		"country-code": "GH",
-		"country-name": "Ghana"
+		"countryFlag": "countries/images/gh.svg",
+		"countryCode": "gh",
+		"countryName": "Ghana"
 	},
 	{
-		"country-code": "GI",
-		"country-name": "Gibraltar"
+		"countryFlag": "countries/images/gi.svg",
+		"countryCode": "gi",
+		"countryName": "Gibraltar"
 	},
 	{
-		"country-code": "GR",
-		"country-name": "Greece"
+		"countryFlag": "countries/images/gr.svg",
+		"countryCode": "gr",
+		"countryName": "Greece"
 	},
 	{
-		"country-code": "GL",
-		"country-name": "Greenland"
+		"countryFlag": "countries/images/gl.svg",
+		"countryCode": "gl",
+		"countryName": "Greenland"
 	},
 	{
-		"country-code": "GD",
-		"country-name": "Grenada"
+		"countryFlag": "countries/images/gd.svg",
+		"countryCode": "gd",
+		"countryName": "Grenada"
 	},
 	{
-		"country-code": "GP",
-		"country-name": "Guadeloupe"
+		"countryFlag": "countries/images/gp.svg",
+		"countryCode": "gp",
+		"countryName": "Guadeloupe"
 	},
 	{
-		"country-code": "GU",
-		"country-name": "Guam"
+		"countryFlag": "countries/images/gu.svg",
+		"countryCode": "gu",
+		"countryName": "Guam"
 	},
 	{
-		"country-code": "GT",
-		"country-name": "Guatemala"
+		"countryFlag": "countries/images/gt.svg",
+		"countryCode": "gt",
+		"countryName": "Guatemala"
 	},
 	{
-		"country-code": "GG",
-		"country-name": "Guernsey"
+		"countryFlag": "countries/images/gg.svg",
+		"countryCode": "gg",
+		"countryName": "Guernsey"
 	},
 	{
-		"country-code": "GN",
-		"country-name": "Guinea"
+		"countryFlag": "countries/images/gn.svg",
+		"countryCode": "gn",
+		"countryName": "Guinea"
 	},
 	{
-		"country-code": "GW",
-		"country-name": "Guinea-Bissau"
+		"countryFlag": "countries/images/gw.svg",
+		"countryCode": "gw",
+		"countryName": "Guinea-Bissau"
 	},
 	{
-		"country-code": "GY",
-		"country-name": "Guyana"
+		"countryFlag": "countries/images/gy.svg",
+		"countryCode": "gy",
+		"countryName": "Guyana"
 	},
 	{
-		"country-code": "HT",
-		"country-name": "Haiti"
+		"countryFlag": "countries/images/ht.svg",
+		"countryCode": "ht",
+		"countryName": "Haiti"
 	},
 	{
-		"country-code": "HM",
-		"country-name": "Heard Island and McDonald Islands"
+		"countryFlag": "countries/images/hm.svg",
+		"countryCode": "hm",
+		"countryName": "Heard Island and McDonald Islands"
 	},
 	{
-		"country-code": "VA",
-		"country-name": "Holy See (Vatican City State)"
+		"countryFlag": "countries/images/va.svg",
+		"countryCode": "va",
+		"countryName": "Holy City (Vatican City State)"
 	},
 	{
-		"country-code": "HN",
-		"country-name": "Honduras"
+		"countryFlag": "countries/images/hn.svg",
+		"countryCode": "hn",
+		"countryName": "Honduras"
 	},
 	{
-		"country-code": "HK",
-		"country-name": "Hong Kong"
+		"countryFlag": "countries/images/hk.svg",
+		"countryCode": "hk",
+		"countryName": "Hong Kong"
 	},
 	{
-		"country-code": "HU",
-		"country-name": "Hungary"
+		"countryFlag": "countries/images/hu.svg",
+		"countryCode": "hu",
+		"countryName": "Hungary"
 	},
 	{
-		"country-code": "IS",
-		"country-name": "Iceland"
+		"countryFlag": "countries/images/is.svg",
+		"countryCode": "is",
+		"countryName": "Iceland"
 	},
 	{
-		"country-code": "IN",
-		"country-name": "India"
+		"countryFlag": "countries/images/in.svg",
+		"countryCode": "in",
+		"countryName": "India"
 	},
 	{
-		"country-code": "ID",
-		"country-name": "Indonesia"
+		"countryFlag": "countries/images/id.svg",
+		"countryCode": "id",
+		"countryName": "Indonesia"
 	},
 	{
-		"country-code": "IR",
-		"country-name": "Iran, Islamic Republic of"
+		"countryFlag": "countries/images/ir.svg",
+		"countryCode": "ir",
+		"countryName": "Islamic Republic of Iran"
 	},
 	{
-		"country-code": "IQ",
-		"country-name": "Iraq"
+		"countryFlag": "countries/images/iq.svg",
+		"countryCode": "iq",
+		"countryName": "Iraq"
 	},
 	{
-		"country-code": "IE",
-		"country-name": "Ireland"
+		"countryFlag": "countries/images/ie.svg",
+		"countryCode": "ie",
+		"countryName": "Ireland"
 	},
 	{
-		"country-code": "IM",
-		"country-name": "Isle of Man"
+		"countryFlag": "countries/images/im.svg",
+		"countryCode": "im",
+		"countryName": "Isle of Man"
 	},
 	{
-		"country-code": "IL",
-		"country-name": "Israel"
+		"countryFlag": "countries/images/il.svg",
+		"countryCode": "il",
+		"countryName": "Israel"
 	},
 	{
-		"country-code": "IT",
-		"country-name": "Italy"
+		"countryFlag": "countries/images/it.svg",
+		"countryCode": "it",
+		"countryName": "Italy"
 	},
 	{
-		"country-code": "CI",
-		"country-name": "Ivory Coast"
+		"countryFlag": "countries/images/ci.svg",
+		"countryCode": "ci",
+		"countryName": "Ivory Coast"
 	},
 	{
-		"country-code": "JM",
-		"country-name": "Jamaica"
+		"countryFlag": "countries/images/jm.svg",
+		"countryCode": "jm",
+		"countryName": "Jamaica"
 	},
 	{
-		"country-code": "JP",
-		"country-name": "Japan"
+		"countryFlag": "countries/images/jp.svg",
+		"countryCode": "jp",
+		"countryName": "Japan"
 	},
 	{
-		"country-code": "JE",
-		"country-name": "Jersey"
+		"countryFlag": "countries/images/je.svg",
+		"countryCode": "je",
+		"countryName": "Jersey"
 	},
 	{
-		"country-code": "JO",
-		"country-name": "Jordan"
+		"countryFlag": "countries/images/jo.svg",
+		"countryCode": "jo",
+		"countryName": "Jordan"
 	},
 	{
-		"country-code": "KZ",
-		"country-name": "Kazakhstan"
+		"countryFlag": "countries/images/kz.svg",
+		"countryCode": "kz",
+		"countryName": "Kazakhstan"
 	},
 	{
-		"country-code": "KE",
-		"country-name": "Kenya"
+		"countryFlag": "countries/images/ke.svg",
+		"countryCode": "ke",
+		"countryName": "Kenya"
 	},
 	{
-		"country-code": "KI",
-		"country-name": "Kiribati"
+		"countryFlag": "countries/images/ki.svg",
+		"countryCode": "ki",
+		"countryName": "Kiribati"
 	},
 	{
-		"country-code": "KP",
-		"country-name": "Korea, Democratic People's Republic of"
+		"countryFlag": "countries/images/kp.svg",
+		"countryCode": "kp",
+		"countryName": "Democratic People's Republic of Korea"
 	},
 	{
-		"country-code": "KR",
-		"country-name": "Korea, Republic of"
+		"countryFlag": "countries/images/kr.svg",
+		"countryCode": "kr",
+		"countryName": "Republic of Korea"
 	},
 	{
-		"country-code": "XK",
-		"country-name": "Kosovo"
+		"countryFlag": "countries/images/xk.svg",
+		"countryCode": "xk",
+		"countryName": "Kosovo"
 	},
 	{
-		"country-code": "KW",
-		"country-name": "Kuwait"
+		"countryFlag": "countries/images/kw.svg",
+		"countryCode": "kw",
+		"countryName": "Kuwait"
 	},
 	{
-		"country-code": "KG",
-		"country-name": "Kyrgyzstan"
+		"countryFlag": "countries/images/kg.svg",
+		"countryCode": "kg",
+		"countryName": "Kyrgyzstan"
 	},
 	{
-		"country-code": "LA",
-		"country-name": "Laos (Lao People's Democratic Republic)"
+		"countryFlag": "countries/images/la.svg",
+		"countryCode": "la",
+		"countryName": "Laos (Lao People's Democratic Republic)"
 	},
 	{
-		"country-code": "LV",
-		"country-name": "Latvia"
+		"countryFlag": "countries/images/lv.svg",
+		"countryCode": "lv",
+		"countryName": "Latvia"
 	},
 	{
-		"country-code": "LB",
-		"country-name": "Lebanon"
+		"countryFlag": "countries/images/lb.svg",
+		"countryCode": "lb",
+		"countryName": "Lebanon"
 	},
 	{
-		"country-code": "LS",
-		"country-name": "Lesotho"
+		"countryFlag": "countries/images/ls.svg",
+		"countryCode": "ls",
+		"countryName": "Lesotho"
 	},
 	{
-		"country-code": "LR",
-		"country-name": "Liberia"
+		"countryFlag": "countries/images/lr.svg",
+		"countryCode": "lr",
+		"countryName": "Liberia"
 	},
 	{
-		"country-code": "LY",
-		"country-name": "Libya"
+		"countryFlag": "countries/images/ly.svg",
+		"countryCode": "ly",
+		"countryName": "Libya"
 	},
 	{
-		"country-code": "LI",
-		"country-name": "Liechtenstein"
+		"countryFlag": "countries/images/li.svg",
+		"countryCode": "li",
+		"countryName": "Liechtenstein"
 	},
 	{
-		"country-code": "LT",
-		"country-name": "Lithuania"
+		"countryFlag": "countries/images/lt.svg",
+		"countryCode": "lt",
+		"countryName": "Lithuania"
 	},
 	{
-		"country-code": "LU",
-		"country-name": "Luxembourg"
+		"countryFlag": "countries/images/lu.svg",
+		"countryCode": "lu",
+		"countryName": "Luxembourg"
 	},
 	{
-		"country-code": "MO",
-		"country-name": "Macao"
+		"countryFlag": "countries/images/mo.svg",
+		"countryCode": "mo",
+		"countryName": "Macao"
 	},
 	{
-		"country-code": "MG",
-		"country-name": "Madagascar"
+		"countryFlag": "countries/images/mg.svg",
+		"countryCode": "mg",
+		"countryName": "Madagascar"
 	},
 	{
-		"country-code": "MW",
-		"country-name": "Malawi"
+		"countryFlag": "countries/images/mw.svg",
+		"countryCode": "mw",
+		"countryName": "Malawi"
 	},
 	{
-		"country-code": "MY",
-		"country-name": "Malaysia"
+		"countryFlag": "countries/images/my.svg",
+		"countryCode": "my",
+		"countryName": "Malaysia"
 	},
 	{
-		"country-code": "MV",
-		"country-name": "Maldives"
+		"countryFlag": "countries/images/mv.svg",
+		"countryCode": "mv",
+		"countryName": "Maldives"
 	},
 	{
-		"country-code": "ML",
-		"country-name": "Mali"
+		"countryFlag": "countries/images/ml.svg",
+		"countryCode": "ml",
+		"countryName": "Mali"
 	},
 	{
-		"country-code": "MT",
-		"country-name": "Malta"
+		"countryFlag": "countries/images/mt.svg",
+		"countryCode": "mt",
+		"countryName": "Malta"
 	},
 	{
-		"country-code": "MH",
-		"country-name": "Marshall Islands"
+		"countryFlag": "countries/images/mh.svg",
+		"countryCode": "mh",
+		"countryName": "Marshall Islands"
 	},
 	{
-		"country-code": "MQ",
-		"country-name": "Martinique"
+		"countryFlag": "countries/images/mq.svg",
+		"countryCode": "mq",
+		"countryName": "Martinique"
 	},
 	{
-		"country-code": "MR",
-		"country-name": "Mauritania"
+		"countryFlag": "countries/images/mr.svg",
+		"countryCode": "mr",
+		"countryName": "Mauritania"
 	},
 	{
-		"country-code": "MU",
-		"country-name": "Mauritius"
+		"countryFlag": "countries/images/mu.svg",
+		"countryCode": "mu",
+		"countryName": "Mauritius"
 	},
 	{
-		"country-code": "YT",
-		"country-name": "Mayotte"
+		"countryFlag": "countries/images/yt.svg",
+		"countryCode": "yt",
+		"countryName": "Mayotte"
 	},
 	{
-		"country-code": "MX",
-		"country-name": "Mexico"
+		"countryFlag": "countries/images/mx.svg",
+		"countryCode": "mx",
+		"countryName": "Mexico"
 	},
 	{
-		"country-code": "FM",
-		"country-name": "Micronesia, Federated States of"
+		"countryFlag": "countries/images/fm.svg",
+		"countryCode": "fm",
+		"countryName": "Federated States of Micronesia"
 	},
 	{
-		"country-code": "MD",
-		"country-name": "Moldova, Republic of"
+		"countryFlag": "countries/images/md.svg",
+		"countryCode": "md",
+		"countryName": "Republic of Moldova"
 	},
 	{
-		"country-code": "MC",
-		"country-name": "Monaco"
+		"countryFlag": "countries/images/mc.svg",
+		"countryCode": "mc",
+		"countryName": "Monaco"
 	},
 	{
-		"country-code": "MN",
-		"country-name": "Mongolia"
+		"countryFlag": "countries/images/mn.svg",
+		"countryCode": "mn",
+		"countryName": "Mongolia"
 	},
 	{
-		"country-code": "ME",
-		"country-name": "Montenegro"
+		"countryFlag": "countries/images/me.svg",
+		"countryCode": "me",
+		"countryName": "Montenegro"
 	},
 	{
-		"country-code": "MS",
-		"country-name": "Montserrat"
+		"countryFlag": "countries/images/ms.svg",
+		"countryCode": "ms",
+		"countryName": "Montserrat"
 	},
 	{
-		"country-code": "MA",
-		"country-name": "Morocco"
+		"countryFlag": "countries/images/ma.svg",
+		"countryCode": "ma",
+		"countryName": "Morocco"
 	},
 	{
-		"country-code": "MZ",
-		"country-name": "Mozambique"
+		"countryFlag": "countries/images/mz.svg",
+		"countryCode": "mz",
+		"countryName": "Mozambique"
 	},
 	{
-		"country-code": "MM",
-		"country-name": "Myanmar"
+		"countryFlag": "countries/images/mm.svg",
+		"countryCode": "mm",
+		"countryName": "Myanmar"
 	},
 	{
-		"country-code": "NA",
-		"country-name": "Namibia"
+		"countryFlag": "countries/images/na.svg",
+		"countryCode": "na",
+		"countryName": "Namibia"
 	},
 	{
-		"country-code": "NR",
-		"country-name": "Nauru"
+		"countryFlag": "countries/images/nr.svg",
+		"countryCode": "nr",
+		"countryName": "Nauru"
 	},
 	{
-		"country-code": "NP",
-		"country-name": "Nepal"
+		"countryFlag": "countries/images/np.svg",
+		"countryCode": "np",
+		"countryName": "Nepal"
 	},
 	{
-		"country-code": "NL",
-		"country-name": "Netherlands"
+		"countryFlag": "countries/images/nl.svg",
+		"countryCode": "nl",
+		"countryName": "Netherlands"
 	},
 	{
-		"country-code": "NC",
-		"country-name": "New Caledonia"
+		"countryFlag": "countries/images/nc.svg",
+		"countryCode": "nc",
+		"countryName": "New Caledonia"
 	},
 	{
-		"country-code": "NZ",
-		"country-name": "New Zealand"
+		"countryFlag": "countries/images/nz.svg",
+		"countryCode": "nz",
+		"countryName": "New Zealand"
 	},
 	{
-		"country-code": "NI",
-		"country-name": "Nicaragua"
+		"countryFlag": "countries/images/ni.svg",
+		"countryCode": "ni",
+		"countryName": "Nicaragua"
 	},
 	{
-		"country-code": "NE",
-		"country-name": "Niger"
+		"countryFlag": "countries/images/ne.svg",
+		"countryCode": "ne",
+		"countryName": "Niger"
 	},
 	{
-		"country-code": "NG",
-		"country-name": "Nigeria"
+		"countryFlag": "countries/images/ng.svg",
+		"countryCode": "ng",
+		"countryName": "Nigeria"
 	},
 	{
-		"country-code": "NU",
-		"country-name": "Niue"
+		"countryFlag": "countries/images/nu.svg",
+		"countryCode": "nu",
+		"countryName": "Niue"
 	},
 	{
-		"country-code": "NF",
-		"country-name": "Norfolk Island"
+		"countryFlag": "countries/images/nf.svg",
+		"countryCode": "nf",
+		"countryName": "Norfolk Island"
 	},
 	{
-		"country-code": "MK",
-		"country-name": "North Macedonia"
+		"countryFlag": "countries/images/mk.svg",
+		"countryCode": "mk",
+		"countryName": "North Macedonia"
 	},
 	{
-		"country-code": "GB-NIR",
-		"country-name": "Northern Ireland"
+		"countryFlag": "countries/images/gb-nir.svg",
+		"countryCode": "gb-nir",
+		"countryName": "Northern Ireland"
 	},
 	{
-		"country-code": "MP",
-		"country-name": "Northern Mariana Islands"
+		"countryFlag": "countries/images/mp.svg",
+		"countryCode": "mp",
+		"countryName": "Northern Mariana Islands"
 	},
 	{
-		"country-code": "NO",
-		"country-name": "Norway"
+		"countryFlag": "countries/images/no.svg",
+		"countryCode": "no",
+		"countryName": "Norway"
 	},
 	{
-		"country-code": "OM",
-		"country-name": "Oman"
+		"countryFlag": "countries/images/om.svg",
+		"countryCode": "om",
+		"countryName": "Oman"
 	},
 	{
-		"country-code": "PK",
-		"country-name": "Pakistan"
+		"countryFlag": "countries/images/pk.svg",
+		"countryCode": "pk",
+		"countryName": "Pakistan"
 	},
 	{
-		"country-code": "PW",
-		"country-name": "Palau"
+		"countryFlag": "countries/images/pw.svg",
+		"countryCode": "pw",
+		"countryName": "Palau"
 	},
 	{
-		"country-code": "PS",
-		"country-name": "Palestine"
+		"countryFlag": "countries/images/ps.svg",
+		"countryCode": "ps",
+		"countryName": "Palestine"
 	},
 	{
-		"country-code": "PA",
-		"country-name": "Panama"
+		"countryFlag": "countries/images/pa.svg",
+		"countryCode": "pa",
+		"countryName": "Panama"
 	},
 	{
-		"country-code": "PG",
-		"country-name": "Papua New Guinea"
+		"countryFlag": "countries/images/pg.svg",
+		"countryCode": "pg",
+		"countryName": "Papua New Guinea"
 	},
 	{
-		"country-code": "PY",
-		"country-name": "Paraguay"
+		"countryFlag": "countries/images/py.svg",
+		"countryCode": "py",
+		"countryName": "Paraguay"
 	},
 	{
-		"country-code": "PE",
-		"country-name": "Peru"
+		"countryFlag": "countries/images/pe.svg",
+		"countryCode": "pe",
+		"countryName": "Peru"
 	},
 	{
-		"country-code": "PH",
-		"country-name": "Philippines"
+		"countryFlag": "countries/images/ph.svg",
+		"countryCode": "ph",
+		"countryName": "Philippines"
 	},
 	{
-		"country-code": "PN",
-		"country-name": "Pitcairn"
+		"countryFlag": "countries/images/pn.svg",
+		"countryCode": "pn",
+		"countryName": "Pitcairn"
 	},
 	{
-		"country-code": "PL",
-		"country-name": "Poland"
+		"countryFlag": "countries/images/pl.svg",
+		"countryCode": "pl",
+		"countryName": "Poland"
 	},
 	{
-		"country-code": "PT",
-		"country-name": "Portugal"
+		"countryFlag": "countries/images/pt.svg",
+		"countryCode": "pt",
+		"countryName": "Portugal"
 	},
 	{
-		"country-code": "PR",
-		"country-name": "Puerto Rico"
+		"countryFlag": "countries/images/pr.svg",
+		"countryCode": "pr",
+		"countryName": "Puerto Rico"
 	},
 	{
-		"country-code": "QA",
-		"country-name": "Qatar"
+		"countryFlag": "countries/images/qa.svg",
+		"countryCode": "qa",
+		"countryName": "Qatar"
 	},
 	{
-		"country-code": "CG",
-		"country-name": "Republic of the Congo"
+		"countryFlag": "countries/images/cg.svg",
+		"countryCode": "cg",
+		"countryName": "Republic of the Congo"
 	},
 	{
-		"country-code": "RO",
-		"country-name": "Romania"
+		"countryFlag": "countries/images/ro.svg",
+		"countryCode": "ro",
+		"countryName": "Romania"
 	},
 	{
-		"country-code": "RU",
-		"country-name": "Russian Federation"
+		"countryFlag": "countries/images/ru.svg",
+		"countryCode": "ru",
+		"countryName": "Russian Federation"
 	},
 	{
-		"country-code": "RW",
-		"country-name": "Rwanda"
+		"countryFlag": "countries/images/rw.svg",
+		"countryCode": "rw",
+		"countryName": "Rwanda"
 	},
 	{
-		"country-code": "RE",
-		"country-name": "Réunion"
+		"countryFlag": "countries/images/re.svg",
+		"countryCode": "re",
+		"countryName": "Réunion"
 	},
 	{
-		"country-code": "BL",
-		"country-name": "Saint Barthélemy"
+		"countryFlag": "countries/images/bl.svg",
+		"countryCode": "bl",
+		"countryName": "Saint Barthélemy"
 	},
 	{
-		"country-code": "SH",
-		"country-name": "Saint Helena, Ascension and Tristan da Cunha"
+		"countryFlag": "countries/images/sh.svg",
+		"countryCode": "sh",
+		"countryName": "Saint Helena, Ascension and Tristan da Cunha"
 	},
 	{
-		"country-code": "KN",
-		"country-name": "Saint Kitts and Nevis"
+		"countryFlag": "countries/images/kn.svg",
+		"countryCode": "kn",
+		"countryName": "Saint Kitts and Nevis"
 	},
 	{
-		"country-code": "LC",
-		"country-name": "Saint Lucia"
+		"countryFlag": "countries/images/lc.svg",
+		"countryCode": "lc",
+		"countryName": "Saint Lucia"
 	},
 	{
-		"country-code": "MF",
-		"country-name": "Saint Martin"
+		"countryFlag": "countries/images/mf.svg",
+		"countryCode": "mf",
+		"countryName": "Saint Martin"
 	},
 	{
-		"country-code": "PM",
-		"country-name": "Saint Pierre and Miquelon"
+		"countryFlag": "countries/images/pm.svg",
+		"countryCode": "pm",
+		"countryName": "Saint Pierre and Miquelon"
 	},
 	{
-		"country-code": "VC",
-		"country-name": "Saint Vincent and the Grenadines"
+		"countryFlag": "countries/images/vc.svg",
+		"countryCode": "vc",
+		"countryName": "Saint Vincent and the Grenadines"
 	},
 	{
-		"country-code": "WS",
-		"country-name": "Samoa"
+		"countryFlag": "countries/images/ws.svg",
+		"countryCode": "ws",
+		"countryName": "Samoa"
 	},
 	{
-		"country-code": "SM",
-		"country-name": "San Marino"
+		"countryFlag": "countries/images/sm.svg",
+		"countryCode": "sm",
+		"countryName": "San Marino"
 	},
 	{
-		"country-code": "ST",
-		"country-name": "Sao Tome and Principe"
+		"countryFlag": "countries/images/st.svg",
+		"countryCode": "st",
+		"countryName": "Sao Tome and Principe"
 	},
 	{
-		"country-code": "SA",
-		"country-name": "Saudi Arabia"
+		"countryFlag": "countries/images/sa.svg",
+		"countryCode": "sa",
+		"countryName": "Saudi Arabia"
 	},
 	{
-		"country-code": "GB-SCT",
-		"country-name": "Scotland"
+		"countryFlag": "countries/images/gb-sct.svg",
+		"countryCode": "gb-sct",
+		"countryName": "Scotland"
 	},
 	{
-		"country-code": "SN",
-		"country-name": "Senegal"
+		"countryFlag": "countries/images/sn.svg",
+		"countryCode": "sn",
+		"countryName": "Senegal"
 	},
 	{
-		"country-code": "RS",
-		"country-name": "Serbia"
+		"countryFlag": "countries/images/rs.svg",
+		"countryCode": "rs",
+		"countryName": "Serbia"
 	},
 	{
-		"country-code": "SC",
-		"country-name": "Seychelles"
+		"countryFlag": "countries/images/sc.svg",
+		"countryCode": "sc",
+		"countryName": "Seychelles"
 	},
 	{
-		"country-code": "SL",
-		"country-name": "Sierra Leone"
+		"countryFlag": "countries/images/sl.svg",
+		"countryCode": "sl",
+		"countryName": "Sierra Leone"
 	},
 	{
-		"country-code": "SG",
-		"country-name": "Singapore"
+		"countryFlag": "countries/images/sg.svg",
+		"countryCode": "sg",
+		"countryName": "Singapore"
 	},
 	{
-		"country-code": "SX",
-		"country-name": "Sint Maarten (Dutch part)"
+		"countryFlag": "countries/images/sx.svg",
+		"countryCode": "sx",
+		"countryName": "Sint Maarten (Dutch part)"
 	},
 	{
-		"country-code": "SK",
-		"country-name": "Slovakia"
+		"countryFlag": "countries/images/sk.svg",
+		"countryCode": "sk",
+		"countryName": "Slovakia"
 	},
 	{
-		"country-code": "SI",
-		"country-name": "Slovenia"
+		"countryFlag": "countries/images/si.svg",
+		"countryCode": "si",
+		"countryName": "Slovenia"
 	},
 	{
-		"country-code": "SB",
-		"country-name": "Solomon Islands"
+		"countryFlag": "countries/images/sb.svg",
+		"countryCode": "sb",
+		"countryName": "Solomon Islands"
 	},
 	{
-		"country-code": "SO",
-		"country-name": "Somalia"
+		"countryFlag": "countries/images/so.svg",
+		"countryCode": "so",
+		"countryName": "Somalia"
 	},
 	{
-		"country-code": "ZA",
-		"country-name": "South Africa"
+		"countryFlag": "countries/images/za.svg",
+		"countryCode": "za",
+		"countryName": "South Africa"
 	},
 	{
-		"country-code": "GS",
-		"country-name": "South Georgia and the South Sandwich Islands"
+		"countryFlag": "countries/images/gs.svg",
+		"countryCode": "gs",
+		"countryName": "South Georgia and the South Sandwich Islands"
 	},
 	{
-		"country-code": "SS",
-		"country-name": "South Sudan"
+		"countryFlag": "countries/images/ss.svg",
+		"countryCode": "ss",
+		"countryName": "South Sudan"
 	},
 	{
-		"country-code": "ES",
-		"country-name": "Spain"
+		"countryFlag": "countries/images/es.svg",
+		"countryCode": "es",
+		"countryName": "Spain"
 	},
 	{
-		"country-code": "LK",
-		"country-name": "Sri Lanka"
+		"countryFlag": "countries/images/lk.svg",
+		"countryCode": "lk",
+		"countryName": "Sri Lanka"
 	},
 	{
-		"country-code": "SD",
-		"country-name": "Sudan"
+		"countryFlag": "countries/images/sd.svg",
+		"countryCode": "sd",
+		"countryName": "Sudan"
 	},
 	{
-		"country-code": "SR",
-		"country-name": "Suricountry-name"
+		"countryFlag": "countries/images/sr.svg",
+		"countryCode": "sr",
+		"countryName": "SuricountryName"
 	},
 	{
-		"country-code": "SJ",
-		"country-name": "Svalbard and Jan Mayen Islands"
+		"countryFlag": "countries/images/sj.svg",
+		"countryCode": "sj",
+		"countryName": "Svalbard and Jan Mayen Islands"
 	},
 	{
-		"country-code": "SZ",
-		"country-name": "Swaziland"
+		"countryFlag": "countries/images/sz.svg",
+		"countryCode": "sz",
+		"countryName": "Swaziland"
 	},
 	{
-		"country-code": "SE",
-		"country-name": "Sweden"
+		"countryFlag": "countries/images/se.svg",
+		"countryCode": "se",
+		"countryName": "Sweden"
 	},
 	{
-		"country-code": "CH",
-		"country-name": "Switzerland"
+		"countryFlag": "countries/images/ch.svg",
+		"countryCode": "ch",
+		"countryName": "Switzerland"
 	},
 	{
-		"country-code": "SY",
-		"country-name": "Syrian Arab Republic"
+		"countryFlag": "countries/images/sy.svg",
+		"countryCode": "sy",
+		"countryName": "Syrian Arab Republic"
 	},
 	{
-		"country-code": "TW",
-		"country-name": "Taiwan (Republic of China)"
+		"countryFlag": "countries/images/tw.svg",
+		"countryCode": "tw",
+		"countryName": "Taiwan (Republic of China)"
 	},
 	{
-		"country-code": "TJ",
-		"country-name": "Tajikistan"
+		"countryFlag": "countries/images/tj.svg",
+		"countryCode": "tj",
+		"countryName": "Tajikistan"
 	},
 	{
-		"country-code": "TZ",
-		"country-name": "Tanzania, United Republic of"
+		"countryFlag": "countries/images/tz.svg",
+		"countryCode": "tz",
+		"countryName": "United Republic of Tanzania"
 	},
 	{
-		"country-code": "TH",
-		"country-name": "Thailand"
+		"countryFlag": "countries/images/th.svg",
+		"countryCode": "th",
+		"countryName": "Thailand"
 	},
 	{
-		"country-code": "TL",
-		"country-name": "Timor-Leste"
+		"countryFlag": "countries/images/tl.svg",
+		"countryCode": "tl",
+		"countryName": "Timor-Leste"
 	},
 	{
-		"country-code": "TG",
-		"country-name": "Togo"
+		"countryFlag": "countries/images/tg.svg",
+		"countryCode": "tg",
+		"countryName": "Togo"
 	},
 	{
-		"country-code": "TK",
-		"country-name": "Tokelau"
+		"countryFlag": "countries/images/tk.svg",
+		"countryCode": "tk",
+		"countryName": "Tokelau"
 	},
 	{
-		"country-code": "TO",
-		"country-name": "Tonga"
+		"countryFlag": "countries/images/to.svg",
+		"countryCode": "to",
+		"countryName": "Tonga"
 	},
 	{
-		"country-code": "TT",
-		"country-name": "Trinidad and Tobago"
+		"countryFlag": "countries/images/tt.svg",
+		"countryCode": "tt",
+		"countryName": "Trinidad and Tobago"
 	},
 	{
-		"country-code": "TN",
-		"country-name": "Tunisia"
+		"countryFlag": "countries/images/tn.svg",
+		"countryCode": "tn",
+		"countryName": "Tunisia"
 	},
 	{
-		"country-code": "TR",
-		"country-name": "Turkey"
+		"countryFlag": "countries/images/tr.svg",
+		"countryCode": "tr",
+		"countryName": "Turkey"
 	},
 	{
-		"country-code": "TM",
-		"country-name": "Turkmenistan"
+		"countryFlag": "countries/images/tm.svg",
+		"countryCode": "tm",
+		"countryName": "Turkmenistan"
 	},
 	{
-		"country-code": "TC",
-		"country-name": "Turks and Caicos Islands"
+		"countryFlag": "countries/images/tc.svg",
+		"countryCode": "tc",
+		"countryName": "Turks and Caicos Islands"
 	},
 	{
-		"country-code": "TV",
-		"country-name": "Tuvalu"
+		"countryFlag": "countries/images/tv.svg",
+		"countryCode": "tv",
+		"countryName": "Tuvalu"
 	},
 	{
-		"country-code": "UM",
-		"country-name": "US Minor Outlying Islands"
+		"countryFlag": "countries/images/um.svg",
+		"countryCode": "um",
+		"countryName": "US Minor Outlying Islands"
 	},
 	{
-		"country-code": "UG",
-		"country-name": "Uganda"
+		"countryFlag": "countries/images/ug.svg",
+		"countryCode": "ug",
+		"countryName": "Uganda"
 	},
 	{
-		"country-code": "UA",
-		"country-name": "Ukraine"
+		"countryFlag": "countries/images/ua.svg",
+		"countryCode": "ua",
+		"countryName": "Ukraine"
 	},
 	{
-		"country-code": "AE",
-		"country-name": "United Arab Emirates"
+		"countryFlag": "countries/images/ae.svg",
+		"countryCode": "ae",
+		"countryName": "United Arab Emirates"
 	},
 	{
-		"country-code": "GB",
-		"country-name": "United Kingdom"
+		"countryFlag": "countries/images/gb.svg",
+		"countryCode": "gb",
+		"countryName": "United Kingdom"
 	},
 	{
-		"country-code": "US",
-		"country-name": "United States"
+		"countryFlag": "countries/images/us.svg",
+		"countryCode": "us",
+		"countryName": "United States"
 	},
 	{
-		"country-code": "UY",
-		"country-name": "Uruguay"
+		"countryFlag": "countries/images/uy.svg",
+		"countryCode": "uy",
+		"countryName": "Uruguay"
 	},
 	{
-		"country-code": "UZ",
-		"country-name": "Uzbekistan"
+		"countryFlag": "countries/images/uz.svg",
+		"countryCode": "uz",
+		"countryName": "Uzbekistan"
 	},
 	{
-		"country-code": "VU",
-		"country-name": "Vanuatu"
+		"countryFlag": "countries/images/vu.svg",
+		"countryCode": "vu",
+		"countryName": "Vanuatu"
 	},
 	{
-		"country-code": "VE",
-		"country-name": "Venezuela, Bolivarian Republic of"
+		"countryFlag": "countries/images/ve.svg",
+		"countryCode": "ve",
+		"countryName": "Bolivarian Republic of Venezuela"
 	},
 	{
-		"country-code": "VN",
-		"country-name": "Vietnam"
+		"countryFlag": "countries/images/vn.svg",
+		"countryCode": "vn",
+		"countryName": "Vietnam"
 	},
 	{
-		"country-code": "VG",
-		"country-name": "Virgin Islands, British"
+		"countryFlag": "countries/images/vg.svg",
+		"countryCode": "vg",
+		"countryName": "Virgin Islands, British"
 	},
 	{
-		"country-code": "VI",
-		"country-name": "Virgin Islands, U.S."
+		"countryFlag": "countries/images/vi.svg",
+		"countryCode": "vi",
+		"countryName": "Virgin Islands, U.S."
 	},
 	{
-		"country-code": "GB-WLS",
-		"country-name": "Wales"
+		"countryFlag": "countries/images/gb-wls.svg",
+		"countryCode": "gb-wls",
+		"countryName": "Wales"
 	},
 	{
-		"country-code": "WF",
-		"country-name": "Wallis and Futuna Islands"
+		"countryFlag": "countries/images/wf.svg",
+		"countryCode": "wf",
+		"countryName": "Wallis and Futuna Islands"
 	},
 	{
-		"country-code": "EH",
-		"country-name": "Western Sahara"
+		"countryFlag": "countries/images/eh.svg",
+		"countryCode": "eh",
+		"countryName": "Western Sahara"
 	},
 	{
-		"country-code": "YE",
-		"country-name": "Yemen"
+		"countryFlag": "countries/images/ye.svg",
+		"countryCode": "ye",
+		"countryName": "Yemen"
 	},
 	{
-		"country-code": "ZM",
-		"country-name": "Zambia"
+		"countryFlag": "countries/images/zm.svg",
+		"countryCode": "zm",
+		"countryName": "Zambia"
 	},
 	{
-		"country-code": "ZW",
-		"country-name": "Zimbabwe"
+		"countryFlag": "countries/images/zw.svg",
+		"countryCode": "zw",
+		"countryName": "Zimbabwe"
 	},
 	{
-		"country-code": "AX",
-		"country-name": "Åland Islands"
+		"countryFlag": "countries/images/ax.svg",
+		"countryCode": "ax",
+		"countryName": "Åland Islands"
 	}
 ]

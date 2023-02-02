@@ -8,7 +8,8 @@ class CreateTagsTable extends Migration {
 	final public function up(): void {
 		Schema::create("tags", static function (Blueprint $table) {
 			$table->id();
-			$table->string("name");
+			$table->string("name")->unique();
+			$table->string("slug")->unique();
 			$table->timestamps();
 		});
 	}

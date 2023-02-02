@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\PermissionEnum;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Option\CreateOptionRequest;
-use App\Http\Requests\Option\DeleteManyOptionRequest;
-use App\Http\Requests\Option\UpdateOptionRequest;
+use App\Http\Requests\Admin\Option\CreateOptionRequest;
+use App\Http\Requests\Admin\Option\DeleteManyOptionRequest;
+use App\Http\Requests\Admin\Option\UpdateOptionRequest;
 use App\Models\Option;
 use App\Services\OptionService;
 use App\Services\OptionValueService;

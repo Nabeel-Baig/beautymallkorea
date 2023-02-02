@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BannersController;
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OptionController;
@@ -97,6 +98,18 @@ Route::group([
 		Route::get("/view/{product}", [ProductController::class, "view"])->name("manage.view");
 		Route::delete("/delete/{product}", [ProductController::class, "delete"])->name("delete");
 		Route::delete("/delete", [ProductController::class, "deleteMany"])->name("delete.many");
+	});
+
+	// Brands
+	Route::group(["prefix" => "brands", "as" => "brands."], static function () {
+		Route::get("/", [BrandController::class, "index"])->name("index");
+		Route::get("/paginate", [BrandController::class, "paginate"])->name("paginate");
+		Route::get("/create", [BrandController::class, "create"])->name("create");
+		Route::post("/store", [BrandController::class, "store"])->name("store");
+		Route::get("/edit/{brand}", [BrandController::class, "edit"])->name("edit");
+		Route::patch("/update/{brand}", [BrandController::class, "update"])->name("update");
+		Route::delete("/delete/{brand}", [BrandController::class, "delete"])->name("delete");
+		Route::delete("/delete", [BrandController::class, "deleteMany"])->name("delete.many");
 	});
 
 	// Settings

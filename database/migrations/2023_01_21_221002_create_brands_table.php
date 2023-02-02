@@ -8,10 +8,10 @@ return new class extends Migration {
 	final public function up(): void {
 		Schema::create("brands", static function (Blueprint $table) {
 			$table->id();
-			$table->string("name");
-			$table->string("country");
-			$table->string("country_image");
-			$table->string("brand_image")->nullable();
+			$table->string("name")->unique();
+			$table->string("slug")->unique();
+			$table->text("country");
+			$table->string("brand_image");
 			$table->integer("sort_order");
 			$table->timestamps();
 		});

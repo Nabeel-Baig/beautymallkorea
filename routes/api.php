@@ -1,6 +1,11 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BrandController;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\GeneralController;
+use App\Http\Controllers\Api\ProductController;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,9 +22,9 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-	Route::get('/users',function () {
+	Route::get('/users', function () {
 		return response()->json([
-			'users' => \App\Models\User::all()
+			'users' => User::all(),
 		]);
 	});
 	/* Route::post('/products', [ProductController::class, 'store']);
@@ -33,9 +38,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register',[AuthController::class,'register']);
-Route::get('/categories',[\App\Http\Controllers\Api\CategoryController::class,'index']);
-Route::get('/setting',[\App\Http\Controllers\Api\GeneralController::class,'setting']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::get('/categories', [CategoryController::class, 'index']);
+Route::get('/setting', [GeneralController::class, 'setting']);
 Route::get('/greeting', function () {
 	return response()->json('Hello World');
 });
+
+Route::get("/brands", [BrandController::class, "index"]);
+Route::get("/brand/{brand:slug}", [BrandController::class, "brandProducts"]);
+
+Route::get("/products", [ProductController::class, "index"]);

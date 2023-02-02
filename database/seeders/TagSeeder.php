@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Tag;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class TagSeeder extends Seeder {
 	final public function run(): void {
@@ -16,6 +17,7 @@ class TagSeeder extends Seeder {
 
 			$tags[] = [
 				"name" => "Tag $identifier",
+				"slug" => Str::slug("Tag $identifier"),
 				"created_at" => $timestamp,
 				"updated_at" => $timestamp,
 			];

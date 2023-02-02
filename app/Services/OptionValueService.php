@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Http\Requests\Option\CreateOptionRequest;
-use App\Http\Requests\Option\UpdateOptionRequest;
+use App\Http\Requests\Admin\Option\CreateOptionRequest;
+use App\Http\Requests\Admin\Option\UpdateOptionRequest;
 use App\Models\Option;
 use App\Models\OptionValue;
 use Illuminate\Support\Arr;
