@@ -13,15 +13,9 @@ class BrandApiService {
 	public function __construct(private readonly ProductApiService $productApiService) {}
 
 	final public function brandsList(BrandListRequest $brandListRequest): LengthAwarePaginator {
-		$filteredName = $brandListRequest->input("name");
+		$brandListBuilder = $this->createBrandListBuilder($brandListRequest);
 
-		return Brand::select(["name", "brand_image", "country", "slug"])
-			->when($filteredName !== null, static function (Builder $builder) use ($filteredName) {
-				return $builder->where("name", "like", "%$filteredName%");
-			})
-			->orderBy("sort_order")
-			->paginate()
-			->appends($brandListRequest->query());
+		return $brandListBuilder->orderBy("sort_order")->paginate()->appends($brandListRequest->query());
 	}
 
 	final public function brandProductList(Brand $brand, ProductListRequest $productListRequest): Collection|LengthAwarePaginator {
@@ -30,6 +24,27 @@ class BrandApiService {
 		$productListBuilder = $this->applySpecificBrandFilter($brand, $productListBuilder);
 
 		return $this->productApiService->buildProductListResult($productListBuilder, $productListRequest);
+	}
+
+	private function createBrandListBuilder(BrandListRequest $brandListRequest): Builder {
+		$brandListBuilder = $this->createBrandSelection();
+
+		return $this->createBrandFilters($brandListBuilder, $brandListRequest);
+	}
+
+	private function createBrandSelection(): Builder {
+		return Brand::query()->select(["id", "name", "brand_image", "country", "slug"]);
+	}
+
+	private function createBrandFilters(Builder $brandListBuilder, BrandListRequest $brandListRequest): Builder {
+		return $this->applyNameFilter($brandListBuilder, $brandListRequest);
+	}
+
+	private function applyNameFilter(Builder $brandListBuilder, BrandListRequest $brandListRequest): Builder {
+		return $brandListBuilder
+			->when($brandListRequest->has("name"), static function (Builder $builder) use ($brandListRequest) {
+				return $builder->where("name", "like", "%{$brandListRequest->input("name")}%");
+			});
 	}
 
 	private function applySpecificBrandFilter(Brand $brand, Builder $productListBuilder): Builder {

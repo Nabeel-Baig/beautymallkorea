@@ -39,11 +39,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
-Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/setting', [GeneralController::class, 'setting']);
-Route::get('/greeting', function () {
+Route::get('/greeting', static function () {
 	return response()->json('Hello World');
 });
+
+Route::get('/categories', [CategoryController::class, 'index']);
+Route::get('/category/{category:slug}', [CategoryController::class, 'categoryProducts']);
 
 Route::get("/brands", [BrandController::class, "index"]);
 Route::get("/brand/{brand:slug}", [BrandController::class, "brandProducts"]);

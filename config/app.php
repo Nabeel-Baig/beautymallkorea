@@ -179,6 +179,7 @@ return [
 		RealRashid\SweetAlert\SweetAlertServiceProvider::class,
 
 		App\Providers\Macro\RedirectResponseMacroServiceProvider::class,
+		App\Providers\Macro\CollectionMacroServiceProvider::class,
 	],
 
 	/*

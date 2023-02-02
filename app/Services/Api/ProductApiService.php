@@ -26,8 +26,8 @@ class ProductApiService {
 			return $productListBuilder->paginate($productListRequest->input("numOfProducts"))->appends($productListRequest->query());
 		}
 
-		return $productListBuilder->when($productListRequest->has("numOfProducts"), static function (Builder $builder) use ($productListRequest) {
-			$builder->take($productListRequest->input("numOfProducts"));
+		return $productListBuilder->when($productListRequest->has("numOfProducts"), static function (Builder $productListBuilder) use ($productListRequest) {
+			$productListBuilder->take($productListRequest->input("numOfProducts"));
 		})->get();
 	}
 
@@ -45,42 +45,42 @@ class ProductApiService {
 
 	private function applyNameFilter(Builder $productListBuilder, ProductListRequest $productListRequest): Builder {
 		return $productListBuilder
-			->when($productListRequest->has("productName"), static function (Builder $builder) use ($productListRequest) {
-				$builder->where("name", "like", "%{$productListRequest->input("productName")}%");
+			->when($productListRequest->has("productName"), static function (Builder $productListBuilder) use ($productListRequest) {
+				$productListBuilder->where("name", "like", "%{$productListRequest->input("productName")}%");
 			});
 	}
 
 	private function applyPriceFilter(Builder $productListBuilder, ProductListRequest $productListRequest): Builder {
 		return $productListBuilder
-			->when($productListRequest->has("productPriceFrom"), static function (Builder $builder) use ($productListRequest) {
-				$builder->where("price", ">=", $productListRequest->input("productPriceFrom"));
+			->when($productListRequest->has("productPriceFrom"), static function (Builder $productListBuilder) use ($productListRequest) {
+				$productListBuilder->where("price", ">=", $productListRequest->input("productPriceFrom"));
 			})
-			->when($productListRequest->has("productPriceTo"), static function (Builder $builder) use ($productListRequest) {
-				$builder->where("price", "<=", $productListRequest->input("productPriceTo"));
+			->when($productListRequest->has("productPriceTo"), static function (Builder $productListBuilder) use ($productListRequest) {
+				$productListBuilder->where("price", "<=", $productListRequest->input("productPriceTo"));
 			});
 	}
 
 	private function applySpecialFilter(Builder $productListBuilder, ProductListRequest $productListRequest): Builder {
 		return $productListBuilder
-			->when($productListRequest->has("promotional"), static function (Builder $builder) use ($productListRequest) {
-				$builder->where("promotion_status", "=", $productListRequest->input("promotional"));
+			->when($productListRequest->has("promotional"), static function (Builder $productListBuilder) use ($productListRequest) {
+				$productListBuilder->where("promotion_status", "=", $productListRequest->input("promotional"));
 			});
 	}
 
 	private function applyBrandFilter(Builder $productListBuilder, ProductListRequest $productListRequest): Builder {
 		return $productListBuilder
-			->when($productListRequest->has("productOfBrands"), static function (Builder $builder) use ($productListRequest) {
-				$builder->whereHas("brand", static function (Builder $builder) use ($productListRequest) {
-					$builder->whereIn("slug", $productListRequest->input("productOfBrands"));
+			->when($productListRequest->has("productOfBrands"), static function (Builder $productListBuilder) use ($productListRequest) {
+				$productListBuilder->whereHas("brand", static function (Builder $productListBuilder) use ($productListRequest) {
+					$productListBuilder->whereIn("slug", $productListRequest->input("productOfBrands"));
 				});
 			});
 	}
 
 	private function applyCategoryFilter(Builder $productListBuilder, ProductListRequest $productListRequest): Builder {
 		return $productListBuilder
-			->when($productListRequest->has("productOfCategories"), static function (Builder $builder) use ($productListRequest) {
-				$builder->whereHas("categories", static function (Builder $builder) use ($productListRequest) {
-					$builder->whereIn("slug", $productListRequest->input("productOfCategories"));
+			->when($productListRequest->has("productOfCategories"), static function (Builder $productListBuilder) use ($productListRequest) {
+				$productListBuilder->whereHas("categories", static function (Builder $productListBuilder) use ($productListRequest) {
+					$productListBuilder->whereIn("slug", $productListRequest->input("productOfCategories"));
 				});
 			});
 	}
