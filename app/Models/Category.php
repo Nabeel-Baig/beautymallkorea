@@ -23,7 +23,6 @@ class Category extends Model {
 		'slug',
 		'sort_order',
 		'image',
-		'type',
 		'created_at',
 		'updated_at',
 		'deleted_at',

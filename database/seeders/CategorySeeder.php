@@ -22,7 +22,6 @@ class CategorySeeder extends Seeder
             'slug' => 'skin-care',
             'meta_tag_title' => 'Skin Care',
             'sort_order' => 1,
-            'type' => 'category',
             'created_at' => $now,
             'updated_at' => $now
         ]);
@@ -33,7 +32,6 @@ class CategorySeeder extends Seeder
                 'slug' => 'skin-care-sc' . $i .'-' .$level1->id,
                 'meta_tag_title' => 'Skin Care SC-' . $i .'-' .$level1->id,
                 'sort_order' => $i,
-                'type' => 'category',
                 'created_at' => $now,
                 'updated_at' => $now
             ]);
@@ -44,7 +42,6 @@ class CategorySeeder extends Seeder
                     'slug' => 'skin-care-ssc' . $j . '-' .$level2->id,
                     'meta_tag_title' => 'Skin Care SSC-' . $j . '-' .$level2->id,
                     'sort_order' => $j,
-                    'type' => 'category',
                     'created_at' => $now,
                     'updated_at' => $now
                 ]);
@@ -56,7 +53,6 @@ class CategorySeeder extends Seeder
             'slug' => 'make-up',
             'meta_tag_title' => 'Make Up',
             'sort_order' => 2,
-            'type' => 'category',
             'created_at' => $now,
             'updated_at' => $now
         ]);
@@ -67,7 +63,6 @@ class CategorySeeder extends Seeder
                 'slug' => 'make-up-sc' . $i .'-' .$level1->id,
                 'meta_tag_title' => 'Make Up SC-' . $i .'-' .$level1->id,
                 'sort_order' => $i,
-                'type' => 'category',
                 'created_at' => $now,
                 'updated_at' => $now
             ]);
@@ -78,7 +73,6 @@ class CategorySeeder extends Seeder
                     'slug' => 'make-up-ssc' . $j . $j . '-' .$level2->id,
                     'meta_tag_title' => 'Make Up SSC-' . $j . $j . '-' .$level2->id,
                     'sort_order' => $j,
-                    'type' => 'category',
                     'created_at' => $now,
                     'updated_at' => $now
                 ]);
@@ -86,33 +80,10 @@ class CategorySeeder extends Seeder
         }
 
         $level1 = Category::create([
-            'name' => 'Brands',
-            'slug' => 'brands',
-            'meta_tag_title' => 'Brands',
-            'sort_order' => 3,
-            'type' => 'brand',
-            'created_at' => $now,
-            'updated_at' => $now
-        ]);
-        for ($i = 1; $i < 4; $i++) {
-            $level2 = Category::create([
-                'category_id' => $level1->id,
-                'name' => 'Brands SC-' . $i .'-' .$level1->id,
-                'slug' => 'brands-sc' . $i .'-' .$level1->id,
-                'meta_tag_title' => 'Brands SC-' . $i .'-' .$level1->id,
-                'sort_order' => $i,
-                'type' => 'brand',
-                'created_at' => $now,
-                'updated_at' => $now
-            ]);
-        }
-
-        $level1 = Category::create([
             'name' => 'Face Treatment',
             'slug' => 'face-treatment',
             'meta_tag_title' => 'Face Treatment',
             'sort_order' => 4,
-            'type' => 'category',
             'created_at' => $now,
             'updated_at' => $now
         ]);
@@ -123,7 +94,6 @@ class CategorySeeder extends Seeder
                 'slug' => 'face-treatment-sc' . $i .'-' .$level1->id,
                 'meta_tag_title' => 'Face Treatment SC-' . $i .'-' .$level1->id,
                 'sort_order' => $i,
-                'type' => 'category',
                 'created_at' => $now,
                 'updated_at' => $now
             ]);
@@ -134,7 +104,6 @@ class CategorySeeder extends Seeder
             'slug' => 'bodyhair',
             'meta_tag_title' => 'Body/Hair',
             'sort_order' => 5,
-            'type' => 'category',
             'created_at' => $now,
             'updated_at' => $now
         ]);
@@ -145,7 +114,6 @@ class CategorySeeder extends Seeder
                 'slug' => 'bodyhair-sc' . $i .'-' .$level1->id,
                 'meta_tag_title' => 'Body/Hair SC-' . $i .'-' .$level1->id,
                 'sort_order' => $i,
-                'type' => 'category',
                 'created_at' => $now,
                 'updated_at' => $now
             ]);
@@ -156,7 +124,6 @@ class CategorySeeder extends Seeder
             'slug' => 'derma',
             'meta_tag_title' => 'Derma',
             'sort_order' => 6,
-            'type' => 'category',
             'created_at' => $now,
             'updated_at' => $now
         ]);
@@ -167,7 +134,6 @@ class CategorySeeder extends Seeder
                 'slug' => 'derma-sc' . $i .'-' .$level1->id,
                 'meta_tag_title' => 'Derma SC-' . $i .'-' .$level1->id,
                 'sort_order' => $i,
-                'type' => 'category',
                 'created_at' => $now,
                 'updated_at' => $now
             ]);
@@ -178,7 +144,6 @@ class CategorySeeder extends Seeder
             'slug' => 'shop-by-skin-type',
             'meta_tag_title' => 'Shop By Skin Type',
             'sort_order' => 7,
-            'type' => 'category',
             'created_at' => $now,
             'updated_at' => $now
         ]);
@@ -189,7 +154,6 @@ class CategorySeeder extends Seeder
                 'slug' => 'shop-by-skin-type-sc' . $i .'-' .$level1->id,
                 'meta_tag_title' => 'Shop By Skin Type SC-' . $i .'-' .$level1->id,
                 'sort_order' => $i,
-                'type' => 'category',
                 'created_at' => $now,
                 'updated_at' => $now
             ]);

@@ -17,15 +17,14 @@ class StoreCategoryRequest extends FormRequest
     final public function rules(): array
     {
         return [
-            'type' => ['required','string'],
-            'category_id' => ['sometimes','required','integer'],
-            'name' => ['required','string'],
-            'description' => ['sometimes','required','string'],
-			'meta_tag_title' => ['sometimes','required','string'],
-			'meta_tag_description' => ['sometimes','required','string'],
-			'meta_tag_keywords' => ['sometimes','required','string'],
-            'sort_order' => ['required','integer'],
-            'image' => ['sometimes','required','image','mimes:jpg,jpeg,png'],
+			'category_id' => ['sometimes','nullable','integer'],
+			'name' => ['required','string'],
+			'description' => ['sometimes','nullable','string'],
+			'meta_tag_title' => ['sometimes','nullable','string'],
+			'meta_tag_description' => ['sometimes','nullable','string'],
+			'meta_tag_keywords' => ['sometimes','nullable','string'],
+			'sort_order' => ['required','integer'],
+			'image' => ['sometimes','required','image','mimes:jpg,jpeg,png'],
         ];
     }
 }

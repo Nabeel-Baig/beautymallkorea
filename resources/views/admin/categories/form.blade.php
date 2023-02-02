@@ -36,30 +36,12 @@
 						@if(request()->segment(4) == 'edit')
 							@method('PUT')
 						@endif
-						<div class="mb-3">
-							<label class="form-label">Select {{ ucwords(str_replace('_',' ','type')) }}</label>
-							<select name="type" id="type" class="form-control @error('type') parsley-error @enderror"
-									required>
-								<option value="">Select {{ ucwords(str_replace('_',' ','type')) }}</option>
-								<option
-									value="category" {{ !empty($category->type) ? (("category" === $category->type) ? "selected" : "") : '' }}>
-									Category
-								</option>
-								<option
-									value="brand" {{ !empty($category->type) ? (("brand" === $category->type) ? "selected" : "") : '' }}>
-									Brand
-								</option>
-							</select>
-							@error('type')
-							<span class="text-red">{{ $message }}</span>
-							@enderror
-						</div>
 
 						<div class="mb-3">
 							<label
 								class="form-label">Select {{ ucwords(str_replace('_',' ','parent_category')) }}</label>
 							<select name="category_id" id="category_id"
-									class="form-control @error('category_id') parsley-error @enderror" required>
+									class="form-control">
 								<option value="">Select {{ ucwords(str_replace('_',' ','parent_category')) }}</option>
 								@forelse($categories as $id => $categories)
 									<option
@@ -67,9 +49,6 @@
 								@empty
 								@endforelse
 							</select>
-							@error('category_id')
-							<span class="text-red">{{ $message }}</span>
-							@enderror
 						</div>
 
 						<div class="mb-3">
@@ -84,14 +63,14 @@
 
 						<div class="mb-3">
 							<label>{{ ucwords(str_replace('_',' ','description')) }}</label>
-							<textarea class="form-control @error('description') parsley-error @enderror"
+							<textarea class="form-control"
 									  name="description" id="elm1"
 									  placeholder="{{ ucwords(str_replace('_',' ','description')) }}">{{ old('description',$category->description ?? '') }}</textarea>
 						</div>
 
 						<div class="mb-3">
 							<label>{{ ucwords(str_replace('_',' ','meta_tag_title')) }}</label>
-							<input type="text" class="form-control @error('meta_tag_title') parsley-error @enderror"
+							<input type="text" class="form-control"
 								   value="{{ old('meta_tag_title',$category->meta_tag_title ?? '') }}"
 								   name="meta_tag_title" id="meta_tag_title"
 								   placeholder="{{ ucwords(str_replace('_',' ','meta_tag_title')) }}"/>
@@ -100,7 +79,7 @@
 						<div class="mb-3">
 							<label>{{ ucwords(str_replace('_',' ','meta_tag_description')) }}</label>
 							<input type="text"
-								   class="form-control @error('meta_tag_description') parsley-error @enderror"
+								   class="form-control"
 								   value="{{ old('meta_tag_description',$category->meta_tag_description ?? '') }}"
 								   name="meta_tag_description" id="meta_tag_description"
 								   placeholder="{{ ucwords(str_replace('_',' ','meta_tag_description')) }}"/>
@@ -108,7 +87,7 @@
 
 						<div class="mb-3">
 							<label>{{ ucwords(str_replace('_',' ','meta_tag_keywords')) }}</label>
-							<input type="text" class="form-control @error('meta_tag_keywords') parsley-error @enderror"
+							<input type="text" class="form-control"
 								   value="{{ old('meta_tag_keywords',$category->meta_tag_keywords ?? '') }}"
 								   name="meta_tag_keywords" id="meta_tag_keywords"
 								   placeholder="{{ ucwords(str_replace('_',' ','meta_tag_keywords')) }}"/>
