@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\PermissionEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Banner\ManageBannerRequest;
 use App\Models\Banner;
 use App\Services\BannerService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
@@ -15,44 +17,34 @@ use Symfony\Component\HttpFoundation\Response;
 class BannersController extends Controller
 {
 	public function __construct(private readonly BannerService $bannerService) {
-		$this->title = "Banners";
+		$this->title = ucwords(str_replace('-', ' ', request()->segment(2)));
 	}
 
 	final public function index(): View
     {
 		abort_if(Gate::denies(PermissionEnum::BANNER_ACCESS->value),Response::HTTP_FORBIDDEN,'403 Forbidden');
-
 		$content['title'] = $this->title;
 		$content['headers'] = ["ID", "Image", "Banner Type", "Title", "Link", "Sort Order"];
-
 		return view("admin.banners.index")->with($content);
     }
 
 	final public function paginate(): JsonResponse {
 		abort_if(Gate::denies(PermissionEnum::BANNER_ACCESS->value),Response::HTTP_FORBIDDEN,'403 Forbidden');
-
 		return $this->bannerService->paginate();
 	}
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    final public function create(): View
     {
-        //
+		abort_if(Gate::denies(PermissionEnum::BANNER_CREATE->value),Response::HTTP_FORBIDDEN,'403 Forbidden');
+		$content['title'] = $this->title;
+		return view('admin.' . request()->segment(2) . '.form')->with($content);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    final public function store(ManageBannerRequest $request): RedirectResponse
     {
-        //
+		dd($request->validated());
+		Banner::create(handleFiles(\request()->segment(2), $request->validated()));
+		return redirect()->route('admin.' . request()->segment(2) . '.index')->withToastSuccess('Banner Created Successfully!');
     }
 
     /**

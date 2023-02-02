@@ -19,13 +19,12 @@ return new class extends Migration
             $table->foreignId('category_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('name')->unique();
             $table->text('description')->nullable();
-            $table->string('meta_tag_title');
+            $table->string('meta_tag_title')->nullable();
             $table->text('meta_tag_description')->nullable();
             $table->text('meta_tag_keywords')->nullable();
             $table->string('slug')->unique();
             $table->integer('sort_order');
             $table->string('image')->nullable();
-            $table->enum('type',['category','brand'])->default('category');
             $table->timestamps();
             $table->softDeletes();
         });
