@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Casts\BrandCountry;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Brand extends Model {
@@ -12,6 +13,10 @@ class Brand extends Model {
 	protected $casts = [
 		"country" => BrandCountry::class,
 	];
+
+	final public function products(): HasMany {
+		return $this->hasMany(Product::class, "brand_id", "id");
+	}
 
 	/** @noinspection MethodVisibilityInspection */
 	protected static function booted(): void {

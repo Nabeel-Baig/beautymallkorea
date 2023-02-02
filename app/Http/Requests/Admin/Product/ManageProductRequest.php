@@ -3,8 +3,9 @@
 namespace App\Http\Requests\Admin\Product;
 
 use App\Enums\ProductOptionPriceAdjustment;
-use App\Enums\RequireShipping;
-use App\Enums\SubtractStock;
+use App\Enums\ProductPromotion;
+use App\Enums\ProductShipping;
+use App\Enums\ProductStockBehaviour;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -14,13 +15,17 @@ class ManageProductRequest extends FormRequest {
 		$uniqueValidationUpdateConstraint = $product !== null ? ",$product->id" : "";
 		$productImageValidationConstraint = $product !== null ? "optional|" : "";
 
-		$subtractStockPossibilities = array_map(static function (SubtractStock $subtractStock) {
+		$subtractStockPossibilities = array_map(static function (ProductStockBehaviour $subtractStock) {
 			return $subtractStock->value;
-		}, SubtractStock::cases());
+		}, ProductStockBehaviour::cases());
 
-		$requireShippingPossibilities = array_map(static function (RequireShipping $requireShipping) {
+		$requireShippingPossibilities = array_map(static function (ProductShipping $requireShipping) {
 			return $requireShipping->value;
-		}, RequireShipping::cases());
+		}, ProductShipping::cases());
+
+		$productPromotionPossibilities = array_map(static function (ProductPromotion $productPromotion) {
+			return $productPromotion->value;
+		}, ProductPromotion::cases());
 
 		$priceAdjustmentPossibilities = array_map(static function (ProductOptionPriceAdjustment $adjustment) {
 			return $adjustment->value;
@@ -33,6 +38,7 @@ class ManageProductRequest extends FormRequest {
 		return [
 			// Product
 			"product" => "required|array",
+			"product.brand_id" => "required|exists:brands,id",
 			"product.name" => "required|string",
 			"product.description" => "required|string",
 			"product.meta_title" => "nullable|string",
@@ -46,7 +52,7 @@ class ManageProductRequest extends FormRequest {
 			"product.min_order_quantity" => "nullable|numeric",
 			"product.subtract_stock" => ["nullable", Rule::in($subtractStockPossibilities)],
 			"product.require_shipping" => ["nullable", Rule::in($requireShippingPossibilities)],
-			"product.brand_id" => "required|exists:brands,id",
+			"product.promotion_status" => ["nullable", Rule::in($productPromotionPossibilities)],
 			// ============================================================================================
 
 			// Product Images

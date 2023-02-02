@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\GeneralController;
 use App\Http\Controllers\Api\ProductController;
@@ -43,5 +44,8 @@ Route::get('/setting', [GeneralController::class, 'setting']);
 Route::get('/greeting', function () {
 	return response()->json('Hello World');
 });
+
+Route::get("/brands", [BrandController::class, "index"]);
+Route::get("/brand/{brand:slug}", [BrandController::class, "brandProducts"]);
 
 Route::get("/products", [ProductController::class, "index"]);

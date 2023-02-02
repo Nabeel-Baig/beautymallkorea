@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use App\Enums\RequireShipping;
-use App\Enums\SubtractStock;
+use App\Enums\ProductPromotion;
+use App\Enums\ProductShipping;
+use App\Enums\ProductStockBehaviour;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
@@ -28,11 +30,13 @@ class Product extends Model {
 		"min_order_quantity",
 		"subtract_stock",
 		"require_shipping",
+		"promotion_status",
 	];
 
 	protected $casts = [
-		"subtract_stock" => SubtractStock::class,
-		"require_shipping" => RequireShipping::class,
+		"subtract_stock" => ProductStockBehaviour::class,
+		"require_shipping" => ProductShipping::class,
+		"promotion_status" => ProductPromotion::class,
 		"secondary_images" => "array",
 	];
 
@@ -52,6 +56,10 @@ class Product extends Model {
 
 	final public function relatedProducts(): BelongsToMany {
 		return $this->belongsToMany(self::class, "related_products", "product_id", "related_product_id")->withTimestamps();
+	}
+
+	final public function brand(): BelongsTo {
+		return $this->belongsTo(Brand::class, "brand_id", "id");
 	}
 
 	/** @noinspection MethodVisibilityInspection */

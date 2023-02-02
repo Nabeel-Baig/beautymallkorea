@@ -1,7 +1,8 @@
 <?php
 
-use App\Enums\RequireShipping;
-use App\Enums\SubtractStock;
+use App\Enums\ProductPromotion;
+use App\Enums\ProductShipping;
+use App\Enums\ProductStockBehaviour;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -25,8 +26,9 @@ class CreateProductsTable extends Migration {
 			$table->string("image");
 			$table->text("secondary_images");
 			$table->unsignedInteger("min_order_quantity")->default(1);
-			$table->boolean("subtract_stock")->default(SubtractStock::YES->value);
-			$table->boolean("require_shipping")->default(RequireShipping::YES->value);
+			$table->boolean("subtract_stock")->default(ProductStockBehaviour::SUBTRACT_STOCK->value);
+			$table->boolean("require_shipping")->default(ProductShipping::SHIPPING_REQUIRED->value);
+			$table->boolean("promotion_status")->default(ProductPromotion::NOT_IN_PROMOTION->value);
 			$table->timestamps();
 		});
 	}

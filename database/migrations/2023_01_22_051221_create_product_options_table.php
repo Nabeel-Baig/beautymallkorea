@@ -1,7 +1,7 @@
 <?php
 
 use App\Enums\ProductOptionPriceAdjustment;
-use App\Enums\SubtractStock;
+use App\Enums\ProductStockBehaviour;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,7 +13,7 @@ class CreateProductOptionsTable extends Migration {
 			$table->foreignId("product_id")->constrained("products")->cascadeOnUpdate()->cascadeOnDelete();
 			$table->foreignId("option_value_id")->constrained("option_values")->cascadeOnUpdate()->cascadeOnDelete();
 			$table->unsignedInteger("quantity");
-			$table->boolean("subtract_stock")->default(SubtractStock::YES->value);
+			$table->boolean("subtract_stock")->default(ProductStockBehaviour::SUBTRACT_STOCK->value);
 			$table->decimal("price_difference")->default(0);
 			$table->boolean("price_adjustment")->default(ProductOptionPriceAdjustment::POSITIVE->value);
 			$table->timestamps();

@@ -4,8 +4,9 @@
 namespace Database\Seeders;
 
 use App\Enums\ProductOptionPriceAdjustment;
-use App\Enums\RequireShipping;
-use App\Enums\SubtractStock;
+use App\Enums\ProductPromotion;
+use App\Enums\ProductShipping;
+use App\Enums\ProductStockBehaviour;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\OptionValue;
@@ -78,8 +79,9 @@ class ProductSeeder extends Seeder {
 			"image" => "images/product.png",
 			"secondary_images" => "[]",
 			"min_order_quantity" => random_int(1, 3),
-			"subtract_stock" => random_int(SubtractStock::NO->value, SubtractStock::YES->value),
-			"require_shipping" => random_int(RequireShipping::NO->value, RequireShipping::YES->value),
+			"subtract_stock" => random_int(ProductStockBehaviour::CONSISTENT_STOCK->value, ProductStockBehaviour::SUBTRACT_STOCK->value),
+			"require_shipping" => random_int(ProductShipping::SHIPPING_NOT_REQUIRED->value, ProductShipping::SHIPPING_REQUIRED->value),
+			"promotion_status" => random_int(ProductPromotion::NOT_IN_PROMOTION->value, ProductPromotion::IN_PROMOTION->value),
 			"created_at" => $timestamp,
 			"updated_at" => $timestamp,
 		];
@@ -118,7 +120,7 @@ class ProductSeeder extends Seeder {
 				"option_value_id" => $randomOptionValuesForThisProduct[$productOptionValueIndex]->id,
 				"product_id" => $productId,
 				"quantity" => random_int(1, 100),
-				"subtract_stock" => random_int(SubtractStock::NO->value, SubtractStock::YES->value),
+				"subtract_stock" => random_int(ProductStockBehaviour::CONSISTENT_STOCK->value, ProductStockBehaviour::SUBTRACT_STOCK->value),
 				"price_difference" => random_int(0 * 100, 50 * 100) / 100,
 				"price_adjustment" => random_int(ProductOptionPriceAdjustment::NEGATIVE->value, ProductOptionPriceAdjustment::POSITIVE->value),
 				"created_at" => $timestamp,

@@ -1,6 +1,6 @@
 <!--suppress HtmlFormInputWithoutLabel, SpellCheckingInspection -->
 @php
-	use App\Enums\ProductOptionPriceAdjustment;use App\Enums\RequireShipping;use App\Enums\SubtractStock;use App\Services\OptionValueService;
+	use App\Enums\ProductOptionPriceAdjustment;use App\Enums\ProductPromotion;use App\Enums\ProductShipping;use App\Enums\ProductStockBehaviour;use App\Services\OptionValueService;
 @endphp
 
 @extends('layouts.master')
@@ -227,11 +227,13 @@
 									<label for="product_subtract_stock" class="form-label">Subtract Stock</label>
 									<select name="product[subtract_stock]" id="product_subtract_stock"
 											class="form-control @error('product.subtract_stock') parsley-error @enderror">
-										<option value="{{ SubtractStock::YES }}"
-												@if($model?->subtract_stock === SubtractStock::YES) selected @endif>Yes
+										<option value="{{ ProductStockBehaviour::SUBTRACT_STOCK }}"
+												@if($model?->subtract_stock === ProductStockBehaviour::SUBTRACT_STOCK) selected @endif>
+											Subtract Stock
 										</option>
-										<option value="{{ SubtractStock::NO }}"
-												@if($model?->subtract_stock === SubtractStock::NO) selected @endif>No
+										<option value="{{ ProductStockBehaviour::CONSISTENT_STOCK }}"
+												@if($model?->subtract_stock === ProductStockBehaviour::CONSISTENT_STOCK) selected @endif>
+											Consistent Stock
 										</option>
 									</select>
 									@error('product.subtract_stock')
@@ -243,16 +245,34 @@
 									<label for="product_require_shipping" class="form-label">Require Shipping</label>
 									<select name="product[require_shipping]" id="product_require_shipping"
 											class="form-control @error('product.require_shipping') parsley-error @enderror">
-										<option value="{{ RequireShipping::YES }}"
-												@if($model?->require_shipping === RequireShipping::YES) selected @endif>
-											Yes
+										<option value="{{ ProductShipping::SHIPPING_REQUIRED }}"
+												@if($model?->require_shipping === ProductShipping::SHIPPING_REQUIRED) selected @endif>
+											Shipping Required
 										</option>
-										<option value="{{ RequireShipping::NO }}"
-												@if($model?->require_shipping === RequireShipping::NO) selected @endif>
-											No
+										<option value="{{ ProductShipping::SHIPPING_NOT_REQUIRED }}"
+												@if($model?->require_shipping === ProductShipping::SHIPPING_NOT_REQUIRED) selected @endif>
+											Shipping Not Required
 										</option>
 									</select>
 									@error('product.require_shipping')
+									<span class="text-red">{{ $message }}</span>
+									@enderror
+								</div>
+
+								<div class="mb-3">
+									<label for="product_promotion_status" class="form-label">Promotion Status</label>
+									<select name="product[promotion_status]" id="product_promotion_status"
+											class="form-control @error('product.promotion_status') parsley-error @enderror">
+										<option value="{{ ProductPromotion::NOT_IN_PROMOTION }}"
+												@if($model?->promotion_status === ProductPromotion::NOT_IN_PROMOTION) selected @endif>
+											Not In Promotion
+										</option>
+										<option value="{{ ProductPromotion::IN_PROMOTION }}"
+												@if($model?->promotion_status === ProductPromotion::IN_PROMOTION) selected @endif>
+											In Promotion
+										</option>
+									</select>
+									@error('product.promotion_status')
 									<span class="text-red">{{ $message }}</span>
 									@enderror
 								</div>
@@ -378,10 +398,10 @@
 																<select
 																	name="options[{{ $productOptionValueIndexCounter }}][subtract_stock]"
 																	class="form-control">
-																	<option value="{{ SubtractStock::NO->value }}"
-																			@if ($productOptionValue->pivot->subtract_stock === SubtractStock::NO->value) selected @endif>{{ SubtractStock::NO->name }}</option>
-																	<option value="{{ SubtractStock::YES->value }}"
-																			@if ($productOptionValue->pivot->subtract_stock === SubtractStock::YES->value) selected @endif>{{ SubtractStock::YES->name }}</option>
+																	<option value="{{ ProductStockBehaviour::CONSISTENT_STOCK->value }}"
+																			@if ($productOptionValue->pivot->subtract_stock === ProductStockBehaviour::CONSISTENT_STOCK->value) selected @endif>{{ ProductStockBehaviour::CONSISTENT_STOCK->name }}</option>
+																	<option value="{{ ProductStockBehaviour::SUBTRACT_STOCK->value }}"
+																			@if ($productOptionValue->pivot->subtract_stock === ProductStockBehaviour::SUBTRACT_STOCK->value) selected @endif>{{ ProductStockBehaviour::SUBTRACT_STOCK->name }}</option>
 																</select>
 															</div>
 															<div class="col-2">
@@ -541,15 +561,15 @@
 					noSubtractStockName,
 					noSubtractStockValue,
 				} = {
-					noSubtractStockName: "{{ SubtractStock::NO->name }}",
-					noSubtractStockValue: "{{ SubtractStock::NO->value }}",
+					noSubtractStockName: "{{ ProductStockBehaviour::CONSISTENT_STOCK->name }}",
+					noSubtractStockValue: "{{ ProductStockBehaviour::CONSISTENT_STOCK->value }}",
 				};
 				const {
 					yesSubtractStockName,
 					yesSubtractStockValue,
 				} = {
-					yesSubtractStockName: "{{ SubtractStock::YES->name }}",
-					yesSubtractStockValue: "{{ SubtractStock::YES->value }}",
+					yesSubtractStockName: "{{ ProductStockBehaviour::SUBTRACT_STOCK->name }}",
+					yesSubtractStockValue: "{{ ProductStockBehaviour::SUBTRACT_STOCK->value }}",
 				};
 
 				const {
