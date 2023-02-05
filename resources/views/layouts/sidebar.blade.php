@@ -48,33 +48,32 @@
 					<li>
 						<a href="javascript: void(0);" class="has-arrow waves-effect">
 							<i class="bx bx-store"></i>
-							<span>@lang('translation.Catalog')</span>
+							<span>Catalog</span>
 						</a>
 						<ul class="sub-menu" aria-expanded="false">
-							@can('category_access')
+							@can(PermissionEnum::CATEGORY_ACCESS->value)
 								<li>
-									<a href="{{ route('admin.categories.index') }}"
-									   key="t-products">@lang('translation.Categories')</a>
+									<a href="{{ route('admin.categories.index') }}" key="t-products">Categories</a>
 								</li>
 							@endcan
-							@can('tag_access')
+							@can(PermissionEnum::TAG_ACCESS->value)
 								<li>
-									<a href="{{ route('admin.tags.index') }}"
-									   key="t-products">@lang('translation.Tags')</a>
+									<a href="{{ route('admin.tags.index') }}" key="t-products">Tags</a>
 								</li>
 							@endcan
 							@can(PermissionEnum::OPTION_ACCESS->value)
 								<li>
-									<a href="{{ route('admin.options.index') }}"
-									   key="t-products">Options
-									</a>
+									<a href="{{ route('admin.options.index') }}" key="t-products">Options</a>
 								</li>
 							@endcan
 							@can(PermissionEnum::PRODUCT_ACCESS->value)
 								<li>
-									<a href="{{ route('admin.products.index') }}"
-									   key="t-products">Products
-									</a>
+									<a href="{{ route('admin.products.index') }}" key="t-products">Products</a>
+								</li>
+							@endcan
+							@can(PermissionEnum::BRAND_ACCESS->value)
+								<li>
+									<a href="{{ route('admin.brands.index') }}" key="t-products">Brands</a>
 								</li>
 							@endcan
 						</ul>

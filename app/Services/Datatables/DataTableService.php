@@ -4,6 +4,7 @@ namespace App\Services\Datatables;
 
 use App\Enums\PermissionEnum;
 use BadFunctionCallException;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -57,9 +58,9 @@ class DataTableService {
 	}
 
 	final public function withViewAction(PermissionEnum $permission): DataTableService {
-		/*if ($this->request->user()->cannot("access", [$this->model, $permission])) {
+		if ($this->request->user()->cannot("access", [$this->model, $permission])) {
 			return $this;
-		}*/
+		}
 
 		$this->additionalColumns["viewAction"] = true;
 
@@ -67,9 +68,9 @@ class DataTableService {
 	}
 
 	final public function withEditAction(PermissionEnum $permission): DataTableService {
-		/*if ($this->request->user()->cannot("access", [$this->model, $permission])) {
+		if ($this->request->user()->cannot("access", [$this->model, $permission])) {
 			return $this;
-		}*/
+		}
 
 		$this->additionalColumns["editAction"] = true;
 
@@ -77,9 +78,9 @@ class DataTableService {
 	}
 
 	final public function withDeleteAction(PermissionEnum $permission): DataTableService {
-		/*if ($this->request->user()->cannot("access", [$this->model, $permission])) {
+		if ($this->request->user()->cannot("access", [$this->model, $permission])) {
 			return $this;
-		}*/
+		}
 
 		$this->additionalColumns["deleteAction"] = true;
 
@@ -91,10 +92,8 @@ class DataTableService {
 			throw new BadFunctionCallException('Argument $builder is missing. Call "of" method on the DataTableService instance with Illuminate\Database\Eloquent\Builder parameter first');
 		}
 
-		/** @noinspection PhpUndefinedMethodInspection */
-		$datatableBuilder = $this->dataTables->eloquent($this->model::query());
+		$datatableBuilder = $this->dataTables->eloquent($this->prepareModelQuery());
 
-		$datatableBuilder = $this->includeDesiredColumns($datatableBuilder);
 		[$datatableBuilder, $selectionIncluded] = $this->includeSelectionColumn($datatableBuilder);
 		[$datatableBuilder, $actionsIncluded] = $this->includeActionsColumn($datatableBuilder, $routeModelName);
 		$datatableBuilder = $this->prepareRawColumnsList($datatableBuilder, $selectionIncluded, $actionsIncluded);
@@ -102,12 +101,19 @@ class DataTableService {
 		return $datatableBuilder->make();
 	}
 
-	private function includeDesiredColumns(DataTableAbstract $dataTable): DataTableAbstract {
+	private function prepareModelQuery(): Builder {
+		/**
+		 * @var Builder $model
+		 * @noinspection PhpUndefinedMethodInspection
+		 * @noinspection VirtualTypeCheckInspection
+		 */
+		$model = $this->model::query();
+
 		if (!is_null($this->columns)) {
-			$dataTable = $dataTable->only($this->columns);
+			$model = $model->select($this->columns);
 		}
 
-		return $dataTable;
+		return $model;
 	}
 
 	/**

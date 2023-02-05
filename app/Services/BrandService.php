@@ -10,11 +10,33 @@ use App\ValueObjects\BrandCountryValueObject;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Gate;
 use JsonException;
 
 class BrandService {
 	final public function paginate(): JsonResponse {
-		return response()->json();
+		return datatables()->of(Brand::orderBy('sort_order')->get())
+			->addColumn('selection', function (Brand $brand) {
+				return '<input type="checkbox" class="delete_checkbox flat" value="' . $brand->id . '">';
+			})
+			->addColumn('countryName', function (Brand $brand) {
+				return $brand->country->countryName;
+			})
+			->addColumn('countryFlag', function (Brand $brand) {
+				$brandImage = asset($brand->brand_image);
+				return "<img style='width: 250px' src='$brandImage' alt='{$brand->country->countryName}'>";
+			})
+			->addColumn('actions', function ($data) {
+				$edit = '';
+				$delete = '';
+				if (Gate::allows('brand_edit')) {
+					$edit = '<a title="Edit" href="' . route('admin.brands.edit', $data->id) . '" class="btn btn-primary btn-sm"><i class="fas fa-pen"></i></a>&nbsp;';
+				}
+				if (Gate::allows('brand_delete')) {
+					$delete = '<button title="Delete" type="button" name="delete" id="' . $data['id'] . '" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
+				}
+				return $edit . $delete;
+			})->rawColumns(['selection', 'countryFlag', 'actions'])->make(true);
 	}
 
 	final public function getBrandsForDropdown(): Collection {

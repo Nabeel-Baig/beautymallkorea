@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 
 class ProductService {
-
 	final public function paginate(): JsonResponse {
 		return datatables()->of(Product::orderBy('id', 'desc')->get())
 			->addColumn('selection', function ($data) {

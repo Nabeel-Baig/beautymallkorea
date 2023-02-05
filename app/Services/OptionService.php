@@ -7,28 +7,24 @@ use App\Http\Requests\Admin\Option\CreateOptionRequest;
 use App\Http\Requests\Admin\Option\DeleteManyOptionRequest;
 use App\Http\Requests\Admin\Option\UpdateOptionRequest;
 use App\Models\Option;
+use App\Services\Datatables\DataTableService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Gate;
 
 class OptionService {
-	public function __construct() {}
+	public function __construct(private readonly DataTableService $dataTableService) {}
 
 	final public function paginate(): JsonResponse {
-		return datatables()->of(Option::orderBy('id', 'desc')->get())
-			->addColumn('selection', function ($data) {
-				return '<input type="checkbox" class="delete_checkbox flat" value="' . $data['id'] . '">';
-			})->addColumn('actions', function ($data) {
-				$edit = '';
-				$delete = '';
-				if (Gate::allows(PermissionEnum::TAG_EDIT->value)) {
-					$edit = '<a title="Edit" href="' . route('admin.options.edit', $data->id) . '" class="btn btn-primary btn-sm"><i class="fas fa-pen"></i></a>&nbsp;';
-				}
-				if (Gate::allows(PermissionEnum::TAG_DELETE->value)) {
-					$delete = '<button title="Delete" type="button" name="delete" id="' . $data['id'] . '" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
-				}
-				return $edit . $delete;
-			})->rawColumns(['selection', 'actions'])->make(true);
+		$model = Option::class;
+		$routeModelName = "options";
+		$columns = ["id", "name"];
+
+		return $this->dataTableService->of($model)
+			->withColumns($columns)
+			->withSelectionColumn()
+			->withEditAction(PermissionEnum::OPTION_EDIT)
+			->withDeleteAction(PermissionEnum::OPTION_DELETE)
+			->paginate($routeModelName);
 	}
 
 	final public function getOptionsForDropdown(): Collection {

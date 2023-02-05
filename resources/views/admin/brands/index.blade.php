@@ -31,7 +31,7 @@
 						@endcan
 
 						@can(PermissionEnum::TAG_CREATE->value)
-							<a class="btn btn-info" href="{{ route('admin.tags.create') }}">Add</a>
+							<a class="btn btn-info" href="{{ route('admin.brands.create') }}">Add</a>
 						@endcan
 					</div>
 					<table id="example1" class="table table-striped table-bordered dt-responsive nowrap">
@@ -91,7 +91,7 @@
 @section('script-bottom')
 	<script>
 		$(function() {
-			const source = `{{ route("admin.tags.paginate") }}`;
+			const source = `{{ route("admin.brands.paginate") }}`;
 
 			const DataTable = $("#example1").DataTable({
 				dom: "Blfrtip",
@@ -139,6 +139,14 @@
 						name: "name",
 					},
 					{
+						data: "countryFlag",
+						name: "countryFlag",
+					},
+					{
+						data: "countryName",
+						name: "countryName",
+					},
+					{
 						data: "actions",
 						name: "actions",
 						orderable: false,
@@ -154,7 +162,7 @@
 
 			const okDeleteSelector = "#ok_delete";
 			$(document).on("click", okDeleteSelector, function() {
-				let url = '{{ route('admin.tags.delete', ':id') }}';
+				let url = '{{ route('admin.brands.delete', ':id') }}';
 				$.ajax({
 					type: "delete",
 					url: url.replace(":id", delete_id),
@@ -189,7 +197,7 @@
 					checkboxes.forEach((e) => {
 						checkboxValue.push(e.getAttribute("value"));
 					});
-					fetch(`{{ route('admin.tags.delete.many') }}`, {
+					fetch(`{{ route('admin.brands.delete.many') }}`, {
 						method: "delete",
 						headers: {
 							"Content-Type": "application/json",
