@@ -44,6 +44,9 @@ class ProductService {
 			"relatedProducts" => static function (BelongsToMany $query) {
 				return $query->select(["products.id", "products.name"]);
 			},
+			"brand" => static function (BelongsTo $query) {
+				return $query->select(["brands.id", "brands.name"]);
+			},
 			"tags" => static function (BelongsToMany $query) {
 				return $query->select(["tags.id", "tags.name"]);
 			},

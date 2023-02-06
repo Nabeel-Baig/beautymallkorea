@@ -19,7 +19,7 @@ class CategoryResource extends JsonResource {
 			"description" => $this->description,
 			"slug" => $this->slug,
 			"image" => $this->image,
-			"childrenCategories" => new CategoryListCollection($this->childrenCategories),
+			"childrenCategories" => new CategoryListCollection($this->whenLoaded("childrenCategories")),
 		];
 	}
 }

@@ -6,6 +6,8 @@ use App\Http\Requests\Api\Product\ProductListRequest;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductApiService {
@@ -13,6 +15,30 @@ class ProductApiService {
 		$productListBuilder = $this->createProductListBuilder($productListRequest);
 
 		return $this->buildProductListResult($productListBuilder, $productListRequest);
+	}
+
+	final public function productDetails(Product $product): Product {
+		return $product->load([
+			"relatedProducts" => static function (BelongsToMany $query) {
+				return $query->select(["products.id", "products.name", "products.slug", "products.price", "products.discount_price", "products.image"]);
+			},
+			"brand" => static function (BelongsTo $query): BelongsTo {
+				return $query->select(["brands.id", "brands.name", "brands.slug", "brands.brand_image", "brands.country"]);
+			},
+			"tags" => static function (BelongsToMany $query) {
+				return $query->select(["tags.id", "tags.slug", "tags.name"]);
+			},
+			"categories" => static function (BelongsToMany $query) {
+				return $query->select(["categories.id", "categories.name", "categories.slug", "categories.description", "categories.image"]);
+			},
+			"optionValues" => static function (BelongsToMany $query) {
+				return $query->select(["option_values.id", "option_values.name", "option_values.option_id", "option_values.image"])->with([
+					"option" => static function (BelongsTo $query) {
+						return $query->select(["options.id", "options.name"]);
+					},
+				]);
+			},
+		]);
 	}
 
 	final public function createProductListBuilder(ProductListRequest $productListRequest): Builder {

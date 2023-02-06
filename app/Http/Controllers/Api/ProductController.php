@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Product\ProductListRequest;
+use App\Http\Resources\Api\Product\ProductDetailResource;
 use App\Http\Resources\Api\Product\ProductListCollection;
+use App\Models\Product;
 use App\Services\Api\ProductApiService;
 
 class ProductController extends Controller {
@@ -14,5 +16,11 @@ class ProductController extends Controller {
 		$products = $this->productApiService->productList($productListRequest);
 
 		return new ProductListCollection($products);
+	}
+
+	final public function productDetails(Product $product): ProductDetailResource {
+		$product = $this->productApiService->productDetails($product);
+
+		return new ProductDetailResource($product);
 	}
 }

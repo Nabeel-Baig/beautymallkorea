@@ -51,3 +51,4 @@ Route::get("/brands", [BrandController::class, "index"]);
 Route::get("/brand/{brand:slug}", [BrandController::class, "brandProducts"]);
 
 Route::get("/products", [ProductController::class, "index"]);
+Route::get("/product/{product:slug}", [ProductController::class, "productDetails"]);
