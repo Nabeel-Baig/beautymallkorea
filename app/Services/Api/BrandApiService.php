@@ -15,7 +15,7 @@ class BrandApiService {
 	final public function brandsList(BrandListRequest $brandListRequest): LengthAwarePaginator {
 		$brandListBuilder = $this->createBrandListBuilder($brandListRequest);
 
-		return $brandListBuilder->orderBy("sort_order")->paginate()->withQueryString()->onEachSide(1);
+		return $brandListBuilder->orderBy("sort_order")->paginate(16)->withQueryString()->onEachSide(1);
 	}
 
 	final public function brandProductList(Brand $brand, ProductListRequest $productListRequest): Collection|LengthAwarePaginator {
