@@ -32,7 +32,7 @@ class ProductDetailResource extends JsonResource {
 			"image" => $this->image,
 			"secondary_images" => $this->secondary_images,
 			"min_order_quantity" => $this->min_order_quantity,
-			"promotion_status" => $this->promotion_status,
+			"promotion_status" => (bool)$this->promotion_status,
 
 			"relatedProducts" => new ProductListCollection($this->whenLoaded("relatedProducts")),
 			"brand" => new BrandResource($this->whenLoaded("brand")),

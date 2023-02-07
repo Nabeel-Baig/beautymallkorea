@@ -17,7 +17,7 @@ class BrandResource extends JsonResource {
 		return [
 			"name" => $this->name,
 			"slug" => $this->slug,
-			"country_name" => $this->whenNotNull($this->country->countryName),
+			"country_name" => $this->country->countryName,
 			"country_flag" => $this->country->countryFlag,
 			"brand_image" => $this->brand_image,
 		];

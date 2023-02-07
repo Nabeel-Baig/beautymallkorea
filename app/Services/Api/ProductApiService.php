@@ -49,7 +49,7 @@ class ProductApiService {
 
 	final public function buildProductListResult(Builder $productListBuilder, ProductListRequest $productListRequest): Collection|LengthAwarePaginator {
 		if ($productListRequest->input("paginate", true)) {
-			return $productListBuilder->paginate($productListRequest->input("numOfProducts"))->appends($productListRequest->query());
+			return $productListBuilder->paginate($productListRequest->input("numOfProducts"))->withQueryString()->onEachSide(1);
 		}
 
 		return $productListBuilder->when($productListRequest->has("numOfProducts"), static function (Builder $productListBuilder) use ($productListRequest) {
