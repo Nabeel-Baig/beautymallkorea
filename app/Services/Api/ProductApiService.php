@@ -48,6 +48,10 @@ class ProductApiService {
 	}
 
 	final public function buildProductListResult(Builder $productListBuilder, ProductListRequest $productListRequest): Collection|LengthAwarePaginator {
+		$productListBuilder->when($productListRequest->has("latest"), static function (Builder $productListBuilder) {
+			$productListBuilder->latest();
+		});
+
 		if ($productListRequest->input("paginate", true)) {
 			return $productListBuilder->paginate($productListRequest->input("numOfProducts", 16))->withQueryString()->onEachSide(1);
 		}

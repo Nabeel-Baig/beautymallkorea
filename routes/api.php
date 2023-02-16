@@ -49,6 +49,7 @@ Route::get('/category/{category:slug}', [CategoryController::class, 'categoryPro
 
 Route::get("/brands", [BrandController::class, "index"]);
 Route::get("/brand/{brand:slug}", [BrandController::class, "brandProducts"]);
+Route::get("/brand-with-products/", [BrandController::class, "brandWithProducts"]);
 
 Route::get("/products", [ProductController::class, "index"]);
 Route::get("/product/{product:slug}", [ProductController::class, "productDetails"]);

@@ -14,7 +14,13 @@ class BrandController extends Controller {
 	public function __construct(private readonly BrandApiService $brandApiService) {}
 
 	final public function index(BrandListRequest $brandListRequest): BrandListCollection {
-		$brands = $this->brandApiService->brandsList($brandListRequest);
+		$brands = $this->brandApiService->brandList($brandListRequest);
+
+		return new BrandListCollection($brands);
+	}
+
+	final public function brandWithProducts(): BrandListCollection {
+		$brands = $this->brandApiService->brandWithProductList();
 
 		return new BrandListCollection($brands);
 	}

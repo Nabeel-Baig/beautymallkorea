@@ -9,6 +9,13 @@ class BrandListRequest extends FormRequest {
 		return [
 			"name" => "nullable|string",
 			"country" => "nullable|string",
+
+			// For sliders and stuff
+			"latest" => "nullable|boolean",
+
+			// Result set size selection
+			"paginate" => "nullable|boolean",
+			"numOfBrands" => "nullable|numeric",
 		];
 	}
 }

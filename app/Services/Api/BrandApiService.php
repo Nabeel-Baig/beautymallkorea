@@ -12,10 +12,16 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class BrandApiService {
 	public function __construct(private readonly ProductApiService $productApiService) {}
 
-	final public function brandsList(BrandListRequest $brandListRequest): LengthAwarePaginator {
+	final public function brandList(BrandListRequest $brandListRequest): Collection|LengthAwarePaginator {
 		$brandListBuilder = $this->createBrandListBuilder($brandListRequest);
 
-		return $brandListBuilder->orderBy("sort_order")->paginate(16)->withQueryString()->onEachSide(1);
+		return $this->buildBrandListResult($brandListBuilder, $brandListRequest);
+	}
+
+	final public function brandWithProductList(): Collection {
+		$brandWithProductListBuilder = $this->createBrandSelection();
+
+		return $brandWithProductListBuilder->has("products", ">=", 3)->take(5)->get();
 	}
 
 	final public function brandProductList(Brand $brand, ProductListRequest $productListRequest): Collection|LengthAwarePaginator {
@@ -30,6 +36,20 @@ class BrandApiService {
 		$brandListBuilder = $this->createBrandSelection();
 
 		return $this->createBrandFilters($brandListBuilder, $brandListRequest);
+	}
+
+	private function buildBrandListResult(Builder $brandListBuilder, BrandListRequest $brandListRequest): Collection|LengthAwarePaginator {
+		$brandListBuilder->when($brandListRequest->has("latest"), static function (Builder $productListBuilder) {
+			$productListBuilder->latest();
+		});
+
+		if ($brandListRequest->input("paginate", true)) {
+			return $brandListBuilder->paginate($brandListRequest->input("numOfBrands", 16))->withQueryString()->onEachSide(1);
+		}
+
+		return $brandListBuilder->when($brandListRequest->has("numOfProducts"), static function (Builder $productListBuilder) use ($brandListRequest) {
+			$productListBuilder->take($brandListRequest->input("numOfProducts"));
+		})->get();
 	}
 
 	private function createBrandSelection(): Builder {
