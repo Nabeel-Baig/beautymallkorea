@@ -56,6 +56,11 @@
 									<a href="{{ route('admin.categories.index') }}" key="t-products">Categories</a>
 								</li>
 							@endcan
+							@can(PermissionEnum::BRAND_ACCESS->value)
+								<li>
+									<a href="{{ route('admin.brands.index') }}" key="t-products">Brands</a>
+								</li>
+							@endcan
 							@can(PermissionEnum::TAG_ACCESS->value)
 								<li>
 									<a href="{{ route('admin.tags.index') }}" key="t-products">Tags</a>
@@ -69,11 +74,6 @@
 							@can(PermissionEnum::PRODUCT_ACCESS->value)
 								<li>
 									<a href="{{ route('admin.products.index') }}" key="t-products">Products</a>
-								</li>
-							@endcan
-							@can(PermissionEnum::BRAND_ACCESS->value)
-								<li>
-									<a href="{{ route('admin.brands.index') }}" key="t-products">Brands</a>
 								</li>
 							@endcan
 						</ul>

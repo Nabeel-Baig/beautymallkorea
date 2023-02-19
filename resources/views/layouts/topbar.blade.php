@@ -1,3 +1,4 @@
+@php use App\Enums\PermissionEnum; @endphp
 <header id="page-topbar">
 	<div class="navbar-header">
 		<div class="d-flex">
@@ -67,14 +68,29 @@
 									<div class="col-md-4">
 										<h5 class="font-size-14 mt-0" key="t-applications">@lang('translation.Catalog')</h5>
 										<ul class="list-unstyled megamenu-list">
-											@can('category_access')
+											@can(PermissionEnum::CATEGORY_ACCESS->value)
 												<li>
-													<a href="{{ route('admin.categories.index') }}" key="t-ecommerce">@lang('translation.Categories')</a>
+													<a href="{{ route('admin.categories.index') }}" key="t-products">Categories</a>
 												</li>
 											@endcan
-											@can('tag_access')
+											@can(PermissionEnum::BRAND_ACCESS->value)
 												<li>
-													<a href="{{ route('admin.tags.index') }}" key="t-ecommerce">@lang('translation.Tags')</a>
+													<a href="{{ route('admin.brands.index') }}" key="t-products">Brands</a>
+												</li>
+											@endcan
+											@can(PermissionEnum::TAG_ACCESS->value)
+												<li>
+													<a href="{{ route('admin.tags.index') }}" key="t-products">Tags</a>
+												</li>
+											@endcan
+											@can(PermissionEnum::OPTION_ACCESS->value)
+												<li>
+													<a href="{{ route('admin.options.index') }}" key="t-products">Options</a>
+												</li>
+											@endcan
+											@can(PermissionEnum::PRODUCT_ACCESS->value)
+												<li>
+													<a href="{{ route('admin.products.index') }}" key="t-products">Products</a>
 												</li>
 											@endcan
 										</ul>

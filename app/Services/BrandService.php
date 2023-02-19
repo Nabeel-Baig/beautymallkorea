@@ -15,7 +15,7 @@ use JsonException;
 
 class BrandService {
 	final public function paginate(): JsonResponse {
-		return datatables()->of(Brand::orderBy('sort_order')->get())
+		return datatables()->of(Brand::orderBy('id', 'desc')->get())
 			->addColumn('selection', function (Brand $brand) {
 				return '<input type="checkbox" class="delete_checkbox flat" value="' . $brand->id . '">';
 			})
@@ -24,7 +24,7 @@ class BrandService {
 			})
 			->addColumn('countryFlag', function (Brand $brand) {
 				$brandImage = asset($brand->brand_image);
-				return "<img style='width: 250px' src='$brandImage' alt='{$brand->country->countryName}'>";
+				return "<img width='80' src='$brandImage' alt='{$brand->country->countryName}'>";
 			})
 			->addColumn('actions', function ($data) {
 				$edit = '';

@@ -110,7 +110,7 @@ class DataTableService {
 		$model = $this->model::query();
 
 		if (!is_null($this->columns)) {
-			$model = $model->select($this->columns);
+			$model = $model->select($this->columns)->orderBy('id', 'desc');
 		}
 
 		return $model;

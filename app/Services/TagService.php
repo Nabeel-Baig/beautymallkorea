@@ -28,7 +28,7 @@ class TagService {
 	}
 
 	final public function getTagsForDropdown(): Collection {
-		return Tag::select(["id", "name"])->get();
+		return Tag::select(["id", "name"])->orderBy('id', 'desc')->get();
 	}
 
 	final public function create(CreateTagRequest $createTagRequest): Tag {

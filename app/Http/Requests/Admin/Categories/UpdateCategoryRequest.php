@@ -15,15 +15,14 @@ class UpdateCategoryRequest extends FormRequest {
 
 	final public function rules(): array {
 		return [
-			'type' => ['required', 'string'],
-			'category_id' => ['sometimes', 'required', 'integer'],
+			'category_id' => ['nullable', 'integer'],
 			'name' => ['required', 'string'],
-			'description' => ['sometimes', 'required', 'string'],
-			'meta_tag_title' => ['sometimes', 'required', 'string'],
-			'meta_tag_description' => ['sometimes', 'required', 'string'],
-			'meta_tag_keywords' => ['sometimes', 'required', 'string'],
+			'description' => ['nullable', 'string'],
+			'meta_tag_title' => ['nullable', 'string'],
+			'meta_tag_description' => ['nullable', 'string'],
+			'meta_tag_keywords' => ['nullable', 'string'],
 			'sort_order' => ['required', 'integer'],
-			'image' => ['sometimes', 'required', 'image', 'mimes:jpg,jpeg,png'],
+			'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png'],
 		];
 	}
 }

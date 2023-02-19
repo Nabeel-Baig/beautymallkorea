@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-	@lang('translation.Data_Tables')
+	{{ $title ?? '' }}
 @endsection
 @section('page-specific-css')
 	<!-- DataTables -->
