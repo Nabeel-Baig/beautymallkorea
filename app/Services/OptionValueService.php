@@ -31,7 +31,7 @@ class OptionValueService {
 
 			unset($optionValue["old_image"]);
 
-			$optionValue = handleFilesIfPresent("option_values", $optionValue, $optionValue["image"]);
+			$optionValue = handleFiles("option_values", $optionValue);
 
 			if (!Arr::exists($optionValue, "id")) {
 				$optionValue["option_id"] = $option->id;
