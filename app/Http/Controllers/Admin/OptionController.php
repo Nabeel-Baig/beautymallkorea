@@ -20,7 +20,7 @@ class OptionController extends Controller {
 	private readonly string $title;
 
 	public function __construct(private readonly OptionService $optionService, private readonly OptionValueService $optionValueService) {
-		$this->title = "Options";
+		$this->title = "Variants";
 	}
 
 	/**
@@ -30,7 +30,7 @@ class OptionController extends Controller {
 		$this->authorize("access", [Option::class, PermissionEnum::OPTION_ACCESS]);
 
 		$content['title'] = $this->title;
-		$content['headers'] = ["ID", "Option Name"];
+		$content['headers'] = ["ID", "Variant Name"];
 
 		return view("admin.options.index")->with($content);
 	}

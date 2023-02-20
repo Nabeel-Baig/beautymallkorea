@@ -68,7 +68,7 @@
 							@endcan
 							@can(PermissionEnum::OPTION_ACCESS->value)
 								<li>
-									<a href="{{ route('admin.options.index') }}" key="t-products">Options</a>
+									<a href="{{ route('admin.options.index') }}" key="t-products">Variants</a>
 								</li>
 							@endcan
 							@can(PermissionEnum::PRODUCT_ACCESS->value)

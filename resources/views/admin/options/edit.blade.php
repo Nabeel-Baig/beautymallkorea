@@ -8,7 +8,7 @@
 
 @section('page-specific-css')
 	<!-- Plugins css -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css" />
 @endsection
 
 @section('content')
@@ -32,7 +32,7 @@
 						@method('PATCH')
 
 						<div class="mb-3">
-							<label for="option_name" class="form-label">Option Name</label>
+							<label for="option_name" class="form-label">Variant Name</label>
 							<input type="text" name="name" id="option_name" value="{{ old("name") ?? $model->name }}" minlength="3" maxlength="50" class="form-control @error('name') parsley-error @enderror" required>
 							@error('name')
 							<span class="text-red">{{ $message }}</span>
@@ -44,7 +44,7 @@
 								<input type="hidden" name="option_values[{{ $index }}][id]" value="{{ $optionValue->id }}">
 
 								<div class="col-5">
-									<input type="text" class="inner form-control" value="{{ old("name") ?? $optionValue->name }}" placeholder="Option Value Name" name="option_values[{{ $index }}][name]" minlength="3" maxlength="50" required>
+									<input type="text" class="inner form-control" value="{{ old("name") ?? $optionValue->name }}" placeholder="Variant Value Name" name="option_values[{{ $index }}][name]" minlength="3" maxlength="50" required>
 								</div>
 
 								<div class="col-5">
@@ -65,7 +65,7 @@
 									<div class="d-grid">
 										<button title="Delete" type="button" class="btn btn-danger inner" onclick="deleteOptionValueRow(${ optionValueId })">
 											<i class="fa fa-trash"></i>
-											Remove Option Value
+											Remove Variant Value
 										</button>
 									</div>
 								</div>
@@ -73,7 +73,7 @@
 						@endforeach
 
 						<div class="mt-3 mb-3" id="add-option-value-row-div">
-							<button type="button" class="btn btn-success waves-effect waves-light mr-1" onclick="addOptionValueRow()">Add Option Value</button>
+							<button type="button" class="btn btn-success waves-effect waves-light mr-1" onclick="addOptionValueRow()">Add Variant Value</button>
 						</div>
 
 						<div class="mb-3" id="submit-button-div">
@@ -107,7 +107,7 @@
 			return `
 				<div class="row mt-2" id="option-value-row-${ optionValueId }">
 					<div class="col-5">
-						<input type="text" class="inner form-control" placeholder="Option Value Name" name="option_values[${ optionValueId }][name]" minlength="3" maxlength="50" required>
+						<input type="text" class="inner form-control" placeholder="Variant Value Name" name="option_values[${ optionValueId }][name]" minlength="3" maxlength="50" required>
 					</div>
 					<div class="col-5">
 						<div class="input-group-btn">
@@ -124,7 +124,7 @@
 						<div class="d-grid">
 							<button title="Delete" type="button" class="btn btn-danger inner" onclick="deleteOptionValueRow(${ optionValueId })">
 								<i class="fa fa-trash"></i>
-								Remove Option Value
+								Remove Variant Value
 							</button>
 						</div>
 					</div>
