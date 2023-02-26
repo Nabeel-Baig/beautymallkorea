@@ -50,7 +50,7 @@
 								<div class="col-5">
 									<div class="input-group-btn">
 										<div class="image-upload">
-											<img id="option-value-image-{{ $index }}" src="{{ asset('images/placeholder.png') }}" alt="option-image">
+											<img id="option-value-image-{{ $index }}" src="{{ asset($optionValue->image) }}" alt="option-image">
 											<div class="file-btn">
 												<input type="file" id="option_image_{{ $index }}" onchange="previewImage(event, {{ $index }})" name="option_values[{{ $index }}][image]">
 												<label class="btn btn-info">Upload</label>
@@ -63,7 +63,7 @@
 
 								<div class="col-2">
 									<div class="d-grid">
-										<button title="Delete" type="button" class="btn btn-danger inner" onclick="deleteOptionValueRow(${ optionValueId })">
+										<button title="Delete" type="button" class="btn btn-danger inner" onclick="deleteOptionValueRow({{ $index }})">
 											<i class="fa fa-trash"></i>
 											Remove Variant Value
 										</button>
