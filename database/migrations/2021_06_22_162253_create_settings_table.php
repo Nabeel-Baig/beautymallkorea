@@ -5,12 +5,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreateSettingsTable extends Migration {
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up() {
+
+	final public function up(): void
+	{
 		Schema::create('settings', function (Blueprint $table) {
 			$table->id();
 			$table->string('name')->nullable();
@@ -22,17 +19,14 @@ class CreateSettingsTable extends Migration {
 			$table->string('phone')->nullable();
 			$table->string('address')->nullable();
 			$table->string('link')->nullable();
+			$table->string('currency')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});
 	}
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down() {
+	public function down(): void
+	{
 		Schema::dropIfExists('settings');
 	}
 }

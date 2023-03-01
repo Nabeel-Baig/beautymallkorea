@@ -24,6 +24,7 @@ class SettingsSeeder extends Seeder
             'phone' => '923333906233',
             'address' => 'Gulistan-e-Jauhar, Karachi.',
             'link' => 'beautymallkorea.com',
+            'currency' => 'AED',
         ]);
     }
 }
