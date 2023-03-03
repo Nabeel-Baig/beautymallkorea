@@ -30,6 +30,7 @@ class UpdateSettingRequest extends FormRequest {
 			'logo' => 'sometimes|required|image|mimes:jpeg,jpg,png',
 			'footer_logo' => 'sometimes|required|image|mimes:jpeg,jpg,png',
 			'favico' => 'sometimes|required|image|mimes:jpeg,jpg,png',
+			'currency' => 'required'
 		];
 	}
 }

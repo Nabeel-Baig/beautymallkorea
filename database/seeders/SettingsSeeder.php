@@ -17,12 +17,17 @@ class SettingsSeeder extends Seeder
         Setting::create([
             'name' => 'Beauty Mall Korea',
             'title' => 'Beauty Mall Korea',
-            'logo' => '/images/logo.png',
-            'footer_logo' => '/images/footerlogo.png',
-            'favico' => '/images/logo.png',
+            'logo' => '/assets/images/BMK_LOGO.png',
+            'footer_logo' => '/assets/images/BMK_LOGO_white.png',
+            'favico' => '/assets/images/BMK_LOGO.png',
             'email' => 'info@beautymallkorea.com',
-            'phone' => '923333906233',
-            'address' => 'Gulistan-e-Jauhar, Karachi.',
+            'phone' => '+92-333-3906233',
+            'address' => '<ul>
+						  <li>COMPANY : Barunson Co,. Ltd</li>
+						  <li>LICENSE : 114-81-65451</li>
+						  <li>ADDRESS : 16227 Yeongtong-gu Suwon-si Gyeonggi-do Korea 5th K-Tower Daehak 3-ro 1</li>
+						  <li>D-U-N-S® Number : 694506164</li>
+						</ul>',
             'link' => 'beautymallkorea.com',
             'currency' => 'AED',
         ]);

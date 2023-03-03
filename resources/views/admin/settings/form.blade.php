@@ -62,8 +62,17 @@
 							@enderror
 						</div>
 						<div class="form-group">
+							<label>{{ ucwords(str_replace('_',' ','currency')) }}</label>
+							<input type="text" class="form-control @error('currency') parsley-error @enderror"
+								   value="{{ $setting->currency ?? '' }}" name="currency" id="currency"
+								   placeholder="{{ ucwords(str_replace('_',' ','currency')) }}" required/>
+							@error('currency')
+							<span class="text-red">{{ $message }}</span>
+							@enderror
+						</div>
+						<div class="form-group">
 							<label>{{ ucwords(str_replace('_',' ','address')) }}</label>
-							<textarea class="form-control @error('address') parsley-error @enderror" name="address" id="address"
+							<textarea class="form-control @error('address') parsley-error @enderror" name="address" id="elm1"
 									  placeholder="{{ ucwords(str_replace('_',' ','address')) }}" required>{{ $setting->address ?? '' }}</textarea>
 							@error('address')
 							<span class="text-red">{{ $message }}</span>
@@ -118,6 +127,10 @@
 	<!-- Plugins js -->
 	<script src="{{ asset('assets/js/pages/form-validation.init.js') }}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
+	<!--tinymce js-->
+	<script src="{{ asset('assets/libs/tinymce/tinymce.min.js') }}"></script>
+	<!-- init js -->
+	<script src="{{ asset('assets/js/pages/form-editor.init.js') }}"></script>
 @endsection
 @section('script-bottom')
 	<script>

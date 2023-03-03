@@ -17,7 +17,7 @@ class CreateSettingsTable extends Migration {
 			$table->string('favico')->nullable();
 			$table->string('email')->nullable();
 			$table->string('phone')->nullable();
-			$table->string('address')->nullable();
+			$table->text('address')->nullable();
 			$table->string('link')->nullable();
 			$table->string('currency')->nullable();
 			$table->timestamps();
