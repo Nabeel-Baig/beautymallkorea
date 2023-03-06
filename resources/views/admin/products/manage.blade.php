@@ -66,7 +66,7 @@
 									<span class="d-block d-sm-none">
 										<i class="fas fa-cog"></i>
 									</span>
-									<span class="d-none d-sm-block">Options</span>
+									<span class="d-none d-sm-block">Variants</span>
 								</a>
 							</li>
 							<li class="nav-item">
