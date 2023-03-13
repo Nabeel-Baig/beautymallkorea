@@ -43,7 +43,7 @@
 									required>
 								<option value="">Select {{ ucwords(str_replace('_',' ','banner_type')) }}</option>
 								<option
-									value="slider" {{ !empty($slider->banner_type) ? (("slider" === $banner->banner_type) ? "selected" : "") : '' }}>
+									value="slider" {{ !empty($banner->banner_type) ? (("slider" === $banner->banner_type) ? "selected" : "") : '' }}>
 									Slider
 								</option>
 								<option

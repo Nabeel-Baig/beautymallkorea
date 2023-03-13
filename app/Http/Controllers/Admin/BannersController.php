@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\PermissionEnum;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Banner\ManageBannerRequest;
+use App\Http\Requests\Admin\Banner\ManageBannerRequest;
 use App\Models\Banner;
 use App\Services\BannerService;
 use Illuminate\Http\JsonResponse;
@@ -42,7 +42,6 @@ class BannersController extends Controller
 
     final public function store(ManageBannerRequest $request): RedirectResponse
     {
-		dd($request->validated());
 		Banner::create(handleFiles(\request()->segment(2), $request->validated()));
 		return redirect()->route('admin.' . request()->segment(2) . '.index')->withToastSuccess('Banner Created Successfully!');
     }
@@ -58,15 +57,11 @@ class BannersController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+    public function edit(Banner $banner): View
+	{
+		abort_if(Gate::denies(PermissionEnum::BANNER_EDIT->value),Response::HTTP_FORBIDDEN,'403 Forbidden');
+		$title = $this->title;
+		return view('admin.' . request()->segment(2) . '.form',compact('title','banner'));
     }
 
     /**

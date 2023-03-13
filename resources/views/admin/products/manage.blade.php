@@ -92,7 +92,7 @@
 
 								<div class="mb-3">
 									<label for="product_description" class="form-label">Description</label>
-									<textarea name="product[description]" id="product_description" minlength="3" class="form-control @error('product.description') parsley-error @enderror" required>{{ $model->description ?? old("product.description") }}</textarea>
+									<textarea name="product[description]" id="elm1" minlength="3" class="form-control @error('product.description') parsley-error @enderror" required>{{ $model->description ?? old("product.description") }}</textarea>
 									@error('product.description')
 									<span class="text-red">{{ $message }}</span>
 									@enderror
