@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Api\Product;
 
+use App\Http\Resources\Api\Brand\BrandResource;
+use App\Http\Resources\Api\Tag\TagListCollection;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -20,6 +22,9 @@ class ProductResource extends JsonResource {
 			"price" => $this->price,
 			"discount_price" => $this->discount_price,
 			"image" => $this->image,
+
+			"tags" => new TagListCollection($this->whenLoaded("tags")),
+			"brand" => new BrandResource($this->whenLoaded("brand")),
 		];
 	}
 }

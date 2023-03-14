@@ -43,6 +43,7 @@ class ProductApiService {
 
 	final public function createProductListBuilder(ProductListRequest $productListRequest): Builder {
 		$productListBuilder = $this->createProductSelection();
+		$productListBuilder = $this->addProductRelationships($productListBuilder, $productListRequest);
 
 		return $this->createProductFilters($productListBuilder, $productListRequest);
 	}
@@ -62,7 +63,17 @@ class ProductApiService {
 	}
 
 	private function createProductSelection(): Builder {
-		return Product::query()->select(["name", "slug", "image", "price", "discount_price"]);
+		return Product::query()->select(["id", "brand_id", "name", "slug", "image", "price", "discount_price"]);
+	}
+
+	private function addProductRelationships(Builder $productListBuilder, ProductListRequest $productListRequest): Builder {
+		$withRelationships = $productListRequest->input("with", null);
+
+		if ($withRelationships === null) {
+			return $productListBuilder;
+		}
+
+		return $productListBuilder->with($withRelationships);
 	}
 
 	private function createProductFilters(Builder $productListBuilder, ProductListRequest $productListRequest): Builder {
