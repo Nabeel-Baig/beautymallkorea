@@ -34,7 +34,7 @@ class BrandCountry implements CastsAttributes {
 	 * @param BrandCountryValueObject $value
 	 * @param array                   $attributes
 	 *
-	 * @return array
+	 * @return string
 	 * @throws JsonException
 	 */
 	final public function set(mixed $model, string $key, mixed $value, array $attributes): string {
@@ -42,6 +42,6 @@ class BrandCountry implements CastsAttributes {
 			throw new InvalidArgumentException("The given value is not an BrandCountryValueObject instance.");
 		}
 
-		return $value->jsonSerialize();
+		return json_encode($value, JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES);
 	}
 }
