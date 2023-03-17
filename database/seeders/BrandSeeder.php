@@ -36,6 +36,7 @@ class BrandSeeder extends Seeder {
 					"slug" => Str::slug("Brand $countryIdentifier - $identifier"),
 					"country" => $serializedCountry,
 					"brand_image" => "images/brand.png",
+					"brand_banner_image" => "images/brandbanner.jpg",
 					"sort_order" => $brandCount++,
 					"created_at" => $timestamp,
 					"updated_at" => $timestamp,

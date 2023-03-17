@@ -7,6 +7,7 @@
 @section('page-specific-css')
 	<!-- Plugins css -->
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/select2/select2.min.css') }}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css"/>
 @endsection
 
 @section('content')
@@ -69,6 +70,14 @@
 						</div>
 
 						<div class="mb-3">
+							<label>{{ ucwords(str_replace('_',' ','brand_banner_image')) }}</label>
+							<input type="file" id="brand_banner_image" class="dropify" name="brand_banner_image" data-height="200">
+							@error('brand_banner_image')
+							<span class="text-red">{{ $message }}</span>
+							@enderror
+						</div>
+
+						<div class="mb-3">
 							<div>
 								<button type="submit" class="btn btn-primary waves-effect waves-light mr-1">Submit</button>
 							</div>
@@ -84,10 +93,7 @@
 	<script src="{{ asset('assets/libs/parsleyjs/parsleyjs.min.js') }}"></script>
 	<!-- Plugins js -->
 	<script src="{{ asset('assets/js/pages/form-validation.init.js') }}"></script>
-	<!--tinymce js-->
-	<script src="{{ asset('assets/libs/tinymce/tinymce.min.js') }}"></script>
-	<!-- init js -->
-	<script src="{{ asset('assets/js/pages/form-editor.init.js') }}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
 	<!-- select2 -->
 	<script src="{{ asset('assets/libs/select2/select2.min.js') }}"></script>
 @endsection
@@ -105,6 +111,12 @@
 		$(function() {
 			$("#brand_country").select2({
 				templateResult: formatBrandOptions,
+			});
+
+			$("#brand_banner_image").dropify({
+				messages: {
+					"default": "Drop a file OR click",
+				}
 			});
 		});
 	</script>

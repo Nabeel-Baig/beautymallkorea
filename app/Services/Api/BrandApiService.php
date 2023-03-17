@@ -23,6 +23,10 @@ class BrandApiService {
 
 		return $brandWithProductListBuilder->has("products", ">=", 3)->take(5)->get();
 	}
+	public function getSingleBrand(string $slug): Brand
+	{
+		return $this->createBrandSelection()->whereSlug($slug)->first();
+	}
 
 	final public function brandProductList(Brand $brand, ProductListRequest $productListRequest): Collection|LengthAwarePaginator {
 		$productListBuilder = $this->productApiService->createProductListBuilder($productListRequest);
@@ -53,7 +57,7 @@ class BrandApiService {
 	}
 
 	private function createBrandSelection(): Builder {
-		return Brand::query()->select(["id", "name", "brand_image", "country", "slug"]);
+		return Brand::query()->select(["id", "name", "brand_image", "country", "slug", "brand_banner_image"]);
 	}
 
 	private function createBrandFilters(Builder $brandListBuilder, BrandListRequest $brandListRequest): Builder {

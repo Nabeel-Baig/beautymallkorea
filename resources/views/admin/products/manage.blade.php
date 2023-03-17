@@ -12,6 +12,7 @@
 @section('page-specific-css')
 	<!-- Plugins css -->
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/select2/select2.min.css') }}">
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -91,8 +92,8 @@
 								</div>
 
 								<div class="mb-3">
-									<label for="product_description" class="form-label">Description</label>
-									<textarea name="product[description]" id="elm1" minlength="3" class="form-control @error('product.description') parsley-error @enderror" required>{{ $model->description ?? old("product.description") }}</textarea>
+									<label for="product_description" class="form-label">Product Description</label>
+									<textarea name="product[description]" minlength="3" class="form-control editor @error('product.description') parsley-error @enderror" required>{{ $model->description ?? old("product.description") }}</textarea>
 									@error('product.description')
 									<span class="text-red">{{ $message }}</span>
 									@enderror
@@ -402,10 +403,7 @@
 	<script src="{{ asset('assets/libs/parsleyjs/parsleyjs.min.js') }}"></script>
 	<!-- Plugins js -->
 	<script src="{{ asset('assets/js/pages/form-validation.init.js') }}"></script>
-	<!--tinymce js-->
-	<script src="{{ asset('assets/libs/tinymce/tinymce.min.js') }}"></script>
-	<!-- init js -->
-	<script src="{{ asset('assets/js/pages/form-editor.init.js') }}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 	<!-- select2 -->
 	<script src="{{ asset('assets/libs/select2/select2.min.js') }}"></script>
 @endsection
@@ -596,6 +594,12 @@
 
 			$("#product_brand").select2({
 				templateResult: formatBrandOptions,
+			});
+
+			// Text Editor
+			$('.editor').summernote({
+				placeholder: 'Product Description',
+				height: 300
 			});
 		});
 	</script>

@@ -29,7 +29,7 @@ class BrandController extends Controller {
 		$this->authorize("access", [Brand::class, PermissionEnum::BRAND_ACCESS]);
 
 		$content["title"] = $this->title;
-		$content["headers"] = ["ID", "Brand Name", "Brand Image", "Brand Country"];
+		$content["headers"] = ["ID", "Name", "Image", "Banner Image", "Country"];
 
 		return view("admin.brands.index")->with($content);
 	}

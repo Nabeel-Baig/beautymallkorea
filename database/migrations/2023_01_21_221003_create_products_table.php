@@ -14,7 +14,7 @@ class CreateProductsTable extends Migration {
 			$table->foreignId("brand_id")->nullable()->constrained("brands")->nullOnDelete();
 			$table->string("name")->unique();
 			$table->string("slug")->unique();
-			$table->text("description")->nullable();
+			$table->longText("description")->nullable();
 			$table->string("meta_title")->nullable();
 			$table->string("meta_description")->nullable();
 			$table->string("meta_keywords")->nullable();

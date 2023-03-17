@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class Brand extends Model {
 	protected $table = "brands";
-	protected $fillable = ["name", "slug", "country", "brand_image", "sort_order"];
+	protected $fillable = ["name", "slug", "country", "brand_image", "sort_order", "brand_banner_image"];
 	protected $casts = [
 		"country" => BrandCountry::class,
 	];

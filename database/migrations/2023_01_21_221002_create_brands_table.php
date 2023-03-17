@@ -12,6 +12,7 @@ return new class extends Migration {
 			$table->string("slug")->unique();
 			$table->text("country");
 			$table->string("brand_image");
+			$table->string("brand_banner_image");
 			$table->integer("sort_order");
 			$table->timestamps();
 		});

@@ -22,6 +22,7 @@ class UpdateBrandRequest extends FormRequest {
 			"country_code" => ["required", Rule::in($countryCodes)],
 			"brand_image" => "nullable|image",
 			"brand_old_image" => "required|string",
+			"brand_banner_image" => "nullable|image",
 			"sort_order" => "nullable|numeric",
 		];
 	}

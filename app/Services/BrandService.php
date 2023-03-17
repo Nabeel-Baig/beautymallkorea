@@ -13,8 +13,10 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use JsonException;
 
-class BrandService {
-	final public function paginate(): JsonResponse {
+class BrandService
+{
+	final public function paginate(): JsonResponse
+	{
 		return datatables()->of(Brand::orderBy('id', 'desc')->get())
 			->addColumn('selection', function (Brand $brand) {
 				return '<input type="checkbox" class="delete_checkbox flat" value="' . $brand->id . '">';
@@ -26,6 +28,10 @@ class BrandService {
 				$brandImage = asset($brand->brand_image);
 				return "<img width='80' src='$brandImage' alt='{$brand->country->countryName}'>";
 			})
+			->addColumn('brand_banner_image', function (Brand $brand) {
+				$brand_banner_image = asset($brand->brand_banner_image);
+				return "<img width='80' src='$brand_banner_image' alt='{$brand->country->countryName}'>";
+			})
 			->addColumn('actions', function ($data) {
 				$edit = '';
 				$delete = '';
@@ -36,17 +42,19 @@ class BrandService {
 					$delete = '<button title="Delete" type="button" name="delete" id="' . $data['id'] . '" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
 				}
 				return $edit . $delete;
-			})->rawColumns(['selection', 'countryFlag', 'actions'])->make(true);
+			})->rawColumns(['selection', 'countryFlag', 'brand_banner_image', 'actions'])->make(true);
 	}
 
-	final public function getBrandsForDropdown(): Collection {
+	final public function getBrandsForDropdown(): Collection
+	{
 		return Brand::select(["id", "name", "country"])->get();
 	}
 
 	/**
 	 * @throws JsonException
 	 */
-	final public function prepareCountryList(): Collection {
+	final public function prepareCountryList(): Collection
+	{
 		$countriesJson = file_get_contents(public_path("countries/countries.json"));
 		$parsedCountriesJson = json_decode($countriesJson, true, 512, JSON_THROW_ON_ERROR);
 		$countries = [];
@@ -61,7 +69,8 @@ class BrandService {
 	/**
 	 * @throws JsonException
 	 */
-	final public function create(CreateBrandRequest $createBrandRequest): Brand {
+	final public function create(CreateBrandRequest $createBrandRequest): Brand
+	{
 		$data = $createBrandRequest->validated();
 
 		$data = handleFiles("brands", $data);
@@ -77,15 +86,17 @@ class BrandService {
 	/**
 	 * @throws JsonException
 	 */
-	final public function update(Brand $brand, UpdateBrandRequest $updateBrandRequest): Brand {
+	final public function update(Brand $brand, UpdateBrandRequest $updateBrandRequest): Brand
+	{
 		$data = $updateBrandRequest->validated();
-
 		if (!Arr::exists($data, "brand_image") || $data["brand_image"] === null) {
 			$data["brand_image"] = $data["brand_old_image"] ?? null;
 		} else {
 			$data = handleFilesIfPresent("brands", $data, $brand);
 		}
-
+		if (Arr::exists($data, 'brand_banner_image')) {
+			$data = handleFilesIfPresent("brands", $data, $brand);
+		}
 		unset($data["brand_old_image"]);
 
 		$data = $this->calculateBrandSortOrder($data);
@@ -97,11 +108,13 @@ class BrandService {
 		return $brand;
 	}
 
-	final public function delete(Brand $brand): void {
+	final public function delete(Brand $brand): void
+	{
 		$brand->delete();
 	}
 
-	final public function deleteMany(DeleteManyBrandRequest $deleteManyBrandRequest): void {
+	final public function deleteMany(DeleteManyBrandRequest $deleteManyBrandRequest): void
+	{
 		$ids = $deleteManyBrandRequest->input("ids");
 
 		Brand::whereIn("id", $ids)->delete();
@@ -110,13 +123,15 @@ class BrandService {
 	/**
 	 * @throws JsonException
 	 */
-	private function findCountryByCountryCode(string $countryCode): BrandCountryValueObject {
+	private function findCountryByCountryCode(string $countryCode): BrandCountryValueObject
+	{
 		return $this->prepareCountryList()->first(static function (BrandCountryValueObject $brandCountryValue) use ($countryCode) {
 			return $brandCountryValue->countryCode === $countryCode;
 		});
 	}
 
-	private function calculateBrandSortOrder(array $data): array {
+	private function calculateBrandSortOrder(array $data): array
+	{
 		if (!Arr::exists($data, "sort_order") || $data["sort_order"] === null) {
 			$latestBrand = Brand::latest("sort_order")->first(["sort_order"]);
 			$data["sort_order"] = $latestBrand === null ? 0 : $latestBrand->sort_order + 1;

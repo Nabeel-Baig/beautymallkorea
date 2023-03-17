@@ -21,6 +21,7 @@ class CreateBrandRequest extends FormRequest {
 			"country_code" => ["required", Rule::in($countryCodes)],
 			"brand_image" => "required|image",
 			"sort_order" => "nullable|numeric",
+			"brand_banner_image" => "required|image",
 		];
 	}
 }

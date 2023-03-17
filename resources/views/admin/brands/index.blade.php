@@ -143,6 +143,10 @@
 						name: "countryFlag",
 					},
 					{
+						data: "brand_banner_image",
+						name: "brand_banner_image",
+					},
+					{
 						data: "countryName",
 						name: "countryName",
 					},
