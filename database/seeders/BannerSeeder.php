@@ -42,7 +42,7 @@ class BannerSeeder extends Seeder
 		Banner::insert($promotion_events);
 
 		$promotion_brands = [];
-		for ($i = 1; $i < 5; $i++) {
+		for ($i = 1; $i < 6; $i++) {
 			$promotion_brands [] = [
 				'banner_type' => 'promotion_brand',
 				'title' => 'promotion_brand'.$i,
@@ -60,6 +60,16 @@ class BannerSeeder extends Seeder
 			'title' => 'delivery_banner',
 			'link' => 'javascript:;',
 			'image' => "images/banners/delivery_banner.jpg",
+			'sort_order' => $i,
+			"created_at" => $timestamp,
+			"updated_at" => $timestamp,
+		]);
+
+		Banner::create([
+			'banner_type' => 'banner',
+			'title' => 'banner',
+			'link' => 'javascript:;',
+			'image' => "images/banners/banner.jpg",
 			'sort_order' => $i,
 			"created_at" => $timestamp,
 			"updated_at" => $timestamp,

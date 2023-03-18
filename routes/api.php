@@ -48,6 +48,7 @@ Route::get('/greeting', static function () {
 Route::get('/banners/{slug}', [BannerController::class, 'index']);
 
 Route::get('/categories', [CategoryController::class, 'index']);
+Route::get('/get-single-category/{slug}',[CategoryController::class,"getSingleCategory"]);
 Route::get('/category/{category:slug}', [CategoryController::class, 'categoryProducts']);
 
 Route::get("/brands", [BrandController::class, "index"]);
