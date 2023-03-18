@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder {
 			OptionValueSeeder::class,
 			BrandSeeder::class,
 			ProductSeeder::class,
+			BannerSeeder::class
 		]);
 	}
 }

@@ -42,16 +42,10 @@ class BannersController extends Controller
 
     final public function store(ManageBannerRequest $request): RedirectResponse
     {
+		abort_if(Gate::denies(PermissionEnum::BANNER_CREATE->value),Response::HTTP_FORBIDDEN,'403 Forbidden');
 		Banner::create(handleFiles(\request()->segment(2), $request->validated()));
 		return redirect()->route('admin.' . request()->segment(2) . '.index')->withToastSuccess('Banner Created Successfully!');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
@@ -64,16 +58,11 @@ class BannersController extends Controller
 		return view('admin.' . request()->segment(2) . '.form',compact('title','banner'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(ManageBannerRequest $request, Banner $banner)
     {
-        //
+		abort_if(Gate::denies(PermissionEnum::BANNER_EDIT->value),Response::HTTP_FORBIDDEN,'403 Forbidden');
+		$this->bannerService->update($request, $banner);
+		return redirect()->route('admin.' . request()->segment(2) . '.index')->withUpdatedSuccessToastr("Banner");
     }
 
     /**

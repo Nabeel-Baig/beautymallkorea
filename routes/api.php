@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BannerController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\GeneralController;
@@ -43,6 +44,8 @@ Route::get('/setting', [GeneralController::class, 'setting']);
 Route::get('/greeting', static function () {
 	return response()->json('Hello World');
 });
+
+Route::get('/banners/{slug}', [BannerController::class, 'index']);
 
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/category/{category:slug}', [CategoryController::class, 'categoryProducts']);

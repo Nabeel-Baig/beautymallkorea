@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Enums\PermissionEnum;
+use App\Http\Requests\Admin\Banner\ManageBannerRequest;
 use App\Models\Banner;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
@@ -40,11 +41,10 @@ class BannerService {
 		return Banner::create($optionData);
 	}
 
-	final public function update(Option $option, UpdateOptionRequest $updateOptionRequest): Option {
-		$optionData = $updateOptionRequest->only(["name"]);
-		$option->update($optionData);
-
-		return $option;
+	final public function update(ManageBannerRequest $request, Banner $banner): Banner {
+		$data = handleFilesIfPresent('banners', $request->validated(), $banner);
+		$banner->update($data);
+		return $banner;
 	}
 
 	final public function deleteMany(DeleteManyOptionRequest $deleteManyOptionRequest): void {

@@ -68,10 +68,6 @@ class BrandController extends Controller {
 		return redirect()->route("admin.brands.index")->withCreatedSuccessToastr("Brand");
 	}
 
-	/**
-	 * @throws AuthorizationException
-	 * @throws JsonException
-	 */
 	final public function edit(Brand $brand): View {
 		$this->authorize("access", [Brand::class, PermissionEnum::BRAND_EDIT]);
 
