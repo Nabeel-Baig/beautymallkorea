@@ -17,9 +17,9 @@ class SettingsSeeder extends Seeder
         Setting::create([
             'name' => 'Beauty Mall Korea',
             'title' => 'Beauty Mall Korea',
-            'logo' => '/assets/images/BMK_LOGO.png',
-            'footer_logo' => '/assets/images/BMK_LOGO_white.png',
-            'favico' => '/assets/images/BMK_LOGO.png',
+            'logo' => 'images/logo.png',
+            'footer_logo' => 'images/footerlogo.png',
+            'favico' => 'images/favico.png',
             'email' => 'info@beautymallkorea.com',
             'phone' => '+92-333-3906233',
             'address' => '<ul>
