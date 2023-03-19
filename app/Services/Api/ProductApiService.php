@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductApiService {
@@ -20,7 +21,11 @@ class ProductApiService {
 	final public function productDetails(Product $product): Product {
 		return $product->load([
 			"relatedProducts" => static function (BelongsToMany $query) {
-				return $query->select(["products.id", "products.name", "products.slug", "products.price", "products.discount_price", "products.image"]);
+				return $query->select(["products.id", "products.brand_id", "products.name", "products.slug", "products.price", "products.discount_price", "products.image"])->with([
+					"brand" => static function (BelongsTo $query) {
+						return $query->select(["brands.id", "brands.name", "brands.slug", "brands.brand_image", "brands.country"]);
+					},
+				]);
 			},
 			"brand" => static function (BelongsTo $query): BelongsTo {
 				return $query->select(["brands.id", "brands.name", "brands.slug", "brands.brand_image", "brands.country"]);
@@ -31,10 +36,14 @@ class ProductApiService {
 			"categories" => static function (BelongsToMany $query) {
 				return $query->select(["categories.id", "categories.name", "categories.slug", "categories.description", "categories.image"]);
 			},
-			"optionValues" => static function (BelongsToMany $query) {
-				return $query->select(["option_values.id", "option_values.name", "option_values.option_id", "option_values.image"])->with([
-					"option" => static function (BelongsTo $query) {
-						return $query->select(["options.id", "options.name"]);
+			"productOptions" => static function (HasMany $query) {
+				return $query->select(["product_options.id", "product_options.product_id", "product_options.option_value_id", "product_options.quantity", "product_options.subtract_stock", "product_options.price_difference", "product_options.price_adjustment"])->with([
+					"optionValue" => static function (BelongsTo $query) {
+						return $query->select(["option_values.id", "option_values.name", "option_values.option_id", "option_values.image"])->with([
+							"option" => static function (BelongsTo $query) {
+								return $query->select(["options.id", "options.name"]);
+							},
+						]);
 					},
 				]);
 			},

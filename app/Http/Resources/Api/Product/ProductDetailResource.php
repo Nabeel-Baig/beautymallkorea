@@ -38,7 +38,7 @@ class ProductDetailResource extends JsonResource {
 			"brand" => new BrandResource($this->whenLoaded("brand")),
 			"tags" => new TagListCollection($this->whenLoaded("tags")),
 			"categories" => new CategoryListCollection($this->whenLoaded("categories")),
-			"optionValues" => new ProductOptionListCollection($this->whenLoaded("optionValues")),
+			"productOptions" => new ProductOptionListCollection($this->whenLoaded("productOptions")),
 		];
 	}
 }

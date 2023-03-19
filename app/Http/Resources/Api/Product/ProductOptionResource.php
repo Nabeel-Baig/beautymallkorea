@@ -2,23 +2,19 @@
 
 namespace App\Http\Resources\Api\Product;
 
-use App\Models\OptionValue;
-use Illuminate\Http\Request;
+use App\Models\ProductOption;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin OptionValue */
+/** @mixin ProductOption */
 class ProductOptionResource extends JsonResource {
-	/**
-	 * @param Request $request
-	 *
-	 * @return array
-	 */
 	final public function toArray($request): array {
 		return [
-			"name" => $this->name,
-			"image" => $this->image,
+			"quantity" => $this->quantity,
+			"subtract_stock" => $this->subtract_stock,
+			"price_difference" => $this->price_difference,
+			"price_adjustment" => $this->price_adjustment,
 
-			"option" => new OptionResource($this->whenLoaded("option")),
+			"optionValue" => new OptionValueResource($this->whenLoaded("optionValue")),
 		];
 	}
 }

@@ -2,11 +2,11 @@
 
 namespace App\Http\Resources\Api\Product;
 
-use App\Models\OptionValue;
+use App\Models\ProductOption;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-/** @see OptionValue */
+/** @see ProductOption */
 class ProductOptionListCollection extends ResourceCollection {
 	/**
 	 * @param Request $request
@@ -14,8 +14,8 @@ class ProductOptionListCollection extends ResourceCollection {
 	 * @return array
 	 */
 	final public function toArray($request): array {
-		$this->collection->transform(static function (OptionValue $optionValue) {
-			return new ProductOptionResource($optionValue);
+		$this->collection->transform(static function (ProductOption $productOption) {
+			return new ProductOptionResource($productOption);
 		});
 
 		return parent::toArray($request);

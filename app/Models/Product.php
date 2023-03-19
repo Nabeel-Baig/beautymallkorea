@@ -8,6 +8,7 @@ use App\Enums\ProductStockBehaviour;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Product extends Model {
@@ -48,9 +49,13 @@ class Product extends Model {
 		return $this->belongsToMany(Tag::class, "product_tags", "product_id", "tag_id")->withTimestamps();
 	}
 
+	final public function productOptions(): HasMany {
+		return $this->hasMany(ProductOption::class, "product_id", "id");
+	}
+
 	final public function optionValues(): BelongsToMany {
 		return $this->belongsToMany(OptionValue::class, "product_options", "product_id", "option_value_id")
-			->withPivot(["quantity", "subtract_stock", "price_difference", "price_adjustment"])
+			->withPivot(["id", "product_id", "option_value_id", "quantity", "subtract_stock", "price_difference", "price_adjustment"])
 			->withTimestamps();
 	}
 
