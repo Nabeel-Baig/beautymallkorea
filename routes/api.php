@@ -21,13 +21,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']);
+Route::post("/login", [AuthController::class, "login"]);
+Route::post("/register", [AuthController::class, "register"]);
 Route::group(["middleware" => ["auth:sanctum"]], static function () {
 	Route::post("/logout", [AuthController::class, "logout"]);
 });
 
-Route::get('/setting', [SettingController::class, 'setting']);
+Route::get("/setting", [SettingController::class, "setting"]);
 
 Route::get("/banners/{slug}", [BannerController::class, "index"]);
 
