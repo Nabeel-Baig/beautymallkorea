@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Brand\BrandListRequest;
-use App\Http\Requests\Api\Product\ProductListRequest;
+use App\Http\Requests\Api\Product\ProductListQueryParamsRequest;
 use App\Http\Resources\Api\Brand\BrandListCollection;
 use App\Http\Resources\Api\Brand\BrandResource;
 use App\Http\Resources\Api\Product\ProductListCollection;
@@ -20,9 +20,7 @@ class BrandController extends Controller {
 		return new BrandListCollection($brands);
 	}
 
-	public function getSingleBrand(string $slug): BrandResource
-	{
-		$brand = $this->brandApiService->getSingleBrand($slug);
+	final public function getSingleBrand(Brand $brand): BrandResource {
 		return new BrandResource($brand);
 	}
 
@@ -32,8 +30,8 @@ class BrandController extends Controller {
 		return new BrandListCollection($brands);
 	}
 
-	final public function brandProducts(Brand $brand, ProductListRequest $productListRequest): ProductListCollection {
-		$products = $this->brandApiService->brandProductList($brand, $productListRequest);
+	final public function brandProducts(Brand $brand, ProductListQueryParamsRequest $productListQueryParamsRequest): ProductListCollection {
+		$products = $this->brandApiService->brandProductList($brand, $productListQueryParamsRequest);
 
 		return new ProductListCollection($products);
 	}

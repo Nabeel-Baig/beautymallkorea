@@ -22,19 +22,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
-	Route::get('/users', function () {
+Route::group(["middleware" => ["auth:sanctum"]], static function () {
+	Route::get("/users", static function () {
 		return response()->json([
-			'users' => User::all(),
+			"users" => User::all(),
 		]);
 	});
-	/* Route::post('/products', [ProductController::class, 'store']);
-	Route::put('/products/{id}', [ProductController::class, 'update']);
-	Route::delete('/products/{id}', [ProductController::class, 'destroy']); */
-	Route::post('/logout', [AuthController::class, 'logout']);
+	/* Route::post("/products", [ProductController::class, "store"]);
+	Route::put("/products/{id}", [ProductController::class, "update"]);
+	Route::delete("/products/{id}", [ProductController::class, "destroy"]); */
+	Route::post("/logout", [AuthController::class, "logout"]);
 });
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware("auth:sanctum")->get("/user", function (Request $request) {
 	return $request->user();
 });
 
@@ -43,16 +43,17 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::get('/setting', [SettingController::class, 'setting']);
 Route::get('/greeting', static function () {
 	return response()->json('Hello World');
+
 });
 
-Route::get('/banners/{slug}', [BannerController::class, 'index']);
+Route::get("/banners/{slug}", [BannerController::class, "index"]);
 
-Route::get('/categories', [CategoryController::class, 'index']);
-Route::get('/get-single-category/{slug}',[CategoryController::class,"getSingleCategory"]);
-Route::get('/category/{category:slug}', [CategoryController::class, 'categoryProducts']);
+Route::get("/categories", [CategoryController::class, "index"]);
+Route::get("/get-single-category/{category:slug}", [CategoryController::class, "getSingleCategory"]);
+Route::get("/category/{category:slug}", [CategoryController::class, "categoryProducts"]);
 
 Route::get("/brands", [BrandController::class, "index"]);
-Route::get('/get-single-brand/{slug}',[BrandController::class,"getSingleBrand"]);
+Route::get("/get-single-brand/{brand:slug}", [BrandController::class, "getSingleBrand"]);
 Route::get("/brand/{brand:slug}", [BrandController::class, "brandProducts"]);
 Route::get("/brand-with-products/", [BrandController::class, "brandWithProducts"]);
 

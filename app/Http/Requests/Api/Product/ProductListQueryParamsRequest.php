@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\Product;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductListRequest extends FormRequest {
+class ProductListQueryParamsRequest extends FormRequest {
 	final public function rules(): array {
 		return [
 			// For sliders and stuff
