@@ -16,12 +16,7 @@ class CategoryApiService {
 
 		$categoryListBuilder = $this->createCategoryRelationships($categoryListBuilder);
 
-		return $categoryListBuilder->orderBy("sort_order",'desc')->get();
-	}
-
-	final public function getSingleCategory(string $slug): Category
-	{
-		return $this->createCategorySelection()->whereSlug($slug)->first();
+		return $categoryListBuilder->orderBy("sort_order", "desc")->get();
 	}
 
 	final public function categoryProductList(Category $category, ProductListRequest $productListRequest): Collection|LengthAwarePaginator {

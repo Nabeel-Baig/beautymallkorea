@@ -19,9 +19,7 @@ class CategoryController extends Controller {
 		return new CategoryListCollection($categories);
 	}
 
-	public function getSingleCategory(string $slug): CategoryResource
-	{
-		$category = $this->categoryApiService->getSingleCategory($slug);
+	final public function getSingleCategory(Category $category): CategoryResource {
 		return new CategoryResource($category);
 	}
 

@@ -23,10 +23,6 @@ class BrandApiService {
 
 		return $brandWithProductListBuilder->has("products", ">=", 3)->take(5)->get();
 	}
-	public function getSingleBrand(string $slug): Brand
-	{
-		return $this->createBrandSelection()->whereSlug($slug)->first();
-	}
 
 	final public function brandProductList(Brand $brand, ProductListRequest $productListRequest): Collection|LengthAwarePaginator {
 		$productListBuilder = $this->productApiService->createProductListBuilder($productListRequest);

@@ -20,9 +20,7 @@ class BrandController extends Controller {
 		return new BrandListCollection($brands);
 	}
 
-	public function getSingleBrand(string $slug): BrandResource
-	{
-		$brand = $this->brandApiService->getSingleBrand($slug);
+	final public function getSingleBrand(Brand $brand): BrandResource {
 		return new BrandResource($brand);
 	}
 
