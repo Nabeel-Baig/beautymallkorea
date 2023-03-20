@@ -33,7 +33,7 @@ class Category extends Model {
 	];
 
 	final public function childrenCategories(): HasMany {
-		return $this->hasMany(self::class, "category_id", "id")->with("childrenCategories");
+		return $this->hasMany(self::class, "category_id", "id")->with("childrenCategories")->orderBy('sort_order','asc');
 	}
 
 	final public function products(): BelongsToMany {

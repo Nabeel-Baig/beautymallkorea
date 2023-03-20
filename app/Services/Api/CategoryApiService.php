@@ -16,7 +16,7 @@ class CategoryApiService {
 
 		$categoryListBuilder = $this->createCategoryRelationships($categoryListBuilder);
 
-		return $categoryListBuilder->orderBy("sort_order", "desc")->get();
+		return $categoryListBuilder->orderBy("sort_order", "asc")->get();
 	}
 
 	final public function categoryProductList(Category $category, ProductListQueryParamsRequest $productListQueryParamsRequest): Collection|LengthAwarePaginator {
