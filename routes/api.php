@@ -4,7 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BannerController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\Api\GeneralController;
+use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\Api\ProductController;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -40,7 +40,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
-Route::get('/setting', [GeneralController::class, 'setting']);
+Route::get('/setting', [SettingController::class, 'setting']);
 Route::get('/greeting', static function () {
 	return response()->json('Hello World');
 });
@@ -58,3 +58,4 @@ Route::get("/brand-with-products/", [BrandController::class, "brandWithProducts"
 
 Route::get("/products", [ProductController::class, "index"]);
 Route::get("/product/{product:slug}", [ProductController::class, "productDetails"]);
+Route::get("/tag/{tag:slug}", [ProductController::class, "tagProducts"]);

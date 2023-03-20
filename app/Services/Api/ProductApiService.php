@@ -4,20 +4,24 @@ namespace App\Services\Api;
 
 use App\Http\Requests\Api\Product\ProductListRequest;
 use App\Models\Product;
+use App\Models\Tag;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class ProductApiService {
-	final public function productList(ProductListRequest $productListRequest): Collection|LengthAwarePaginator {
+class ProductApiService
+{
+	final public function productList(ProductListRequest $productListRequest): Collection|LengthAwarePaginator
+	{
 		$productListBuilder = $this->createProductListBuilder($productListRequest);
 
 		return $this->buildProductListResult($productListBuilder, $productListRequest);
 	}
 
-	final public function productDetails(Product $product): Product {
+	final public function productDetails(Product $product): Product
+	{
 		return $product->load([
 			"relatedProducts" => static function (BelongsToMany $query) {
 				return $query->select(["products.id", "products.name", "products.slug", "products.price", "products.discount_price", "products.image"]);
@@ -41,14 +45,16 @@ class ProductApiService {
 		]);
 	}
 
-	final public function createProductListBuilder(ProductListRequest $productListRequest): Builder {
+	final public function createProductListBuilder(ProductListRequest $productListRequest): Builder
+	{
 		$productListBuilder = $this->createProductSelection();
 		$productListBuilder = $this->addProductRelationships($productListBuilder, $productListRequest);
 
 		return $this->createProductFilters($productListBuilder, $productListRequest);
 	}
 
-	final public function buildProductListResult(Builder $productListBuilder, ProductListRequest $productListRequest): Collection|LengthAwarePaginator {
+	final public function buildProductListResult(Builder $productListBuilder, ProductListRequest $productListRequest): Collection|LengthAwarePaginator
+	{
 		$productListBuilder->when($productListRequest->has("latest"), static function (Builder $productListBuilder) {
 			$productListBuilder->latest();
 		});
@@ -62,11 +68,13 @@ class ProductApiService {
 		})->get();
 	}
 
-	private function createProductSelection(): Builder {
+	private function createProductSelection(): Builder
+	{
 		return Product::query()->select(["id", "brand_id", "name", "slug", "image", "price", "discount_price"]);
 	}
 
-	private function addProductRelationships(Builder $productListBuilder, ProductListRequest $productListRequest): Builder {
+	private function addProductRelationships(Builder $productListBuilder, ProductListRequest $productListRequest): Builder
+	{
 		$withRelationships = $productListRequest->input("with", null);
 
 		if ($withRelationships === null) {
@@ -76,7 +84,8 @@ class ProductApiService {
 		return $productListBuilder->with($withRelationships);
 	}
 
-	private function createProductFilters(Builder $productListBuilder, ProductListRequest $productListRequest): Builder {
+	private function createProductFilters(Builder $productListBuilder, ProductListRequest $productListRequest): Builder
+	{
 		$productListBuilder = $this->applyNameFilter($productListBuilder, $productListRequest);
 		$productListBuilder = $this->applyPriceFilter($productListBuilder, $productListRequest);
 		$productListBuilder = $this->applySpecialFilter($productListBuilder, $productListRequest);
@@ -84,14 +93,16 @@ class ProductApiService {
 		return $this->applyCategoryFilter($productListBuilder, $productListRequest);
 	}
 
-	private function applyNameFilter(Builder $productListBuilder, ProductListRequest $productListRequest): Builder {
+	private function applyNameFilter(Builder $productListBuilder, ProductListRequest $productListRequest): Builder
+	{
 		return $productListBuilder
 			->when($productListRequest->has("productName"), static function (Builder $productListBuilder) use ($productListRequest) {
 				$productListBuilder->where("name", "like", "%{$productListRequest->input("productName")}%");
 			});
 	}
 
-	private function applyPriceFilter(Builder $productListBuilder, ProductListRequest $productListRequest): Builder {
+	private function applyPriceFilter(Builder $productListBuilder, ProductListRequest $productListRequest): Builder
+	{
 		return $productListBuilder
 			->when($productListRequest->has("productPriceFrom"), static function (Builder $productListBuilder) use ($productListRequest) {
 				$productListBuilder->where("price", ">=", $productListRequest->input("productPriceFrom"));
@@ -101,14 +112,16 @@ class ProductApiService {
 			});
 	}
 
-	private function applySpecialFilter(Builder $productListBuilder, ProductListRequest $productListRequest): Builder {
+	private function applySpecialFilter(Builder $productListBuilder, ProductListRequest $productListRequest): Builder
+	{
 		return $productListBuilder
 			->when($productListRequest->has("promotional"), static function (Builder $productListBuilder) use ($productListRequest) {
 				$productListBuilder->where("promotion_status", "=", $productListRequest->input("promotional"));
 			});
 	}
 
-	private function applyBrandFilter(Builder $productListBuilder, ProductListRequest $productListRequest): Builder {
+	private function applyBrandFilter(Builder $productListBuilder, ProductListRequest $productListRequest): Builder
+	{
 		return $productListBuilder
 			->when($productListRequest->has("productOfBrands"), static function (Builder $productListBuilder) use ($productListRequest) {
 				$productListBuilder->whereHas("brand", static function (Builder $productListBuilder) use ($productListRequest) {
@@ -117,12 +130,28 @@ class ProductApiService {
 			});
 	}
 
-	private function applyCategoryFilter(Builder $productListBuilder, ProductListRequest $productListRequest): Builder {
+	private function applyCategoryFilter(Builder $productListBuilder, ProductListRequest $productListRequest): Builder
+	{
 		return $productListBuilder
 			->when($productListRequest->has("productOfCategories"), static function (Builder $productListBuilder) use ($productListRequest) {
 				$productListBuilder->whereHas("categories", static function (Builder $productListBuilder) use ($productListRequest) {
 					$productListBuilder->whereIn("slug", $productListRequest->input("productOfCategories"));
 				});
 			});
+	}
+
+	final public function tagProductList(Tag $tag, ProductListRequest $productListRequest): Collection|LengthAwarePaginator
+	{
+		$productListBuilder = $this->createProductListBuilder($productListRequest);
+		$productListBuilder = $this->applySpecificTagFilter($tag, $productListBuilder);
+
+		return $this->buildProductListResult($productListBuilder, $productListRequest);
+	}
+
+	final public function applySpecificTagFilter(Tag $tag, Builder $productListBuilder): Builder
+	{
+		return $productListBuilder->whereHas('tags', static function (Builder $tagQuery) use ($tag) {
+			$tagQuery->where('tags.slug', '=', $tag->slug);
+		});
 	}
 }

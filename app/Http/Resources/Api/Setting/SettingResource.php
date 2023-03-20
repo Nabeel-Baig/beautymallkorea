@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Api\Setting;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GeneralResource extends JsonResource
+class SettingResource extends JsonResource
 {
 
     final public function toArray($request): array|\JsonSerializable|\Illuminate\Contracts\Support\Arrayable
