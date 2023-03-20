@@ -3,7 +3,7 @@
 namespace App\Services\Api;
 
 use App\Http\Requests\Api\Brand\BrandListRequest;
-use App\Http\Requests\Api\Product\ProductListRequest;
+use App\Http\Requests\Api\Product\ProductListQueryParamsRequest;
 use App\Models\Brand;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -24,12 +24,12 @@ class BrandApiService {
 		return $brandWithProductListBuilder->has("products", ">=", 3)->take(5)->get();
 	}
 
-	final public function brandProductList(Brand $brand, ProductListRequest $productListRequest): Collection|LengthAwarePaginator {
-		$productListBuilder = $this->productApiService->createProductListBuilder($productListRequest);
+	final public function brandProductList(Brand $brand, ProductListQueryParamsRequest $productListQueryParamsRequest): Collection|LengthAwarePaginator {
+		$productListBuilder = $this->productApiService->createProductListBuilder($productListQueryParamsRequest);
 
 		$productListBuilder = $this->applySpecificBrandFilter($brand, $productListBuilder);
 
-		return $this->productApiService->buildProductListResult($productListBuilder, $productListRequest);
+		return $this->productApiService->buildProductListResult($productListBuilder, $productListQueryParamsRequest);
 	}
 
 	private function createBrandListBuilder(BrandListRequest $brandListRequest): Builder {

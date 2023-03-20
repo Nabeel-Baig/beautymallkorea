@@ -2,7 +2,7 @@
 
 namespace App\Services\Api;
 
-use App\Http\Requests\Api\Product\ProductListRequest;
+use App\Http\Requests\Api\Product\ProductListQueryParamsRequest;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -19,12 +19,12 @@ class CategoryApiService {
 		return $categoryListBuilder->orderBy("sort_order", "desc")->get();
 	}
 
-	final public function categoryProductList(Category $category, ProductListRequest $productListRequest): Collection|LengthAwarePaginator {
-		$productListBuilder = $this->productApiService->createProductListBuilder($productListRequest);
+	final public function categoryProductList(Category $category, ProductListQueryParamsRequest $productListQueryParamsRequest): Collection|LengthAwarePaginator {
+		$productListBuilder = $this->productApiService->createProductListBuilder($productListQueryParamsRequest);
 
 		$productListBuilder = $this->applySpecificCategoryFilter($category, $productListBuilder);
 
-		return $this->productApiService->buildProductListResult($productListBuilder, $productListRequest);
+		return $this->productApiService->buildProductListResult($productListBuilder, $productListQueryParamsRequest);
 	}
 
 	private function createCategorySelection(): Builder {
