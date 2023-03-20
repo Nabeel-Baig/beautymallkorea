@@ -28,5 +28,4 @@ class CategoryController extends Controller {
 
 		return new ProductListCollection($products);
 	}
-
 }

@@ -36,7 +36,6 @@ class CategoryApiService {
 	}
 
 	private function applySpecificCategoryFilter(Category $category, Builder $productListBuilder): Builder {
-
 		return $productListBuilder->whereHas("categories", static function (Builder $categoryQuery) use ($category) {
 			$categoryQuery->where("categories.slug", $category->slug);
 		});
