@@ -7,7 +7,6 @@ use App\Http\Requests\Api\Product\ProductListQueryParamsRequest;
 use App\Http\Resources\Api\Product\ProductDetailResource;
 use App\Http\Resources\Api\Product\ProductListCollection;
 use App\Models\Product;
-use App\Models\Tag;
 use App\Services\Api\ProductApiService;
 
 class ProductController extends Controller {
@@ -23,11 +22,5 @@ class ProductController extends Controller {
 		$product = $this->productApiService->productDetails($product);
 
 		return new ProductDetailResource($product);
-	}
-
-	final public function tagProducts(Tag $tag, ProductListQueryParamsRequest $productListQueryParamsRequest): ProductListCollection
-	{
-		$products = $this->productApiService->tagProductList($tag, $productListQueryParamsRequest);
-		return new ProductListCollection($products);
 	}
 }

@@ -4,8 +4,9 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BannerController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\SettingController;
+use App\Http\Controllers\Api\TagController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -57,6 +58,7 @@ Route::get("/get-single-brand/{brand:slug}", [BrandController::class, "getSingle
 Route::get("/brand/{brand:slug}", [BrandController::class, "brandProducts"]);
 Route::get("/brand-with-products/", [BrandController::class, "brandWithProducts"]);
 
+Route::get("/tag/{tag:slug}", [TagController::class, "tagProducts"]);
+
 Route::get("/products", [ProductController::class, "index"]);
 Route::get("/product/{product:slug}", [ProductController::class, "productDetails"]);
-Route::get("/tag/{tag:slug}", [ProductController::class, "tagProducts"]);
