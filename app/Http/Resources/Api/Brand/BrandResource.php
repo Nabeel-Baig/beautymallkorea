@@ -17,11 +17,11 @@ class BrandResource extends JsonResource {
 		return [
 			"name" => $this->name,
 			"slug" => $this->slug,
-			"country_name" => $this->country->countryName,
-			"country_code" => $this->country->countryCode,
-			"country_flag" => $this->country->countryFlag,
+			"country_name" => $this->country->getCountryName(),
+			"country_code" => $this->country->getCountryCode(),
+			"country_flag" => $this->country->getCountryFlag(),
 			"brand_image" => $this->brand_image,
-			"brand_banner_image" => $this->brand_banner_image
+			"brand_banner_image" => $this->brand_banner_image,
 		];
 	}
 }

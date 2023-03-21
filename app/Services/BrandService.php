@@ -21,15 +21,15 @@ class BrandService {
 				return '<input type="checkbox" class="delete_checkbox flat" value="' . $brand->id . '">';
 			})
 			->addColumn('countryName', function (Brand $brand) {
-				return $brand->country->countryName;
+				return $brand->country->getCountryName();
 			})
 			->addColumn('countryFlag', function (Brand $brand) {
 				$brandImage = asset($brand->brand_image);
-				return "<img width='80' src='$brandImage' alt='{$brand->country->countryName}'>";
+				return "<img width='80' src='$brandImage' alt='{$brand->country->getCountryName()}'>";
 			})
 			->addColumn('brand_banner_image', function (Brand $brand) {
 				$brand_banner_image = asset($brand->brand_banner_image);
-				return "<img width='80' src='$brand_banner_image' alt='{$brand->country->countryName}'>";
+				return "<img width='80' src='$brand_banner_image' alt='{$brand->country->getCountryName()}'>";
 			})
 			->addColumn('actions', function ($data) {
 				$edit = '';
