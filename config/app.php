@@ -54,7 +54,7 @@ return [
 
 	'url' => env('APP_URL', 'http://localhost'),
 
-	'asset_url' => env('ASSET_URL', null),
+	'asset_url' => env('ASSET_URL'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -180,6 +180,7 @@ return [
 
 		App\Providers\Macro\RedirectResponseMacroServiceProvider::class,
 		App\Providers\Macro\CollectionMacroServiceProvider::class,
+		App\Providers\Json\JsonLoaderServiceProvider::class,
 	],
 
 	/*

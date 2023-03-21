@@ -7,18 +7,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Brand\CreateBrandRequest;
 use App\Http\Requests\Admin\Brand\DeleteManyBrandRequest;
 use App\Http\Requests\Admin\Brand\UpdateBrandRequest;
+use App\Json\CountryJson;
 use App\Models\Brand;
 use App\Services\BrandService;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
-use JsonException;
 
 class BrandController extends Controller {
 	private readonly string $title;
 
-	public function __construct(private readonly BrandService $brandService) {
+	public function __construct(private readonly BrandService $brandService, private readonly CountryJson $countryJson) {
 		$this->title = "Brands";
 	}
 
@@ -45,20 +45,18 @@ class BrandController extends Controller {
 
 	/**
 	 * @throws AuthorizationException
-	 * @throws JsonException
 	 */
 	final public function create(): View {
 		$this->authorize("access", [Brand::class, PermissionEnum::BRAND_CREATE]);
 
 		$content["title"] = $this->title;
-		$content["countries"] = $this->brandService->prepareCountryList();
+		$content["countries"] = $this->countryJson->getCountries();
 
 		return view("admin.brands.create")->with($content);
 	}
 
 	/**
 	 * @throws AuthorizationException
-	 * @throws JsonException
 	 */
 	final public function store(CreateBrandRequest $createBrandRequest): RedirectResponse {
 		$this->authorize("access", [Brand::class, PermissionEnum::BRAND_CREATE]);
@@ -68,11 +66,14 @@ class BrandController extends Controller {
 		return redirect()->route("admin.brands.index")->withCreatedSuccessToastr("Brand");
 	}
 
+	/**
+	 * @throws AuthorizationException
+	 */
 	final public function edit(Brand $brand): View {
 		$this->authorize("access", [Brand::class, PermissionEnum::BRAND_EDIT]);
 
 		$content["title"] = $this->title;
-		$content["countries"] = $this->brandService->prepareCountryList();
+		$content["countries"] = $this->countryJson->getCountries();
 		$content["model"] = $brand;
 
 		return view("admin.brands.edit")->with($content);
@@ -80,7 +81,6 @@ class BrandController extends Controller {
 
 	/**
 	 * @throws AuthorizationException
-	 * @throws JsonException
 	 */
 	final public function update(Brand $brand, UpdateBrandRequest $updateBrandRequest): RedirectResponse {
 		$this->authorize("access", [Brand::class, PermissionEnum::BRAND_EDIT]);
