@@ -22,7 +22,7 @@ class CountryJson {
 
 	final public function getCountry(string $countryCode): BrandCountryValueObject {
 		return $this->countries->first(static function (BrandCountryValueObject $brandCountryValue) use ($countryCode) {
-			return $brandCountryValue->countryCode === $countryCode;
+			return $brandCountryValue->getCountryCode() === $countryCode;
 		});
 	}
 
@@ -34,7 +34,12 @@ class CountryJson {
 		$parsedCountriesJson = json_decode($countriesJson, true, 512, JSON_THROW_ON_ERROR);
 
 		$countries = array_map(static function (array $parsedCountry) {
-			return new BrandCountryValueObject($parsedCountry["countryName"], $parsedCountry["countryCode"], $parsedCountry["countryFlag"]);
+			$brandCountry = new BrandCountryValueObject();
+			$brandCountry->setCountryName($parsedCountry["countryName"] ?? null);
+			$brandCountry->setCountryCode($parsedCountry["countryCode"] ?? null);
+			$brandCountry->setCountryFlag($parsedCountry["countryFlag"] ?? null);
+
+			return $brandCountry;
 		}, $parsedCountriesJson);
 
 		return collect($countries);

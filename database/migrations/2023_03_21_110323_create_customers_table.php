@@ -14,7 +14,8 @@ class CreateCustomersTable extends Migration {
 			$table->string("email")->unique();
 			$table->string("password");
 			$table->string("contact");
-			$table->text("customer_details")->default("");
+			$table->boolean("customer_verified");
+			$table->text("customer_details")->nullable();
 			$table->timestamps();
 		});
 	}

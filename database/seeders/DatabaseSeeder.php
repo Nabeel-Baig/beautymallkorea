@@ -24,7 +24,9 @@ class DatabaseSeeder extends Seeder {
 			OptionValueSeeder::class,
 			BrandSeeder::class,
 			ProductSeeder::class,
-			BannerSeeder::class
+			BannerSeeder::class,
+			CustomerSeeder::class,
+			AddressSeeder::class,
 		]);
 	}
 }

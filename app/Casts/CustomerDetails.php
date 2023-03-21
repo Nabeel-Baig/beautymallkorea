@@ -15,7 +15,7 @@ class CustomerDetails implements CastsAttributes {
 		$decodedValue = $value !== null ? json_decode($value, true, 512, JSON_THROW_ON_ERROR) : null;
 
 		$customerValueObject = new CustomerDetailsValueObject();
-		$customerValueObject->setCurrentActiveIp($decodedValue["currentActiveIp"] ?? "");
+		$customerValueObject->setCurrentActiveIp($decodedValue["currentActiveIp"] ?? null);
 
 		return $customerValueObject;
 	}

@@ -11,7 +11,7 @@ class UpdateBrandRequest extends FormRequest {
 	final public function rules(): array {
 		$countries = app(CountryJson::class)->getCountries();
 		$brand = $this->route("brand");
-		$countryCodes = array_map(static fn(BrandCountryValueObject $country) => $country->countryCode, $countries->toArray());
+		$countryCodes = array_map(static fn(BrandCountryValueObject $country) => $country->getCountryCode(), $countries->toArray());
 
 		return [
 			"name" => ["required", "string", Rule::unique("brands", "name")->ignore($brand)],
