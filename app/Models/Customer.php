@@ -32,6 +32,15 @@ class Customer extends Model implements IAuthenticatable, ICanResetPassword, JWT
 		return $this;
 	}
 
+	final public function updatePassword(string $plainPassword): self {
+		$this->password = Hash::make($plainPassword);
+
+		return $this;
+	}
+
+	final public function verifyPassword(string $plainPassword): bool {
+		return Hash::check($plainPassword, $this->password);
+	}
 
 	final public function getJWTIdentifier(): string {
 		return $this->getKey();
@@ -46,8 +55,7 @@ class Customer extends Model implements IAuthenticatable, ICanResetPassword, JWT
 	 */
 	protected static function booted(): void {
 		static::creating(static function (self $customer) {
-			$customer->updateCurrentActiveIp();
-			$customer->password = Hash::make($customer->password);
+			$customer->updateCurrentActiveIp()->updatePassword($customer->password);
 			$customer->profile_picture ??= "/assets/uploads/customers/default-profile.jpg";
 		});
 

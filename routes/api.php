@@ -30,6 +30,7 @@ Route::group(["prefix" => "auth"], static function () {
 	Route::group(["middleware" => "auth:jwt"], static function () {
 		Route::post("/sign-out", [AuthController::class, "signOut"]);
 		Route::post("/refresh", [AuthController::class, "refresh"]);
+		Route::post("/change-password", [AuthController::class, "changePassword"]);
 	});
 });
 
@@ -43,7 +44,7 @@ Route::group(["prefix" => "brand"], static function () {
 	Route::get("/", [BrandController::class, "index"]);
 	Route::get("/{brand:slug}", [BrandController::class, "getSingleBrand"]);
 	Route::get("/{brand:slug}/products", [BrandController::class, "brandProducts"]);
-	Route::get("/slider", [BrandController::class, "brandWithProducts"]);
+	Route::get("/product/slider", [BrandController::class, "brandWithProducts"]);
 });
 
 Route::group(["prefix" => "product"], static function () {

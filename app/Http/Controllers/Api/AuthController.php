@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Auth\ChangePasswordRequest;
 use App\Http\Requests\Api\Auth\ForgotPasswordRequest;
 use App\Http\Requests\Api\Auth\ResetPasswordRequest;
 use App\Http\Requests\Api\Auth\SignInRequest;
@@ -34,6 +35,12 @@ class AuthController extends Controller {
 
 	final public function refresh(): AuthenticatedResponse {
 		$accessToken = $this->authService->refreshCustomer();
+
+		return new AuthenticatedResponse($accessToken);
+	}
+
+	final public function changePassword(ChangePasswordRequest $changePasswordRequest): AuthenticatedResponse {
+		$accessToken = $this->authService->changePassword($changePasswordRequest);
 
 		return new AuthenticatedResponse($accessToken);
 	}
