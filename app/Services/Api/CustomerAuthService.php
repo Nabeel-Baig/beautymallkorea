@@ -41,7 +41,7 @@ class CustomerAuthService {
 	}
 
 	final public function refreshCustomer() {
-		auth("jwt")->ref
+		// auth("jwt")->ref
 	}
 
 	private function validateCustomer(CustomerSignInRequest $customerSignInRequest): ?Customer {
