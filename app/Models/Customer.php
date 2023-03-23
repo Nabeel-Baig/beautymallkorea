@@ -11,6 +11,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as ICanResetPassword;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
@@ -47,7 +48,7 @@ class Customer extends Model implements IAuthenticatable, ICanResetPassword, JWT
 	}
 
 	final public function getJWTCustomClaims(): array {
-		return ["customer" => $this];
+		return ["customer" => Arr::only($this->attributes, ["first_name", "last_name", "email", "profile_picture", "contact"])];
 	}
 
 	/**
