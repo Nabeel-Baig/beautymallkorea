@@ -46,7 +46,7 @@ class OptionValueService {
 			$optionValuesNotToDeleteIds[] = $optionValue["id"];
 		}
 
-		OptionValue::whereNotIn("id", $optionValuesNotToDeleteIds)->delete();
+		OptionValue::whereNotIn("id", $optionValuesNotToDeleteIds)->whereOptionId($option->id)->delete();
 
 		OptionValue::insert($optionValuesToCreate);
 	}
