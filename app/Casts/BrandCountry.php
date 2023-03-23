@@ -15,9 +15,9 @@ class BrandCountry implements CastsAttributes {
 		$decodedValue = $value !== null ? json_decode($value, true, 512, JSON_THROW_ON_ERROR) : null;
 
 		$brandValueObject = new BrandCountryValueObject();
-		$brandValueObject->setCountryName($decodedValue["countryName"] ?? null);
-		$brandValueObject->setCountryCode($decodedValue["countryCode"] ?? null);
-		$brandValueObject->setCountryFlag($decodedValue["countryFlag"] ?? null);
+		$brandValueObject->setCountryName($decodedValue["countryName"] ?? "");
+		$brandValueObject->setCountryCode($decodedValue["countryCode"] ?? "");
+		$brandValueObject->setCountryFlag($decodedValue["countryFlag"] ?? "");
 
 		return $brandValueObject;
 	}

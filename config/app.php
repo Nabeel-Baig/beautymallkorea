@@ -177,6 +177,7 @@ return [
 		App\Providers\ViewServiceProvider::class,
 		Yajra\DataTables\DataTablesServiceProvider::class,
 		RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+		Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
 
 		App\Providers\Macro\RedirectResponseMacroServiceProvider::class,
 		App\Providers\Macro\CollectionMacroServiceProvider::class,

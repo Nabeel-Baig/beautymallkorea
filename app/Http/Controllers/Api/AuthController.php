@@ -3,50 +3,31 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\StoreAuthRequest;
-use App\Http\Requests\Auth\ValidateAuthRequest;
-use App\Models\User;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\Api\Auth\CustomerSignInRequest;
+use App\Http\Requests\Api\Auth\CustomerSignUpRequest;
+use App\Http\Resources\Api\Auth\AuthenticatedResponse;
+use App\Services\Api\CustomerAuthService;
 
-class AuthController extends Controller
-{
-	final public function register(StoreAuthRequest $request): JsonResponse
-	{
-		$user = User::create(handleFiles('users', $request->validated()));
-		$user->update(['password' => Hash::make($request->password)]);
-		$token = $user->createToken('myapptoken')->plainTextToken;
-		$response = [
-			'user' => $user,
-			'token' => $token
-		];
-		return response()->json($response, 201);
+class AuthController extends Controller {
+	public function __construct(private readonly CustomerAuthService $customerAuthService) {}
+
+	final public function signIn(CustomerSignInRequest $customerSignInRequest): AuthenticatedResponse {
+		$accessToken = $this->customerAuthService->signInCustomer($customerSignInRequest);
+
+		return new AuthenticatedResponse($accessToken);
 	}
 
-	final public function login(ValidateAuthRequest $request): JsonResponse
-	{
-		// check email
-		$user = User::whereEmail($request->email)->first();
-		// Check password
-		if (!$user || !Hash::check($request->password, $user->password)) {
-			return response()->json([
-				'message' => 'These credentials do not match our records.'
-			], 401);
-		}
-		$token = $user->createToken('myapptoken')->plainTextToken;
-		$response = [
-			'user' => $user,
-			'token' => $token
-		];
-		return response()->json($response, 201);
+	final public function signUp(CustomerSignUpRequest $customerSignUpRequest): AuthenticatedResponse {
+		$accessToken = $this->customerAuthService->signUpCustomer($customerSignUpRequest);
+
+		return new AuthenticatedResponse($accessToken);
 	}
 
-	final public function logout(): JsonResponse
-	{
-		auth()->user()->tokens()->delete();
+	final public function signOut(): void {
+		$this->customerAuthService->signOutCustomer();
+	}
 
-		return response()->json([
-			'message' => 'Logged out'
-		]);
+	final public function refresh(): void {
+		$this->customerAuthService
 	}
 }
