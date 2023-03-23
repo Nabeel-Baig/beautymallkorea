@@ -225,7 +225,7 @@
 									<select name="product[brand_id]" id="product_brand" style="width: 100%" class="form-control select2 @error('product.brand_id') parsley-error @enderror" required>
 										@php $brandIds = array_map(static function (array $brand) { return $brand["id"]; }, $brands->toArray()) @endphp
 										@foreach($brands as $brand)
-											<option value="{{ $brand->id }}" data-country-image="{{ asset($brand->country->countryFlag) }}" {{ ($model?->brand_id === $brand->id) ? 'selected' : ''  }}>{{ $brand->country->countryName }} - {{ $brand->name }}</option>
+											<option value="{{ $brand->id }}" data-country-image="{{ asset($brand->country->getCountryFlag()) }}" {{ ($model?->brand_id === $brand->id) ? 'selected' : ''  }}>{{ $brand->country->getCountryName() }} - {{ $brand->name }}</option>
 										@endforeach
 									</select>
 									@error("product.brand_id")
@@ -597,9 +597,9 @@
 			});
 
 			// Text Editor
-			$('.editor').summernote({
-				placeholder: 'Product Description',
-				height: 300
+			$(".editor").summernote({
+				placeholder: "Product Description",
+				height: 300,
 			});
 		});
 	</script>
