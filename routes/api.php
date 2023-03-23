@@ -21,26 +21,37 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::post("/login", [AuthController::class, "login"]);
-Route::post("/register", [AuthController::class, "register"]);
-Route::group(["middleware" => ["auth:sanctum"]], static function () {
-	Route::post("/logout", [AuthController::class, "logout"]);
+Route::group(["prefix" => "auth"], static function () {
+	Route::post("/sign-in", [AuthController::class, "signIn"]);
+	Route::post("/sign-up", [AuthController::class, "signUp"]);
+
+	Route::group(["middleware" => "auth:jwt"], static function () {
+		Route::post("/sign-out", [AuthController::class, "signOut"]);
+		Route::post("/refresh", [AuthController::class, "refresh"]);
+	});
+});
+
+Route::group(["prefix" => "category"], static function () {
+	Route::get("/", [CategoryController::class, "index"]);
+	Route::get("/{category:slug}", [CategoryController::class, "getSingleCategory"]);
+	Route::get("/{category:slug}/products", [CategoryController::class, "categoryProducts"]);
+});
+
+Route::group(["prefix" => "brand"], static function () {
+	Route::get("/", [BrandController::class, "index"]);
+	Route::get("/{brand:slug}", [BrandController::class, "getSingleBrand"]);
+	Route::get("/{brand:slug}/products", [BrandController::class, "brandProducts"]);
+	Route::get("/slider", [BrandController::class, "brandWithProducts"]);
+});
+
+Route::group(["prefix" => "product"], static function () {
+	Route::get("/", [ProductController::class, "index"]);
+	Route::get("/{product:slug}", [ProductController::class, "productDetails"]);
+});
+
+Route::group(["prefix" => "tag"], static function () {
+	Route::get("/{tag:slug}/products", [TagController::class, "tagProducts"]);
 });
 
 Route::get("/setting", [SettingController::class, "setting"]);
-
 Route::get("/banners/{slug}", [BannerController::class, "index"]);
-
-Route::get("/categories", [CategoryController::class, "index"]);
-Route::get("/get-single-category/{category:slug}", [CategoryController::class, "getSingleCategory"]);
-Route::get("/category/{category:slug}", [CategoryController::class, "categoryProducts"]);
-
-Route::get("/brands", [BrandController::class, "index"]);
-Route::get("/get-single-brand/{brand:slug}", [BrandController::class, "getSingleBrand"]);
-Route::get("/brand/{brand:slug}", [BrandController::class, "brandProducts"]);
-Route::get("/brand-with-products/", [BrandController::class, "brandWithProducts"]);
-
-Route::get("/tag/{tag:slug}", [TagController::class, "tagProducts"]);
-
-Route::get("/products", [ProductController::class, "index"]);
-Route::get("/product/{product:slug}", [ProductController::class, "productDetails"]);

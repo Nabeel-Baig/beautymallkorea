@@ -6,8 +6,6 @@ use App\Http\Requests\Api\Auth\CustomerSignInRequest;
 use App\Http\Requests\Api\Auth\CustomerSignUpRequest;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Hash;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Tymon\JWTAuth\JWTGuard;
 
 class CustomerAuthService {
@@ -30,18 +28,21 @@ class CustomerAuthService {
 	}
 
 	final public function signOutCustomer(): void {
-		$customer = auth("jwt")->user();
-		if ($customer === null) {
-			throw new HttpException(Response::HTTP_UNAUTHORIZED);
-		}
+		$jwtGuard = auth("jwt");
+		assert($jwtGuard instanceof JWTGuard);
+
+		$customer = $jwtGuard->user();
+		assert($customer instanceof Customer);
 
 		$customer->updateCurrentActiveIp()->save();
-
-		auth("jwt")->logout();
+		$jwtGuard->logout();
 	}
 
-	final public function refreshCustomer() {
-		// auth("jwt")->ref
+	final public function refreshCustomer(): string {
+		$jwtGuard = auth("jwt");
+		assert($jwtGuard instanceof JWTGuard);
+
+		return $jwtGuard->refresh();
 	}
 
 	private function validateCustomer(CustomerSignInRequest $customerSignInRequest): ?Customer {

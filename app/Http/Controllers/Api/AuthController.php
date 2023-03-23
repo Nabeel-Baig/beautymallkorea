@@ -7,6 +7,7 @@ use App\Http\Requests\Api\Auth\CustomerSignInRequest;
 use App\Http\Requests\Api\Auth\CustomerSignUpRequest;
 use App\Http\Resources\Api\Auth\AuthenticatedResponse;
 use App\Services\Api\CustomerAuthService;
+use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller {
 	public function __construct(private readonly CustomerAuthService $customerAuthService) {}
@@ -23,11 +24,15 @@ class AuthController extends Controller {
 		return new AuthenticatedResponse($accessToken);
 	}
 
-	final public function signOut(): void {
+	final public function signOut(): JsonResponse {
 		$this->customerAuthService->signOutCustomer();
+
+		return response()->json(["logout" => true]);
 	}
 
-	final public function refresh(): void {
-		$this->customerAuthService
+	final public function refresh(): AuthenticatedResponse {
+		$accessToken = $this->customerAuthService->refreshCustomer();
+
+		return new AuthenticatedResponse($accessToken);
 	}
 }
