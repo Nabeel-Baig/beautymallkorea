@@ -13,7 +13,7 @@ class CustomerSignUpRequest extends FormRequest {
 		return [
 			"first_name" => ["required", "string", "max:255"],
 			"last_name" => ["required", "string", "max:255"],
-			"email" => ["required", "string", "email", "max:255", "unique:users"],
+			"email" => ["required", "string", "email", "max:255", "unique:customers"],
 			"password" => ["required", "string", "min:6", "confirmed"],
 			"profile_picture" => ["nullable", "image"],
 			"contact" => ["required", "string", "max:255"],
