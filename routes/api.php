@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\Route;
 Route::group(["prefix" => "auth"], static function () {
 	Route::post("/sign-in", [AuthController::class, "signIn"]);
 	Route::post("/sign-up", [AuthController::class, "signUp"]);
+	Route::post("/forgot-password", [AuthController::class, "forgotPassword"]);
+	Route::post("/reset-password", [AuthController::class, "resetPassword"]);
 
 	Route::group(["middleware" => "auth:jwt"], static function () {
 		Route::post("/sign-out", [AuthController::class, "signOut"]);

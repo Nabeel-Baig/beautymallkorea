@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CustomerSignInRequest extends FormRequest {
+class SignInRequest extends FormRequest {
 	final public function rules(): array {
 		return [
 			"email" => ["required", "string", "email", "max:255"],
