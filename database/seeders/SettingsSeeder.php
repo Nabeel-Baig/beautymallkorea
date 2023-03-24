@@ -29,7 +29,7 @@ class SettingsSeeder extends Seeder
 						  <li>D-U-N-S® Number : 694506164</li>
 						</ul>',
             'link' => 'beautymallkorea.com',
-            'currency' => 'AED',
+            'currency' => 'Dhs',
         ]);
     }
 }
