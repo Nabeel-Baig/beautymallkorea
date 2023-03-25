@@ -17,6 +17,7 @@ class CreateProductOptionsTable extends Migration {
 			$table->decimal("price_difference")->default(0);
 			$table->boolean("price_adjustment")->default(ProductOptionPriceAdjustment::POSITIVE->value);
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

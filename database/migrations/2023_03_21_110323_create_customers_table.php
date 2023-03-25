@@ -17,6 +17,7 @@ class CreateCustomersTable extends Migration {
 			$table->boolean("customer_verified")->default(false);
 			$table->text("customer_details")->nullable();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

@@ -11,6 +11,7 @@ class CreateProductTagsTable extends Migration {
 			$table->foreignId("tag_id")->constrained("tags")->cascadeOnUpdate()->cascadeOnDelete();
 			$table->foreignId("product_id")->constrained("products")->cascadeOnUpdate()->cascadeOnDelete();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

@@ -30,6 +30,7 @@ class CreateProductsTable extends Migration {
 			$table->boolean("require_shipping")->default(ProductShipping::SHIPPING_REQUIRED->value);
 			$table->boolean("promotion_status")->default(ProductPromotion::NOT_IN_PROMOTION->value);
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 
