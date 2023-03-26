@@ -35,12 +35,10 @@ return new class extends Migration {
 			$table->text("shipping_address");
 
 			// Order details
-			$table->text("comment")->nullable();
-			$table->string("ip_address", 50)->nullable();
-			$table->string("user_agent", 100)->nullable();
+			$table->text("order_details");
 			$table->unsignedTinyInteger("order_status")->default(OrderStatus::PENDING->value);
-			$table->unsignedTinyInteger("payment_method")->default(PaymentMethod::CASH_ON_DELIVERY);
-			$table->unsignedTinyInteger("shipping_method")->default(ShippingMethod::FLAT_SHIPPING);
+			$table->unsignedTinyInteger("payment_method")->default(PaymentMethod::CASH_ON_DELIVERY->value);
+			$table->unsignedTinyInteger("shipping_method")->default(ShippingMethod::FLAT_SHIPPING->value);
 
 			// Pricing details
 			$table->decimal("actual_amount")->default(0.00);

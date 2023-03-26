@@ -77,6 +77,10 @@ class Product extends Model {
 		return $this->belongsTo(Brand::class, "brand_id", "id");
 	}
 
+	final public function orderItems(): HasMany {
+		return $this->hasMany(OrderItem::class, "product_id", "id");
+	}
+
 	/** @noinspection MethodVisibilityInspection */
 	protected static function booted(): void {
 		static::creating(static function (self $product) {

@@ -6,6 +6,7 @@ use App\Enums\ProductOptionUnitAdjustment;
 use App\Enums\ProductStockBehaviour;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ProductOption extends Model {
 	protected $table = "product_options";
@@ -22,5 +23,9 @@ class ProductOption extends Model {
 
 	final public function optionValue(): BelongsTo {
 		return $this->belongsTo(OptionValue::class, "option_value_id", "id");
+	}
+
+	final public function orderItems(): HasMany {
+		return $this->hasMany(OrderItem::class, "product_option_id", "id");
 	}
 }
