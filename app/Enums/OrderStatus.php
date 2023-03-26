@@ -2,7 +2,11 @@
 
 namespace App\Enums;
 
+use App\Extensions\EnumExtensions;
+
 enum OrderStatus: int {
+	use EnumExtensions;
+
 	case PENDING = 0;
 	case SHIPPED = 1;
 	case COMPLETE = 2;

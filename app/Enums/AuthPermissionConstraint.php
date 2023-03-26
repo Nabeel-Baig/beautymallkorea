@@ -2,8 +2,11 @@
 
 namespace App\Enums;
 
-enum AuthPermissionConstraint
-{
+use App\Extensions\EnumExtensions;
+
+enum AuthPermissionConstraint {
+	use EnumExtensions;
+
 	case AUTHORIZE_ANY;
 	case AUTHORIZE_ALL;
 }

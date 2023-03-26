@@ -2,7 +2,11 @@
 
 namespace App\Enums;
 
+use App\Extensions\EnumExtensions;
+
 enum PermissionEnum: string {
+	use EnumExtensions;
+
 	case USER_MANAGEMENT_ACCESS = "user_management_access";
 	case PERMISSION_CREATE = "permission_create";
 	case PERMISSION_EDIT = "permission_edit";

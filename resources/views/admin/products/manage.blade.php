@@ -1,6 +1,12 @@
 <!--suppress HtmlFormInputWithoutLabel, SpellCheckingInspection -->
 @php
-	use App\Enums\ProductOptionUnitAdjustment;use App\Enums\ProductPromotion;use App\Enums\ProductShipping;use App\Enums\ProductStockBehaviour;use App\Services\OptionValueService;
+	use App\Enums\DimensionClass;
+	use App\Enums\ProductOptionUnitAdjustment;
+	use App\Enums\ProductPromotion;
+	use App\Enums\ProductShipping;
+	use App\Enums\ProductStockBehaviour;
+	use App\Enums\WeightClass;
+	use App\Services\OptionValueService;
 @endphp
 
 @extends('layouts.master')
@@ -178,6 +184,62 @@
 								</div>
 
 								<div class="mb-3">
+									<label for="product_length" class="form-label">Length</label>
+									<input type="number" name="product[dimension_length]" id="product_length" value="{{ $model?->dimension_length ?? old("product.dimension_length") }}" min="0" step="0.01" class="form-control @error('product.dimension_length') parsley-error @enderror" required>
+									@error('product.dimension_length')
+									<span class="text-red">{{ $message }}</span>
+									@enderror
+								</div>
+
+								<div class="mb-3">
+									<label for="product_width" class="form-label">Width</label>
+									<input type="number" name="product[dimension_width]" id="product_width" value="{{ $model?->dimension_width ?? old("product.dimension_width") }}" min="0" step="0.01" class="form-control @error('product.dimension_width') parsley-error @enderror" required>
+									@error('product.dimension_width')
+									<span class="text-red">{{ $message }}</span>
+									@enderror
+								</div>
+
+								<div class="mb-3">
+									<label for="product_height" class="form-label">Height</label>
+									<input type="number" name="product[dimension_height]" id="product_height" value="{{ $model?->dimension_height ?? old("product.dimension_height") }}" min="0" step="0.01" class="form-control @error('product.dimension_height') parsley-error @enderror" required>
+									@error('product.dimension_height')
+									<span class="text-red">{{ $message }}</span>
+									@enderror
+								</div>
+
+								<div class="mb-3">
+									<label for="product_dimension_class" class="form-label">Dimension Class</label>
+									<select name="product[dimension_class]" id="product_dimension_class" class="form-control @error('product.dimension_class') parsley-error @enderror">
+										@foreach(DimensionClass::cases() as $productDimensionClass)
+											<option value="{{ $productDimensionClass->value }}" @if($model?->dimension_class->value === $productDimensionClass->value) selected @endif>{{ DimensionClass::formattedName($productDimensionClass) }}</option>
+										@endforeach
+									</select>
+									@error('product.dimension_class')
+									<span class="text-red">{{ $message }}</span>
+									@enderror
+								</div>
+
+								<div class="mb-3">
+									<label for="product_weight" class="form-label">Weight</label>
+									<input type="number" name="product[weight]" id="product_weight" value="{{ $model?->weight ?? old("product.weight") }}" min="0" step="0.01" class="form-control @error('product.weight') parsley-error @enderror" required>
+									@error('product.weight')
+									<span class="text-red">{{ $message }}</span>
+									@enderror
+								</div>
+
+								<div class="mb-3">
+									<label for="product_weight_class" class="form-label">Weight Class</label>
+									<select name="product[weight_class]" id="product_weight_class" class="form-control @error('product.weight_class') parsley-error @enderror">
+										@foreach(WeightClass::cases() as $productWeightClass)
+											<option value="{{ $productWeightClass->value }}" @if($model?->weight_class->value === $productWeightClass->value) selected @endif>{{ WeightClass::formattedName($productWeightClass) }}</option>
+										@endforeach
+									</select>
+									@error('product.weight_class')
+									<span class="text-red">{{ $message }}</span>
+									@enderror
+								</div>
+
+								<div class="mb-3">
 									<label for="product_min_order_quantity" class="form-label">Minimum Order-able Quantity</label>
 									<input type="number" name="product[min_order_quantity]" id="product_min_order_quantity" value="{{ $model?->min_order_quantity ?? old("product.min_order_quantity") ?? 1 }}" min="1" step="1" class="form-control @error('product.min_order_quantity') parsley-error @enderror">
 									@error('product.min_order_quantity')
@@ -188,8 +250,9 @@
 								<div class="mb-3">
 									<label for="product_subtract_stock" class="form-label">Subtract Stock</label>
 									<select name="product[subtract_stock]" id="product_subtract_stock" class="form-control @error('product.subtract_stock') parsley-error @enderror">
-										<option value="{{ ProductStockBehaviour::SUBTRACT_STOCK }}" @if($model?->subtract_stock === ProductStockBehaviour::SUBTRACT_STOCK) selected @endif>Subtract Stock</option>
-										<option value="{{ ProductStockBehaviour::CONSISTENT_STOCK }}" @if($model?->subtract_stock === ProductStockBehaviour::CONSISTENT_STOCK) selected @endif>Consistent Stock</option>
+										@foreach(ProductStockBehaviour::cases() as $productStockBehaviour)
+											<option value="{{ $productStockBehaviour->value }}" @if($model?->subtract_stock->value === $productStockBehaviour->value) selected @endif>{{ ProductStockBehaviour::formattedName($productStockBehaviour) }}</option>
+										@endforeach
 									</select>
 									@error('product.subtract_stock')
 									<span class="text-red">{{ $message }}</span>
@@ -199,8 +262,9 @@
 								<div class="mb-3">
 									<label for="product_require_shipping" class="form-label">Require Shipping</label>
 									<select name="product[require_shipping]" id="product_require_shipping" class="form-control @error('product.require_shipping') parsley-error @enderror">
-										<option value="{{ ProductShipping::SHIPPING_REQUIRED }}" @if($model?->require_shipping === ProductShipping::SHIPPING_REQUIRED) selected @endif>Shipping Required</option>
-										<option value="{{ ProductShipping::SHIPPING_NOT_REQUIRED }}" @if($model?->require_shipping === ProductShipping::SHIPPING_NOT_REQUIRED) selected @endif>Shipping Not Required</option>
+										@foreach(ProductShipping::cases() as $productShipping)
+											<option value="{{ $productShipping->value }}" @if($model?->require_shipping->value === $productShipping->value) selected @endif>{{ ProductShipping::formattedName($productShipping) }}</option>
+										@endforeach
 									</select>
 									@error('product.require_shipping')
 									<span class="text-red">{{ $message }}</span>
@@ -210,8 +274,9 @@
 								<div class="mb-3">
 									<label for="product_promotion_status" class="form-label">Promotion Status</label>
 									<select name="product[promotion_status]" id="product_promotion_status" class="form-control @error('product.promotion_status') parsley-error @enderror">
-										<option value="{{ ProductPromotion::NOT_IN_PROMOTION }}" @if($model?->promotion_status === ProductPromotion::NOT_IN_PROMOTION) selected @endif>Not In Promotion</option>
-										<option value="{{ ProductPromotion::IN_PROMOTION }}" @if($model?->promotion_status === ProductPromotion::IN_PROMOTION) selected @endif>In Promotion</option>
+										@foreach(ProductPromotion::cases() as $productPromotion)
+											<option value="{{ $productPromotion->value }}" @if($model?->promotion_status->value === $productPromotion->value) selected @endif>{{ ProductPromotion::formattedName($productPromotion) }}</option>
+										@endforeach
 									</select>
 									@error('product.promotion_status')
 									<span class="text-red">{{ $message }}</span>
@@ -310,15 +375,17 @@
 															<div class="col-2">
 																<label class="form-label">Variant Value Subtract Stock</label>
 																<select name="options[{{ $productOptionValueIndexCounter }}][subtract_stock]" class="form-control">
-																	<option value="{{ ProductStockBehaviour::CONSISTENT_STOCK->value }}" @if ($productOptionValue->pivot->subtract_stock === ProductStockBehaviour::CONSISTENT_STOCK->value) selected @endif>{{ ProductStockBehaviour::CONSISTENT_STOCK->name }}</option>
-																	<option value="{{ ProductStockBehaviour::SUBTRACT_STOCK->value }}" @if ($productOptionValue->pivot->subtract_stock === ProductStockBehaviour::SUBTRACT_STOCK->value) selected @endif>{{ ProductStockBehaviour::SUBTRACT_STOCK->name }}</option>
+																	@foreach(ProductStockBehaviour::cases() as $productStockBehaviour)
+																		<option value="{{ $productStockBehaviour->value }}" @if ($productOptionValue->pivot->subtract_stock === $productStockBehaviour->value) selected @endif>{{ ProductStockBehaviour::formattedName($productStockBehaviour) }}</option>
+																	@endforeach
 																</select>
 															</div>
 															<div class="col-2">
 																<label class="form-label">Variant Value Price Adjustment</label>
 																<select name="options[{{ $productOptionValueIndexCounter }}][price_adjustment]" class="form-control">
-																	<option value="{{ ProductOptionUnitAdjustment::POSITIVE->value }}" @if ($productOptionValue->pivot->price_adjustment === ProductOptionUnitAdjustment::POSITIVE->value) selected @endif>{{ ProductOptionUnitAdjustment::POSITIVE->name }}</option>
-																	<option value="{{ ProductOptionUnitAdjustment::NEGATIVE->value }}" @if ($productOptionValue->pivot->price_adjustment === ProductOptionUnitAdjustment::NEGATIVE->value) selected @endif>{{ ProductOptionUnitAdjustment::NEGATIVE->name }}</option>
+																	@foreach(ProductOptionUnitAdjustment::cases() as $productOptionUnitAdjustment)
+																		<option value="{{ $productOptionUnitAdjustment->value }}" @if ($productOptionValue->pivot->price_adjustment === $productOptionUnitAdjustment->value) selected @endif>{{ ProductOptionUnitAdjustment::formattedName($productOptionUnitAdjustment) }}</option>
+																	@endforeach
 																</select>
 															</div>
 															<div class="col-2">
@@ -447,40 +514,19 @@
 			}
 
 			#generateProductOptionValueRowHtml(optionId, productOptionValueIndexCounter, optionValues) {
-				const {
-					noSubtractStockName,
-					noSubtractStockValue,
-				} = {
-					noSubtractStockName: "{{ ProductStockBehaviour::CONSISTENT_STOCK->name }}",
-					noSubtractStockValue: "{{ ProductStockBehaviour::CONSISTENT_STOCK->value }}",
-				};
-				const {
-					yesSubtractStockName,
-					yesSubtractStockValue,
-				} = {
-					yesSubtractStockName: "{{ ProductStockBehaviour::SUBTRACT_STOCK->name }}",
-					yesSubtractStockValue: "{{ ProductStockBehaviour::SUBTRACT_STOCK->value }}",
-				};
-
-				const {
-					positiveProductOptionPriceAdjustmentName,
-					positiveProductOptionPriceAdjustmentValue,
-				} = {
-					positiveProductOptionPriceAdjustmentName: "{{ ProductOptionUnitAdjustment::POSITIVE->name }}",
-					positiveProductOptionPriceAdjustmentValue: "{{ ProductOptionUnitAdjustment::POSITIVE->value }}",
-				};
-				const {
-					negativeProductOptionPriceAdjustmentName,
-					negativeProductOptionPriceAdjustmentValue,
-				} = {
-					negativeProductOptionPriceAdjustmentName: "{{ ProductOptionUnitAdjustment::NEGATIVE->name }}",
-					negativeProductOptionPriceAdjustmentValue: "{{ ProductOptionUnitAdjustment::NEGATIVE->value }}",
-				};
+				const productOptionStockBehaviour = JSON.parse('{!! ProductStockBehaviour::formattedJsonArray() !!}');
+				const productOptionUnitAdjustment = JSON.parse('{!! ProductOptionUnitAdjustment::formattedJsonArray() !!}');
 
 				const dropdownOptionsHtml = optionValues.reduce((generatedDropdownOptionsHtml, optionValue) => {
-					generatedDropdownOptionsHtml = `${ generatedDropdownOptionsHtml }<option value="${ optionValue.id }">${ optionValue.name }</option>`;
+					return `${ generatedDropdownOptionsHtml }<option value="${ optionValue.id }">${ optionValue.name }</option>`;
+				}, "");
 
-					return generatedDropdownOptionsHtml;
+				const stockBehaviourHtml = productOptionStockBehaviour.reduce((generatedStockBehaviourHtml, stockBehaviour) => {
+					return `${ generatedStockBehaviourHtml }<option value="${ stockBehaviour.value }">${ stockBehaviour.name }</option>`;
+				}, "");
+
+				const unitAdjustmentHtml = productOptionUnitAdjustment.reduce((generatedUnitAdjustmentHtml, unitAdjustment) => {
+					return `${ generatedUnitAdjustmentHtml }<option value="${ unitAdjustment.value }">${ unitAdjustment.name }</option>`;
 				}, "");
 
 				return `
@@ -498,15 +544,13 @@
 						<div class="col-2">
 							<label class="form-label">Variant Value Subtract Stock</label>
 							<select name="options[${ productOptionValueIndexCounter }][subtract_stock]" class="form-control">
-								<option value="${ noSubtractStockValue }">${ noSubtractStockName }</option>
-								<option value="${ yesSubtractStockValue }">${ yesSubtractStockName }</option>
+								${ stockBehaviourHtml }
 							</select>
 						</div>
 						<div class="col-2">
 							<label class="form-label">Variant Value Price Adjustment</label>
 							<select name="options[${ productOptionValueIndexCounter }][price_adjustment]" class="form-control">
-								<option value="${ positiveProductOptionPriceAdjustmentValue }">${ positiveProductOptionPriceAdjustmentName }</option>
-								<option value="${ negativeProductOptionPriceAdjustmentValue }">${ negativeProductOptionPriceAdjustmentName }</option>
+								${ unitAdjustmentHtml }
 							</select>
 						</div>
 						<div class="col-2">
