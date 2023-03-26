@@ -9,7 +9,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class OptionValue extends Model {
 	protected $table = "option_values";
-	protected $fillable = ["name", "image"];
+
+	protected $fillable = [
+		"name",
+		"image",
+	];
 
 	final public function option(): BelongsTo {
 		return $this->belongsTo(Option::class, "option_id", "id");

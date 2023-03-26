@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,60 +12,42 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable {
 	use HasFactory, Notifiable;
 
-	/**
-	 * The attributes that are mass assignable.
-	 *
-	 * @var array
-	 */
+	protected $table = "users";
+
 	protected $fillable = [
-		'name',
-		'email',
-		'password',
-		'dob',
-		'avatar',
-		'phone',
-		'address',
-		'gender',
-		'theme',
-		'created_at',
-		'updated_at',
-		'deleted_at',
-		'remember_token',
-		'email_verified_at',
-		'two_factor_code',
-		'two_factor_code',
-		'two_factor_expires_at',
+		"name",
+		"email",
+		"password",
+		"dob",
+		"avatar",
+		"phone",
+		"address",
+		"gender",
+		"theme",
+		"created_at",
+		"updated_at",
+		"deleted_at",
+		"remember_token",
+		"email_verified_at",
+		"two_factor_code",
+		"two_factor_expires_at",
 	];
 
-	/**
-	 * The attributes that should be hidden for arrays.
-	 *
-	 * @var array
-	 */
 	protected $hidden = [
-		'password',
-		'remember_token',
+		"password",
+		"remember_token",
 	];
 
-	protected $dates = [
-		'updated_at',
-		'created_at',
-		'deleted_at',
-		'email_verified_at',
-		'two_factor_expires_at',
-	];
-
-	/**
-	 * The attributes that should be cast to native types.
-	 *
-	 * @var array
-	 */
 	protected $casts = [
-		'email_verified_at' => 'datetime',
+		"email_verified_at" => "datetime",
+		"two_factor_expires_at" => "datetime",
 	];
-	protected $with = ["roles.permissions"];
 
-	public function roles(): BelongsToMany {
+	protected $with = [
+		"roles.permissions",
+	];
+
+	final public function roles(): BelongsToMany {
 		return $this->belongsToMany(Role::class);
 	}
 
@@ -72,22 +55,20 @@ class User extends Authenticatable {
 		return $this->hasMany(Order::class);
 	}
 
-	public function generateTwoFactorCode() {
+	/**
+	 * @throws Exception
+	 */
+	final public function generateTwoFactorCode(): void {
 		$this->timestamps = false;
-		$this->two_factor_code = rand(100000, 999999);
+		$this->two_factor_code = random_int(100000, 999999);
 		$this->two_factor_expires_at = now()->addMinutes(10);
 		$this->save();
 	}
 
-	public function resetTwoFactorCode() {
+	final public function resetTwoFactorCode(): void {
 		$this->timestamps = false;
 		$this->two_factor_code = null;
 		$this->two_factor_expires_at = null;
 		$this->save();
 	}
-
-	/* public function scopeCountUserRole()
-	{
-		return DB::table('role_user')->where('user_id',\auth()->user()->id)->whereIn('role_id',[1,2])->count();
-	} */
 }

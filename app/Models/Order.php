@@ -16,6 +16,7 @@ class Order extends Model {
 	use SoftDeletes;
 
 	protected $table = "orders";
+
 	protected $fillable = [
 		"customer_id",
 		"first_name",
@@ -37,6 +38,7 @@ class Order extends Model {
 		"shipping_amount",
 		"total_amount",
 	];
+
 	protected $casts = [
 		"billing_address" => OrderAddress::class,
 		"shipping_address" => OrderAddress::class,

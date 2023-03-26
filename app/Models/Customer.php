@@ -20,7 +20,18 @@ class Customer extends Model implements IAuthenticatable, ICanResetPassword, JWT
 	use Authenticatable, CanResetPassword, Notifiable;
 
 	protected $table = "customers";
-	protected $fillable = ["first_name", "last_name", "email", "password", "profile_picture", "contact", "customer_verified", "customer_details"];
+
+	protected $fillable = [
+		"first_name",
+		"last_name",
+		"email",
+		"password",
+		"profile_picture",
+		"contact",
+		"customer_verified",
+		"customer_details",
+	];
+
 	protected $casts = [
 		"customer_details" => CustomerDetails::class,
 	];

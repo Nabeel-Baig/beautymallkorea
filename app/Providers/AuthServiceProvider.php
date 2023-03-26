@@ -28,8 +28,6 @@ class AuthServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	final public function boot(): void {
-		$this->registerPolicies();
-
 		//
 	}
 }

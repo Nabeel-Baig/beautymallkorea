@@ -9,23 +9,23 @@
 	"license": "MIT",
 	"require": {
 		"php": "^8.1",
-		"fruitcake/laravel-cors": "^2.0",
-		"guzzlehttp/guzzle": "^7.0.1",
-		"laravel/framework": "^9.0",
-		"laravel/tinker": "^2.5",
-		"laravel/ui": "^3.3",
-		"realrashid/sweet-alert": "^5.1",
-		"tymon/jwt-auth": "^2.0",
-		"yajra/laravel-datatables": "^9.0"
+		"guzzlehttp/guzzle": "^7.2",
+		"laravel/framework": "^10.0",
+		"laravel/tinker": "^2.8",
+		"laravel/ui": "^4.2",
+		"realrashid/sweet-alert": "^v6.0.0",
+		"tymon/jwt-auth": "^2.0.0",
+		"yajra/laravel-datatables": "^v10.1.0"
 	},
 	"require-dev": {
 		"roave/security-advisories": "dev-latest",
-		"spatie/laravel-ignition": "^1.0",
 		"fakerphp/faker": "^1.9.1",
-		"laravel/sail": "^1.0.1",
+		"laravel/pint": "^1.0",
+		"laravel/sail": "^1.18",
 		"mockery/mockery": "^1.4.4",
-		"nunomaduro/collision": "^6.0",
-		"phpunit/phpunit": "^9.5.10"
+		"nunomaduro/collision": "^7.0",
+		"phpunit/phpunit": "^10.0",
+		"spatie/laravel-ignition": "^2.0"
 	},
 	"autoload": {
 		"files": [
@@ -65,8 +65,12 @@
 	"config": {
 		"optimize-autoloader": true,
 		"preferred-install": "dist",
-		"sort-packages": true
+		"sort-packages": true,
+		"allow-plugins": {
+			"pestphp/pest-plugin": true,
+			"php-http/discovery": true
+		}
 	},
-	"minimum-stability": "dev",
+	"minimum-stability": "stable",
 	"prefer-stable": true
 }
