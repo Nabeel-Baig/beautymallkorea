@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum ProductOptionPriceAdjustment: int {
+enum ProductOptionUnitAdjustment: int {
 	case POSITIVE = 1;
 	case NEGATIVE = 0;
 }

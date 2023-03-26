@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Enums\DimensionClass;
 use App\Enums\ProductPromotion;
 use App\Enums\ProductShipping;
 use App\Enums\ProductStockBehaviour;
+use App\Enums\WeightClass;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -26,6 +28,12 @@ class Product extends Model {
 		"price",
 		"discount_price",
 		"quantity",
+		"dimension_length",
+		"dimension_width",
+		"dimension_height",
+		"dimension_class",
+		"weight",
+		"weight_class",
 		"image",
 		"secondary_images",
 		"min_order_quantity",
@@ -38,6 +46,8 @@ class Product extends Model {
 		"subtract_stock" => ProductStockBehaviour::class,
 		"require_shipping" => ProductShipping::class,
 		"promotion_status" => ProductPromotion::class,
+		"dimension_class" => DimensionClass::class,
+		"weight_class" => WeightClass::class,
 		"secondary_images" => "array",
 	];
 

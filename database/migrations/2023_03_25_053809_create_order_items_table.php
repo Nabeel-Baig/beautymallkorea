@@ -4,41 +4,39 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('order_items', function (Blueprint $table) {
-            $table->id();
+return new class extends Migration {
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
+	final public function up(): void {
+		Schema::create("order_items", static function (Blueprint $table) {
+			$table->id();
 
-			$table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
-			$table->foreignId('product_id')->constrained('products');
-			$table->foreignId('options_id')->constrained('options');
-			$table->string('product_name')->nullable();
-			$table->string('product_qty')->nullable();
-			$table->string('product_weight')->nullable();
-			$table->string('product_image')->nullable();
-			$table->json('product_options')->nullable();
-			$table->decimal('product_price')->nullable();
-			$table->string('product_total_price')->nullable();
+			$table->foreignId("order_id")->constrained("orders")->cascadeOnDelete();
+			$table->foreignId("product_id")->nullable()->constrained("products")->nullOnDelete();
+			$table->foreignId("options_id")->nullable()->constrained("product_options")->nullOnDelete();
+			$table->string("product_name");
+			$table->string("product_option_name")->nullable();
+			$table->unsignedInteger("product_quantity");
+			$table->string("product_weight");
+			$table->string("product_dimension");
+			$table->string("product_image")->nullable();
+			$table->decimal("product_price")->default(0.00);
+			$table->decimal("product_total_price")->default(0.00);
 
-            $table->timestamps();
+			$table->timestamps();
 			$table->softDeletes();
-        });
-    }
+		});
+	}
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('order_items');
-    }
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
+	final public function down(): void {
+		Schema::dropIfExists("order_items");
+	}
 };

@@ -1,6 +1,6 @@
 <!--suppress HtmlFormInputWithoutLabel, SpellCheckingInspection -->
 @php
-	use App\Enums\ProductOptionPriceAdjustment;use App\Enums\ProductPromotion;use App\Enums\ProductShipping;use App\Enums\ProductStockBehaviour;use App\Services\OptionValueService;
+	use App\Enums\ProductOptionUnitAdjustment;use App\Enums\ProductPromotion;use App\Enums\ProductShipping;use App\Enums\ProductStockBehaviour;use App\Services\OptionValueService;
 @endphp
 
 @extends('layouts.master')
@@ -317,8 +317,8 @@
 															<div class="col-2">
 																<label class="form-label">Variant Value Price Adjustment</label>
 																<select name="options[{{ $productOptionValueIndexCounter }}][price_adjustment]" class="form-control">
-																	<option value="{{ ProductOptionPriceAdjustment::POSITIVE->value }}" @if ($productOptionValue->pivot->price_adjustment === ProductOptionPriceAdjustment::POSITIVE->value) selected @endif>{{ ProductOptionPriceAdjustment::POSITIVE->name }}</option>
-																	<option value="{{ ProductOptionPriceAdjustment::NEGATIVE->value }}" @if ($productOptionValue->pivot->price_adjustment === ProductOptionPriceAdjustment::NEGATIVE->value) selected @endif>{{ ProductOptionPriceAdjustment::NEGATIVE->name }}</option>
+																	<option value="{{ ProductOptionUnitAdjustment::POSITIVE->value }}" @if ($productOptionValue->pivot->price_adjustment === ProductOptionUnitAdjustment::POSITIVE->value) selected @endif>{{ ProductOptionUnitAdjustment::POSITIVE->name }}</option>
+																	<option value="{{ ProductOptionUnitAdjustment::NEGATIVE->value }}" @if ($productOptionValue->pivot->price_adjustment === ProductOptionUnitAdjustment::NEGATIVE->value) selected @endif>{{ ProductOptionUnitAdjustment::NEGATIVE->name }}</option>
 																</select>
 															</div>
 															<div class="col-2">
@@ -466,15 +466,15 @@
 					positiveProductOptionPriceAdjustmentName,
 					positiveProductOptionPriceAdjustmentValue,
 				} = {
-					positiveProductOptionPriceAdjustmentName: "{{ ProductOptionPriceAdjustment::POSITIVE->name }}",
-					positiveProductOptionPriceAdjustmentValue: "{{ ProductOptionPriceAdjustment::POSITIVE->value }}",
+					positiveProductOptionPriceAdjustmentName: "{{ ProductOptionUnitAdjustment::POSITIVE->name }}",
+					positiveProductOptionPriceAdjustmentValue: "{{ ProductOptionUnitAdjustment::POSITIVE->value }}",
 				};
 				const {
 					negativeProductOptionPriceAdjustmentName,
 					negativeProductOptionPriceAdjustmentValue,
 				} = {
-					negativeProductOptionPriceAdjustmentName: "{{ ProductOptionPriceAdjustment::NEGATIVE->name }}",
-					negativeProductOptionPriceAdjustmentValue: "{{ ProductOptionPriceAdjustment::NEGATIVE->value }}",
+					negativeProductOptionPriceAdjustmentName: "{{ ProductOptionUnitAdjustment::NEGATIVE->name }}",
+					negativeProductOptionPriceAdjustmentValue: "{{ ProductOptionUnitAdjustment::NEGATIVE->value }}",
 				};
 
 				const dropdownOptionsHtml = optionValues.reduce((generatedDropdownOptionsHtml, optionValue) => {

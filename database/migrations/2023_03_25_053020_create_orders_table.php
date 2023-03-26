@@ -1,64 +1,64 @@
 <?php
 
+use App\Enums\OrderStatus;
+use App\Enums\PaymentMethod;
+use App\Enums\ShippingMethod;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('orders', function (Blueprint $table) {
-            $table->id();
+return new class extends Migration {
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
+	final public function up(): void {
+		Schema::create("orders", static function (Blueprint $table) {
+			$table->id();
 
-			$table->foreignId('customer_id')->unsigned()->default(0)->constrained()->cascadeOnDelete();
-			$table->string('first_name',32);
-			$table->string('last_name',32);
-			$table->string('email',32);
-			$table->string('address');
-			$table->string('appartment')->nullable();
-			$table->string('phone',32);
-			$table->string('postcode',32)->nullable();
-			$table->string('country',50)->nullable();
-			$table->string('state', 50)->nullable();
-			$table->string('city',50)->nullable();
-			$table->string('comment')->nullable();
-			$table->ipAddress('ip_address')->nullable();
-			$table->string('user_agent')->nullable();
-			$table->string('shipping_firstname',32)->nullable();
-			$table->string('shipping_lastname',32)->nullable();
-			$table->string('shipping_address')->nullable();
-			$table->string('shipping_phone')->nullable();
-			$table->string('shipping_appartment')->nullable();
-			$table->string('shipping_postcode',32)->nullable();
-			$table->string('shipping_country',50)->nullable();
-			$table->string('shipping_state')->nullable();
-			$table->string('shipping_city',50)->nullable();
-			$table->enum('order_status',['Canceled','Canceled Reversal','Chargeback','Complete','Denied','Expired','Failed','Pending','Refunded','Shipped'])->default('Pending');
-			$table->string('payment_method',50)->nullable();
-			$table->string('shipping_method',50)->nullable();
-			$table->decimal('actual_amount')->default(0.00);
-			$table->decimal('discount_amount')->default(0.00);
-			$table->decimal('shipping_amount')->default(0.00);
-			$table->decimal('total_amount')->default(0.00);
+			// Customer information
+			$table->foreignId("customer_id")->nullable()->constrained()->nullOnDelete();
+			$table->string("first_name", 32);
+			$table->string("last_name", 32);
+			$table->string("email");
+			$table->string("contact", 32);
 
-            $table->timestamps();
+			// Customer shipping information
+			$table->string("shipping_first_name", 32);
+			$table->string("shipping_last_name", 32);
+			$table->string("shipping_email");
+			$table->string("shipping_contact", 32);
+
+			// Customer addresses
+			$table->text("billing_address");
+			$table->text("shipping_address");
+
+			// Order details
+			$table->text("comment")->nullable();
+			$table->string("ip_address", 50)->nullable();
+			$table->string("user_agent", 100)->nullable();
+			$table->unsignedTinyInteger("order_status")->default(OrderStatus::PENDING->value);
+			$table->unsignedTinyInteger("payment_method")->default(PaymentMethod::CASH_ON_DELIVERY);
+			$table->unsignedTinyInteger("shipping_method")->default(ShippingMethod::FLAT_SHIPPING);
+
+			// Pricing details
+			$table->decimal("actual_amount")->default(0.00);
+			$table->decimal("discount_amount")->default(0.00);
+			$table->decimal("shipping_amount")->default(0.00);
+			$table->decimal("total_amount")->default(0.00);
+
+			$table->timestamps();
 			$table->softDeletes();
-        });
-    }
+		});
+	}
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('orders');
-    }
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
+	final public function down(): void {
+		Schema::dropIfExists("orders");
+	}
 };

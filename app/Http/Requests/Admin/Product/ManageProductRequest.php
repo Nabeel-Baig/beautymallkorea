@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Admin\Product;
 
-use App\Enums\ProductOptionPriceAdjustment;
+use App\Enums\ProductOptionUnitAdjustment;
 use App\Enums\ProductPromotion;
 use App\Enums\ProductShipping;
 use App\Enums\ProductStockBehaviour;
@@ -27,9 +27,9 @@ class ManageProductRequest extends FormRequest {
 			return $productPromotion->value;
 		}, ProductPromotion::cases());
 
-		$priceAdjustmentPossibilities = array_map(static function (ProductOptionPriceAdjustment $adjustment) {
+		$priceAdjustmentPossibilities = array_map(static function (ProductOptionUnitAdjustment $adjustment) {
 			return $adjustment->value;
-		}, ProductOptionPriceAdjustment::cases());
+		}, ProductOptionUnitAdjustment::cases());
 
 		/**
 		 * The input is taken as multidimensional array in separate keys

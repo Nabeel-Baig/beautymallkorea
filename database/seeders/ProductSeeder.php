@@ -3,10 +3,12 @@
 
 namespace Database\Seeders;
 
-use App\Enums\ProductOptionPriceAdjustment;
+use App\Enums\DimensionClass;
+use App\Enums\ProductOptionUnitAdjustment;
 use App\Enums\ProductPromotion;
 use App\Enums\ProductShipping;
 use App\Enums\ProductStockBehaviour;
+use App\Enums\WeightClass;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\OptionValue;
@@ -76,6 +78,12 @@ class ProductSeeder extends Seeder {
 			"price" => $price,
 			"discount_price" => $discountPrice,
 			"quantity" => random_int(0, 50),
+			"dimension_length" => random_int(0, 50),
+			"dimension_width" => random_int(0, 50),
+			"dimension_height" => random_int(0, 50),
+			"dimension_class" => random_int(DimensionClass::INCH->value, DimensionClass::CENTIMETER->value),
+			"weight" => random_int(0, 50),
+			"weight_class" => random_int(WeightClass::KILOGRAM->value, WeightClass::POUND->value),
 			"image" => "images/product.png",
 			"secondary_images" => "[]",
 			"min_order_quantity" => random_int(1, 3),
@@ -121,8 +129,10 @@ class ProductSeeder extends Seeder {
 				"product_id" => $productId,
 				"quantity" => random_int(1, 100),
 				"subtract_stock" => random_int(ProductStockBehaviour::CONSISTENT_STOCK->value, ProductStockBehaviour::SUBTRACT_STOCK->value),
-				"price_difference" => random_int(0 * 100, 50 * 100) / 100,
-				"price_adjustment" => random_int(ProductOptionPriceAdjustment::NEGATIVE->value, ProductOptionPriceAdjustment::POSITIVE->value),
+				"weight_difference" => random_int(0, 50),
+				"weight_adjustment" => random_int(ProductOptionUnitAdjustment::NEGATIVE->value, ProductOptionUnitAdjustment::POSITIVE->value),
+				"price_difference" => random_int(0, 50),
+				"price_adjustment" => random_int(ProductOptionUnitAdjustment::NEGATIVE->value, ProductOptionUnitAdjustment::POSITIVE->value),
 				"created_at" => $timestamp,
 				"updated_at" => $timestamp,
 			];
