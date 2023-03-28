@@ -41,24 +41,24 @@ class ProductService {
 
 	final public function fetchProductDataForManagement(Product|null $product): array {
 		$product?->load([
-			"relatedProducts" => static function (BelongsToMany $query) {
-				return $query->select(["products.id", "products.name"]);
+			"relatedProducts" => static function (BelongsToMany $relatedProduct) {
+				return $relatedProduct->select(["products.id", "products.name"]);
 			},
-			"brand" => static function (BelongsTo $query) {
-				return $query->select(["brands.id", "brands.name"]);
+			"brand" => static function (BelongsTo $brand) {
+				return $brand->select(["brands.id", "brands.name"]);
 			},
-			"tags" => static function (BelongsToMany $query) {
-				return $query->select(["tags.id", "tags.name"]);
+			"tags" => static function (BelongsToMany $tag) {
+				return $tag->select(["tags.id", "tags.name"]);
 			},
-			"categories" => static function (BelongsToMany $query) {
-				return $query->select(["categories.id", "categories.name"]);
+			"categories" => static function (BelongsToMany $category) {
+				return $category->select(["categories.id", "categories.name"]);
 			},
-			"optionValues" => static function (BelongsToMany $query) {
-				return $query->select(["option_values.id", "option_values.name", "option_values.option_id", "option_values.image"])->with([
-					"option" => static function (BelongsTo $query) {
-						return $query->select(["options.id", "options.name"]);
+			"optionValues" => static function (BelongsToMany $optionValue) {
+				return $optionValue->with([
+					"option" => static function (BelongsTo $option) {
+						return $option->select(["options.id", "options.name"]);
 					},
-				]);
+				])->select(["option_values.id", "option_values.name", "option_values.option_id", "option_values.image"]);
 			},
 		]);
 
