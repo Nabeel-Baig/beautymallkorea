@@ -349,7 +349,7 @@
 											<div class="card-body">
 												<div class="row mb-3">
 													<div class="col-10">
-														<label class="form-label">Variant Name</label>
+														<label class="form-label">Variant Type</label>
 														<input data-option-name="{{ $optionId }}" type="text" class="form-control" disabled>
 													</div>
 													<div class="col-2 d-flex align-items-end">
@@ -362,21 +362,21 @@
 												<div id="product-option-{{ $optionId }}-option-value">
 													@foreach($productOptionValueGroup as $productOptionValue)
 														<div id="product-option-value-{{ $productOptionValueIndexCounter }}" class="row mb-3">
-															<div class="col-3">
+															<div class="col-2">
 																@php $possibleOptionValuesForThisOption = app(OptionValueService::class)->getOptionValuesForDropdown($productOptionValue->option->id) @endphp
-																<label class="form-label">Variant Value Name</label>
+																<label class="form-label">Variant Name</label>
 																<select name="options[{{ $productOptionValueIndexCounter }}][option_value_id]" class="form-control">
 																	@foreach($possibleOptionValuesForThisOption as $possibleOptionValue)
 																		<option value="{{ $possibleOptionValue->id }}" @if($possibleOptionValue->id === $productOptionValue->id) selected @endif>{{ $possibleOptionValue->name }}</option>
 																	@endforeach
 																</select>
 															</div>
-															<div class="col-2">
-																<label class="form-label">Variant Value Quantity</label>
-																<input type="number" name="options[{{ $productOptionValueIndexCounter }}][quantity]" value="{{ $productOptionValue->pivot->quantity }}" min="1" step="1" class="form-control" required>
+															<div class="col-1">
+																<label class="form-label">Variant Qty</label>
+																<input type="number" name="options[{{ $productOptionValueIndexCounter }}][quantity]" value="{{ $productOptionValue->pivot->quantity }}" min="0" step="1" class="form-control" required>
 															</div>
 															<div class="col-2">
-																<label class="form-label">Variant Value Subtract Stock</label>
+																<label class="form-label">Variant Subtract Stock</label>
 																<select name="options[{{ $productOptionValueIndexCounter }}][subtract_stock]" class="form-control">
 																	@foreach(ProductStockBehaviour::cases() as $productStockBehaviour)
 																		<option value="{{ $productStockBehaviour->value }}" @if ($productOptionValue->pivot->subtract_stock === $productStockBehaviour->value) selected @endif>{{ ProductStockBehaviour::formattedName($productStockBehaviour) }}</option>
@@ -384,16 +384,28 @@
 																</select>
 															</div>
 															<div class="col-2">
-																<label class="form-label">Variant Value Price Adjustment</label>
+																<label class="form-label">Variant Price Adjustment</label>
 																<select name="options[{{ $productOptionValueIndexCounter }}][price_adjustment]" class="form-control">
 																	@foreach(ProductOptionUnitAdjustment::cases() as $productOptionUnitAdjustment)
 																		<option value="{{ $productOptionUnitAdjustment->value }}" @if ($productOptionValue->pivot->price_adjustment === $productOptionUnitAdjustment->value) selected @endif>{{ ProductOptionUnitAdjustment::formattedName($productOptionUnitAdjustment) }}</option>
 																	@endforeach
 																</select>
 															</div>
+															<div class="col-1">
+																<label class="form-label">Variant Price</label>
+																<input type="number" name="options[{{ $productOptionValueIndexCounter }}][price_difference]" value="{{ $productOptionValue->pivot->price_difference }}" min="0" step="0.01" class="form-control" required>
+															</div>
 															<div class="col-2">
-																<label class="form-label">Variant Value Price</label>
-																<input type="number" name="options[{{ $productOptionValueIndexCounter }}][price_difference]" value="{{ $productOptionValue->pivot->price_difference }}" min="1" step="0.01" class="form-control" required>
+																<label class="form-label">Variant Weight Adjustment</label>
+																<select name="options[{{ $productOptionValueIndexCounter }}][weight_adjustment]" class="form-control">
+																	@foreach(ProductOptionUnitAdjustment::cases() as $productOptionUnitAdjustment)
+																		<option value="{{ $productOptionUnitAdjustment->value }}" @if ($productOptionValue->pivot->weight_adjustment === $productOptionUnitAdjustment->value) selected @endif>{{ ProductOptionUnitAdjustment::formattedName($productOptionUnitAdjustment) }}</option>
+																	@endforeach
+																</select>
+															</div>
+															<div class="col-1">
+																<label class="form-label">Variant Weight</label>
+																<input type="number" name="options[{{ $productOptionValueIndexCounter }}][weight_difference]" value="{{ $productOptionValue->pivot->weight_difference }}" min="0" step="0.01" class="form-control" required>
 															</div>
 															<div class="col-1 d-flex align-items-end">
 																<div class="w-100">
@@ -534,31 +546,41 @@
 
 				return `
 					<div id="product-option-value-${ productOptionValueIndexCounter }" class="row mb-3">
-						<div class="col-3">
-							<label class="form-label">Variant Value Name</label>
+						<div class="col-2">
+							<label class="form-label">Variant Name</label>
 							<select name="options[${ productOptionValueIndexCounter }][option_value_id]" class="form-control">
 								${ dropdownOptionsHtml }
 							</select>
 						</div>
-						<div class="col-2">
-							<label class="form-label">Variant Value Quantity</label>
-							<input type="number" name="options[${ productOptionValueIndexCounter }][quantity]" min="1" step="1" class="form-control" required>
+						<div class="col-1">
+							<label class="form-label">Variant Qty</label>
+							<input type="number" name="options[${ productOptionValueIndexCounter }][quantity]" value="0" min="0" step="1" class="form-control" required>
 						</div>
 						<div class="col-2">
-							<label class="form-label">Variant Value Subtract Stock</label>
+							<label class="form-label">Variant Subtract Stock</label>
 							<select name="options[${ productOptionValueIndexCounter }][subtract_stock]" class="form-control">
 								${ stockBehaviourHtml }
 							</select>
 						</div>
 						<div class="col-2">
-							<label class="form-label">Variant Value Price Adjustment</label>
+							<label class="form-label">Variant Price Adjustment</label>
 							<select name="options[${ productOptionValueIndexCounter }][price_adjustment]" class="form-control">
 								${ unitAdjustmentHtml }
 							</select>
 						</div>
+						<div class="col-1">
+							<label class="form-label">Variant Price</label>
+							<input type="number" name="options[${ productOptionValueIndexCounter }][price_difference]" value="0" min="0" step="0.01" class="form-control" required>
+						</div>
 						<div class="col-2">
-							<label class="form-label">Variant Value Price</label>
-							<input type="number" name="options[${ productOptionValueIndexCounter }][price_difference]" min="1" step="0.01" class="form-control" required>
+							<label class="form-label">Variant Weight Adjustment</label>
+							<select name="options[${ productOptionValueIndexCounter }][weight_adjustment]" class="form-control">
+								${ unitAdjustmentHtml }
+							</select>
+						</div>
+						<div class="col-1">
+							<label class="form-label">Variant Weight</label>
+							<input type="number" name="options[${ productOptionValueIndexCounter }][weight_difference]" value="0" min="0" step="0.01" class="form-control" required>
 						</div>
 						<div class="col-1 d-flex align-items-end">
 							<div class="w-100">

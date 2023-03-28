@@ -65,6 +65,8 @@ class ManageProductRequest extends FormRequest {
 			"options.*.subtract_stock" => ["nullable", new Enum(ProductStockBehaviour::class)],
 			"options.*.price_difference" => ["nullable", "numeric"],
 			"options.*.price_adjustment" => ["nullable", new Enum(ProductOptionUnitAdjustment::class)],
+			"options.*.weight_difference" => ["nullable", "numeric"],
+			"options.*.weight_adjustment" => ["nullable", new Enum(ProductOptionUnitAdjustment::class)],
 			// ============================================================================================
 
 			// Product Tags

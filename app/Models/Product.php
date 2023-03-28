@@ -68,7 +68,7 @@ class Product extends Model {
 
 	final public function optionValues(): BelongsToMany {
 		return $this->belongsToMany(OptionValue::class, "product_options", "product_id", "option_value_id")
-			->withPivot(["id", "product_id", "option_value_id", "quantity", "subtract_stock", "price_difference", "price_adjustment"])
+			->withPivot(["id", "product_id", "option_value_id", "quantity", "subtract_stock", "price_difference", "price_adjustment", "weight_difference", "weight_adjustment"])
 			->withTimestamps();
 	}
 
