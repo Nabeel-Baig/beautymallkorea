@@ -3,11 +3,17 @@
 namespace App\Http\Resources\Api\Product;
 
 use App\Models\ProductOption;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /** @mixin ProductOption */
 class ProductOptionResource extends JsonResource {
-	final public function toArray($request): array {
+	/**
+	 * @param Request $request
+	 *
+	 * @return array
+	 */
+	final public function toArray(Request $request): array {
 		return [
 			"quantity" => $this->quantity,
 			"subtract_stock" => $this->subtract_stock,

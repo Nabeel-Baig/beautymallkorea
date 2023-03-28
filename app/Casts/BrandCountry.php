@@ -14,12 +14,12 @@ class BrandCountry implements CastsAttributes {
 	final public function get(mixed $model, string $key, mixed $value, array $attributes): BrandCountryValueObject {
 		$decodedValue = $value !== null ? json_decode($value, true, 512, JSON_THROW_ON_ERROR) : null;
 
-		$brandValueObject = new BrandCountryValueObject();
-		$brandValueObject->setCountryName($decodedValue["countryName"] ?? "");
-		$brandValueObject->setCountryCode($decodedValue["countryCode"] ?? "");
-		$brandValueObject->setCountryFlag($decodedValue["countryFlag"] ?? "");
+		$brandCountryValueObject = new BrandCountryValueObject();
+		$brandCountryValueObject->setCountryName($decodedValue["countryName"] ?? "");
+		$brandCountryValueObject->setCountryCode($decodedValue["countryCode"] ?? "");
+		$brandCountryValueObject->setCountryFlag($decodedValue["countryFlag"] ?? "");
 
-		return $brandValueObject;
+		return $brandCountryValueObject;
 	}
 
 	/**

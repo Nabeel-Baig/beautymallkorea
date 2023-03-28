@@ -2,6 +2,7 @@
 
 namespace App\Extensions;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use JsonException;
 use stdClass;
@@ -25,5 +26,9 @@ trait EnumExtensions {
 		}, self::cases());
 
 		return json_encode($formattedJsonObject, JSON_THROW_ON_ERROR);
+	}
+
+	public static function random(): self {
+		return Arr::random(self::cases());
 	}
 }

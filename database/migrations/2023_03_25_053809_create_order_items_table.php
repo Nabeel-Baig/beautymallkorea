@@ -20,8 +20,10 @@ return new class extends Migration {
 			$table->string("product_name");
 			$table->string("product_option_name")->nullable();
 			$table->unsignedInteger("product_quantity");
-			$table->string("product_weight");
+			$table->unsignedDecimal("product_weight");
+			$table->unsignedTinyInteger("product_weight_class");
 			$table->string("product_dimension");
+			$table->unsignedTinyInteger("product_dimension_class");
 			$table->string("product_image")->nullable();
 			$table->decimal("product_price")->default(0.00);
 			$table->decimal("product_total_price")->default(0.00);

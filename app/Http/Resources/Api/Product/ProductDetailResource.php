@@ -16,14 +16,14 @@ class ProductDetailResource extends JsonResource {
 	 *
 	 * @return array
 	 */
-	final public function toArray($request): array {
+	final public function toArray(Request $request): array {
 		return [
 			"name" => $this->name,
 			"slug" => $this->slug,
 			"description" => $this->description,
-			"meta_title" => $this->meta_title,
-			"meta_description" => $this->meta_description,
-			"meta_keywords" => $this->meta_keywords,
+			"meta_title" => $this->meta->getMetaTitle(),
+			"meta_description" => $this->meta->getMetaDescription(),
+			"meta_keywords" => $this->meta->getMetaKeywords(),
 			"sku" => $this->sku,
 			"upc" => $this->upc,
 			"price" => $this->price,

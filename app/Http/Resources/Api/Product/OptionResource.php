@@ -13,7 +13,7 @@ class OptionResource extends JsonResource {
 	 *
 	 * @return array
 	 */
-	final public function toArray($request): array {
+	final public function toArray(Request $request): array {
 		return [
 			"name" => $this->name,
 		];

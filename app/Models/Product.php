@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Casts\ProductDimension;
+use App\Casts\ProductMeta;
 use App\Enums\DimensionClass;
 use App\Enums\ProductPromotion;
 use App\Enums\ProductShipping;
@@ -21,17 +23,13 @@ class Product extends Model {
 		"name",
 		"slug",
 		"description",
-		"meta_title",
-		"meta_description",
-		"meta_keywords",
+		"meta",
 		"sku",
 		"upc",
 		"price",
 		"discount_price",
 		"quantity",
-		"dimension_length",
-		"dimension_width",
-		"dimension_height",
+		"dimension",
 		"dimension_class",
 		"weight",
 		"weight_class",
@@ -44,9 +42,11 @@ class Product extends Model {
 	];
 
 	protected $casts = [
+		"meta" => ProductMeta::class,
 		"subtract_stock" => ProductStockBehaviour::class,
 		"require_shipping" => ProductShipping::class,
 		"promotion_status" => ProductPromotion::class,
+		"dimension" => ProductDimension::class,
 		"dimension_class" => DimensionClass::class,
 		"weight_class" => WeightClass::class,
 		"secondary_images" => "array",

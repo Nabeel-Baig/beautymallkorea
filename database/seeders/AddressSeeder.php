@@ -26,6 +26,7 @@ class AddressSeeder extends Seeder {
 					"customer_id" => $customer->id,
 					"is_default" => $addressIndex === $defaultAddressIndex,
 					"address_line_one" => fake()->streetAddress,
+					"address_line_two" => fake()->buildingNumber,
 					"address_city" => fake()->city,
 					"address_state" => fake()->streetName,
 					"address_country" => fake()->country,
