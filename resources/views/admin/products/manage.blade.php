@@ -6,29 +6,34 @@
 	use App\Enums\ProductShipping;
 	use App\Enums\ProductStockBehaviour;
 	use App\Enums\WeightClass;
+	use App\Models\Product;
 	use App\Services\OptionValueService;
+
+	if ($model !== null) {
+		assert($model instanceof Product);
+	}
 @endphp
 
-@extends('layouts.master')
+@extends("layouts.master")
 
-@section('title')
+@section("title")
 	Edit {{ $title }}
 @endsection
 
-@section('page-specific-css')
+@section("page-specific-css")
 	<!-- Plugins css -->
-	<link rel="stylesheet" type="text/css" href="{{ asset('assets/libs/select2/select2.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset("assets/libs/select2/select2.min.css") }}">
 	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 @endsection
 
-@section('content')
+@section("content")
 
-	@component('components.breadcrumb')
-		@slot('li_1')
+	@component("components.breadcrumb")
+		@slot("li_1")
 			Dashboard
 		@endslot
-		@slot('title')
-			{{ $title ?? '' }}
+		@slot("title")
+			{{ $title ?? "" }}
 		@endslot
 	@endcomponent
 
@@ -37,11 +42,9 @@
 		<div class="col-xl-12">
 			<div class="card">
 				<div class="card-body">
-					<form method="POST" id="product-manage"
-						  action="{{ route("admin.products.manage.update", ["product" => $model->id ?? null]) }}"
-						  class="custom-validation" enctype="multipart/form-data">
+					<form method="POST" id="product-manage" action="{{ route("admin.products.manage.update", ["product" => $model->id ?? null]) }}" class="custom-validation" enctype="multipart/form-data">
 						@csrf
-						@method('PATCH')
+						@method("PATCH")
 
 						<ul class="nav nav-tabs" role="tablist">
 							<li class="nav-item">
@@ -91,47 +94,47 @@
 							<div class="tab-pane active" id="general" role="tabpanel">
 								<div class="mb-3">
 									<label for="product_name" class="form-label">Product Name</label>
-									<input type="text" name="product[name]" id="product_name" value="{{ $model->name ?? old("product.name") }}" minlength="3" maxlength="50" class="form-control @error('product.name') parsley-error @enderror" required>
-									@error('product.name')
+									<input type="text" name="product[name]" id="product_name" value="{{ $model?->name ?? old("product.name") }}" minlength="3" maxlength="50" class="form-control @error("product.name") parsley-error @enderror" required>
+									@error("product.name")
 									<span class="text-red">{{ $message }}</span>
 									@enderror
 								</div>
 
 								<div class="mb-3">
 									<label for="product_description" class="form-label">Product Description</label>
-									<textarea name="product[description]" minlength="3" class="form-control editor @error('product.description') parsley-error @enderror" required>{{ $model->description ?? old("product.description") }}</textarea>
-									@error('product.description')
+									<textarea name="product[description]" minlength="3" class="form-control editor @error("product.description") parsley-error @enderror" required>{{ $model?->description ?? old("product.description") }}</textarea>
+									@error("product.description")
 									<span class="text-red">{{ $message }}</span>
 									@enderror
 								</div>
 
 								<div class="mb-3">
 									<label for="product_meta_title" class="form-label">Meta Tag Title</label>
-									<input type="text" name="product[meta_title]" id="product_meta_title" value="{{ $model->meta_title ?? old("product.meta_title") }}" minlength="3" maxlength="50" class="form-control @error('product.meta_title') parsley-error @enderror">
-									@error("product.meta_title")
+									<input type="text" name="product[meta][meta_title]" id="product_meta_title" value="{{ $model?->meta->getMetaTitle() ?? old("product.meta.meta_title") }}" minlength="3" maxlength="50" class="form-control @error("product.meta.meta_title") parsley-error @enderror">
+									@error("product.meta.meta_title")
 									<span class="text-red">{{ $message }}</span>
 									@enderror
 								</div>
 
 								<div class="mb-3">
 									<label for="product_meta_description" class="form-label">Meta Tag Description</label>
-									<input type="text" name="product[meta_description]" id="product_meta_description" value="{{ $model->meta_description ?? old("product.meta_description") }}" minlength="3" maxlength="50" class="form-control @error('product.meta_description') parsley-error @enderror">
-									@error("product.meta_description")
+									<input type="text" name="product[meta][meta_description]" id="product_meta_description" value="{{ $model?->meta->getMetaDescription() ?? old("product.meta.meta_description") }}" minlength="3" maxlength="50" class="form-control @error("product.meta.meta_description") parsley-error @enderror">
+									@error("product.meta.meta_description")
 									<span class="text-red">{{ $message }}</span>
 									@enderror
 								</div>
 
 								<div class="mb-3">
 									<label for="product_meta_keywords" class="form-label">Meta Tag Keywords</label>
-									<input type="text" name="product[meta_keywords]" id="product_meta_keywords" value="{{ $model->meta_keywords ?? old("product.meta_keywords") }}" minlength="3" maxlength="50" class="form-control @error('product.meta_keywords') parsley-error @enderror">
-									@error("product.meta_keywords")
+									<input type="text" name="product[meta][meta_keywords]" id="product_meta_keywords" value="{{ $model?->meta->getMetaKeywords() ?? old("product.meta.meta_keywords") }}" minlength="3" maxlength="50" class="form-control @error("product.meta.meta_keywords") parsley-error @enderror">
+									@error("product.meta.meta_keywords")
 									<span class="text-red">{{ $message }}</span>
 									@enderror
 								</div>
 
 								<div class="mb-3">
 									<label for="product_tags" class="form-label">Product Tags</label>
-									<select name="tags[]" id="product_tags" style="width: 100%" class="form-control select2 @error('tags') parsley-error @enderror" multiple>
+									<select name="tags[]" id="product_tags" style="width: 100%" class="form-control select2 @error("tags") parsley-error @enderror" multiple>
 										@foreach($tags as $tag)
 											<option value="{{ $tag->id }}" @if(in_array($tag->id, $assignedTags, true)) selected @endif>{{ $tag->name }}</option>
 										@endforeach
@@ -145,140 +148,140 @@
 							<div class="tab-pane" id="data" role="tabpanel">
 								<div class="mb-3">
 									<label for="product_sku" class="form-label">SKU</label>
-									<input type="text" name="product[sku]" id="product_sku" value="{{ $model?->sku ?? old("product.sku") }}" minlength="3" maxlength="50" class="form-control @error('product.sku') parsley-error @enderror" required>
-									@error('product.sku')
+									<input type="text" name="product[sku]" id="product_sku" value="{{ $model?->sku ?? old("product.sku") }}" minlength="3" maxlength="50" class="form-control @error("product.sku") parsley-error @enderror" required>
+									@error("product.sku")
 									<span class="text-red">{{ $message }}</span>
 									@enderror
 								</div>
 
 								<div class="mb-3">
 									<label for="product_upc" class="form-label">UPC</label>
-									<input type="text" name="product[upc]" id="product_upc" value="{{ $model?->upc ?? old("product.upc") }}" minlength="3" maxlength="50" class="form-control @error('product.upc') parsley-error @enderror" required>
-									@error('product.upc')
+									<input type="text" name="product[upc]" id="product_upc" value="{{ $model?->upc ?? old("product.upc") }}" minlength="3" maxlength="50" class="form-control @error("product.upc") parsley-error @enderror" required>
+									@error("product.upc")
 									<span class="text-red">{{ $message }}</span>
 									@enderror
 								</div>
 
 								<div class="mb-3">
 									<label for="product_price" class="form-label">Price</label>
-									<input type="number" name="product[price]" id="product_price" value="{{ $model?->price ?? old("product.price") }}" min="0" step="0.01" class="form-control @error('product.price') parsley-error @enderror" required>
-									@error('product.price')
+									<input type="number" name="product[price]" id="product_price" value="{{ $model?->price ?? old("product.price") }}" min="0" step="0.01" class="form-control @error("product.price") parsley-error @enderror" required>
+									@error("product.price")
 									<span class="text-red">{{ $message }}</span>
 									@enderror
 								</div>
 
 								<div class="mb-3">
 									<label for="product_discount_price" class="form-label">Discount Price</label>
-									<input type="number" name="product[discount_price]" id="product_discount_price" value="{{ $model?->discount_price ?? old("product.discount_price") }}" min="0" step="0.01" class="form-control @error('product.discount_price') parsley-error @enderror">
-									@error('product.discount_price')
+									<input type="number" name="product[discount_price]" id="product_discount_price" value="{{ $model?->discount_price ?? old("product.discount_price") }}" min="0" step="0.01" class="form-control @error("product.discount_price") parsley-error @enderror">
+									@error("product.discount_price")
 									<span class="text-red">{{ $message }}</span>
 									@enderror
 								</div>
 
 								<div class="mb-3">
 									<label for="product_quantity" class="form-label">Quantity</label>
-									<input type="number" name="product[quantity]" id="product_quantity" value="{{ $model?->quantity ?? old("product.quantity") }}" min="1" step="1" class="form-control @error('product.quantity') parsley-error @enderror" required>
-									@error('product.quantity')
+									<input type="number" name="product[quantity]" id="product_quantity" value="{{ $model?->quantity ?? old("product.quantity") }}" min="1" step="1" class="form-control @error("product.quantity") parsley-error @enderror" required>
+									@error("product.quantity")
 									<span class="text-red">{{ $message }}</span>
 									@enderror
 								</div>
 
 								<div class="mb-3">
 									<label for="product_length" class="form-label">Length</label>
-									<input type="number" name="product[dimension_length]" id="product_length" value="{{ $model?->dimension_length ?? old("product.dimension_length") }}" min="0" step="0.01" class="form-control @error('product.dimension_length') parsley-error @enderror" required>
-									@error('product.dimension_length')
+									<input type="number" name="product[dimension][dimension_length]" id="product_length" value="{{ $model?->dimension->getDimensionLength() ?? old("product.dimension.dimension_length") ?? 0.00 }}" min="0" step="0.01" class="form-control @error("product.dimension.dimension_length") parsley-error @enderror" required>
+									@error("product.dimension.dimension_length")
 									<span class="text-red">{{ $message }}</span>
 									@enderror
 								</div>
 
 								<div class="mb-3">
 									<label for="product_width" class="form-label">Width</label>
-									<input type="number" name="product[dimension_width]" id="product_width" value="{{ $model?->dimension_width ?? old("product.dimension_width") }}" min="0" step="0.01" class="form-control @error('product.dimension_width') parsley-error @enderror" required>
-									@error('product.dimension_width')
+									<input type="number" name="product[dimension][dimension_width]" id="product_width" value="{{ $model?->dimension->getDimensionWidth() ?? old("product.dimension.dimension_width") ?? 0.00 }}" min="0" step="0.01" class="form-control @error("product.dimension.dimension_width") parsley-error @enderror" required>
+									@error("product.dimension.dimension_width")
 									<span class="text-red">{{ $message }}</span>
 									@enderror
 								</div>
 
 								<div class="mb-3">
 									<label for="product_height" class="form-label">Height</label>
-									<input type="number" name="product[dimension_height]" id="product_height" value="{{ $model?->dimension_height ?? old("product.dimension_height") }}" min="0" step="0.01" class="form-control @error('product.dimension_height') parsley-error @enderror" required>
-									@error('product.dimension_height')
+									<input type="number" name="product[dimension][dimension_height]" id="product_height" value="{{ $model?->dimension->getDimensionHeight() ?? old("product.dimension.dimension_height") ?? 0.00 }}" min="0" step="0.01" class="form-control @error("product.dimension.dimension_height") parsley-error @enderror" required>
+									@error("product.dimension.dimension_height")
 									<span class="text-red">{{ $message }}</span>
 									@enderror
 								</div>
 
 								<div class="mb-3">
 									<label for="product_dimension_class" class="form-label">Dimension Class</label>
-									<select name="product[dimension_class]" id="product_dimension_class" class="form-control @error('product.dimension_class') parsley-error @enderror">
+									<select name="product[dimension_class]" id="product_dimension_class" class="form-control @error("product.dimension_class") parsley-error @enderror">
 										@foreach(DimensionClass::cases() as $productDimensionClass)
 											<option value="{{ $productDimensionClass->value }}" @if($model?->dimension_class->value === $productDimensionClass->value) selected @endif>{{ DimensionClass::formattedName($productDimensionClass) }}</option>
 										@endforeach
 									</select>
-									@error('product.dimension_class')
+									@error("product.dimension_class")
 									<span class="text-red">{{ $message }}</span>
 									@enderror
 								</div>
 
 								<div class="mb-3">
 									<label for="product_weight" class="form-label">Weight</label>
-									<input type="number" name="product[weight]" id="product_weight" value="{{ $model?->weight ?? old("product.weight") }}" min="0" step="0.01" class="form-control @error('product.weight') parsley-error @enderror" required>
-									@error('product.weight')
+									<input type="number" name="product[weight]" id="product_weight" value="{{ $model?->weight ?? old("product.weight") ?? 0.00 }}" min="0" step="0.01" class="form-control @error("product.weight") parsley-error @enderror" required>
+									@error("product.weight")
 									<span class="text-red">{{ $message }}</span>
 									@enderror
 								</div>
 
 								<div class="mb-3">
 									<label for="product_weight_class" class="form-label">Weight Class</label>
-									<select name="product[weight_class]" id="product_weight_class" class="form-control @error('product.weight_class') parsley-error @enderror">
+									<select name="product[weight_class]" id="product_weight_class" class="form-control @error("product.weight_class") parsley-error @enderror">
 										@foreach(WeightClass::cases() as $productWeightClass)
 											<option value="{{ $productWeightClass->value }}" @if($model?->weight_class->value === $productWeightClass->value) selected @endif>{{ WeightClass::formattedName($productWeightClass) }}</option>
 										@endforeach
 									</select>
-									@error('product.weight_class')
+									@error("product.weight_class")
 									<span class="text-red">{{ $message }}</span>
 									@enderror
 								</div>
 
 								<div class="mb-3">
 									<label for="product_min_order_quantity" class="form-label">Minimum Order-able Quantity</label>
-									<input type="number" name="product[min_order_quantity]" id="product_min_order_quantity" value="{{ $model?->min_order_quantity ?? old("product.min_order_quantity") ?? 1 }}" min="1" step="1" class="form-control @error('product.min_order_quantity') parsley-error @enderror">
-									@error('product.min_order_quantity')
+									<input type="number" name="product[min_order_quantity]" id="product_min_order_quantity" value="{{ $model?->min_order_quantity ?? old("product.min_order_quantity") ?? 1 }}" min="1" step="1" class="form-control @error("product.min_order_quantity") parsley-error @enderror">
+									@error("product.min_order_quantity")
 									<span class="text-red">{{ $message }}</span>
 									@enderror
 								</div>
 
 								<div class="mb-3">
 									<label for="product_subtract_stock" class="form-label">Subtract Stock</label>
-									<select name="product[subtract_stock]" id="product_subtract_stock" class="form-control @error('product.subtract_stock') parsley-error @enderror">
+									<select name="product[subtract_stock]" id="product_subtract_stock" class="form-control @error("product.subtract_stock") parsley-error @enderror">
 										@foreach(ProductStockBehaviour::cases() as $productStockBehaviour)
 											<option value="{{ $productStockBehaviour->value }}" @if($model?->subtract_stock->value === $productStockBehaviour->value) selected @endif>{{ ProductStockBehaviour::formattedName($productStockBehaviour) }}</option>
 										@endforeach
 									</select>
-									@error('product.subtract_stock')
+									@error("product.subtract_stock")
 									<span class="text-red">{{ $message }}</span>
 									@enderror
 								</div>
 
 								<div class="mb-3">
 									<label for="product_require_shipping" class="form-label">Require Shipping</label>
-									<select name="product[require_shipping]" id="product_require_shipping" class="form-control @error('product.require_shipping') parsley-error @enderror">
+									<select name="product[require_shipping]" id="product_require_shipping" class="form-control @error("product.require_shipping") parsley-error @enderror">
 										@foreach(ProductShipping::cases() as $productShipping)
 											<option value="{{ $productShipping->value }}" @if($model?->require_shipping->value === $productShipping->value) selected @endif>{{ ProductShipping::formattedName($productShipping) }}</option>
 										@endforeach
 									</select>
-									@error('product.require_shipping')
+									@error("product.require_shipping")
 									<span class="text-red">{{ $message }}</span>
 									@enderror
 								</div>
 
 								<div class="mb-3">
 									<label for="product_promotion_status" class="form-label">Promotion Status</label>
-									<select name="product[promotion_status]" id="product_promotion_status" class="form-control @error('product.promotion_status') parsley-error @enderror">
+									<select name="product[promotion_status]" id="product_promotion_status" class="form-control @error("product.promotion_status") parsley-error @enderror">
 										@foreach(ProductPromotion::cases() as $productPromotion)
 											<option value="{{ $productPromotion->value }}" @if($model?->promotion_status->value === $productPromotion->value) selected @endif>{{ ProductPromotion::formattedName($productPromotion) }}</option>
 										@endforeach
 									</select>
-									@error('product.promotion_status')
+									@error("product.promotion_status")
 									<span class="text-red">{{ $message }}</span>
 									@enderror
 								</div>
@@ -287,10 +290,10 @@
 							<div class="tab-pane" id="links" role="tabpanel">
 								<div class="mb-3">
 									<label for="product_brand" class="form-label">Brand</label>
-									<select name="product[brand_id]" id="product_brand" style="width: 100%" class="form-control select2 @error('product.brand_id') parsley-error @enderror" required>
+									<select name="product[brand_id]" id="product_brand" style="width: 100%" class="form-control select2 @error("product.brand_id") parsley-error @enderror" required>
 										@php $brandIds = array_map(static function (array $brand) { return $brand["id"]; }, $brands->toArray()) @endphp
 										@foreach($brands as $brand)
-											<option value="{{ $brand->id }}" data-country-image="{{ asset($brand->country->getCountryFlag()) }}" {{ ($model?->brand_id === $brand->id) ? 'selected' : ''  }}>{{ $brand->country->getCountryName() }} - {{ $brand->name }}</option>
+											<option value="{{ $brand->id }}" data-country-image="{{ asset($brand->country->getCountryFlag()) }}" @if ($model?->brand_id === $brand->id) selected @endif>{{ $brand->country->getCountryName() }} - {{ $brand->name }}</option>
 										@endforeach
 									</select>
 									@error("product.brand_id")
@@ -300,7 +303,7 @@
 
 								<div class="mb-3">
 									<label for="product_categories" class="form-label">Categories</label>
-									<select name="categories[]" id="product_categories" style="width: 100%" class="form-control select2 @error('categories') parsley-error @enderror" multiple>
+									<select name="categories[]" id="product_categories" style="width: 100%" class="form-control select2 @error("categories") parsley-error @enderror" multiple>
 										@foreach($categories as $category)
 											<option value="{{ $category->id }}" @if(in_array($category->id, $assignedCategories, true)) selected @endif>{{ $category->name }}</option>
 										@endforeach
@@ -312,7 +315,7 @@
 
 								<div class="mb-3">
 									<label for="product_related_products" class="form-label">Related Products</label>
-									<select name="related_products[]" id="product_related_products" style="width: 100%" class="form-control select2 @error('related_products') parsley-error @enderror" multiple>
+									<select name="related_products[]" id="product_related_products" style="width: 100%" class="form-control select2 @error("related_products") parsley-error @enderror" multiple>
 										@foreach($relatedProducts as $relatedProduct)
 											<option value="{{ $relatedProduct->id }}" @if(in_array($relatedProduct->id, $assignedRelatedProducts, true)) selected @endif>{{ $relatedProduct->name }}</option>
 										@endforeach
@@ -419,7 +422,7 @@
 									<label for="product_image" class="form-label">Product Image</label>
 									<div class="input-group-btn">
 										<div class="image-upload">
-											<img src="{{ asset($model?->image ?? 'images/placeholder.png') }}" alt="product-main-image">
+											<img src="{{ asset($model?->image ?? "images/placeholder.png") }}" alt="product-main-image">
 											<div class="file-btn">
 												<input type="file" id="product_image" name="product[image]">
 												<input type="hidden" name="product[old_image]" value="{{ $model?->image ?? old("product.old_image") }}">
@@ -436,15 +439,15 @@
 											@foreach ($model->secondary_images as $index => $secondaryImage)
 												<div class="multi-image-upload">
 													<i class="fa fa-times" aria-hidden="true"></i>
-													<img src="{{ asset($secondaryImage ?? 'images/placeholder.png') }}" alt="Secondary Image {{ $index + 1 }}">
+													<img src="{{ asset($secondaryImage ?? "images/placeholder.png") }}" alt="Secondary Image {{ $index + 1 }}">
 													<div class="file-btn">
-														<input type="hidden" id="old_secondary_images" name="product[old_secondary_images][]" value="{{ $secondaryImage ?? old('product.old_secondary_images') }}">
+														<input type="hidden" id="old_secondary_images" name="product[old_secondary_images][]" value="{{ $secondaryImage ?? old("product.old_secondary_images") }}">
 													</div>
 												</div>
 											@endforeach
 										@endif
 										<div class="multi-image-upload">
-											<img src="{{ asset('images/placeholder.png') }}" alt="placeholder-secondary-image">
+											<img src="{{ asset("images/placeholder.png") }}" alt="placeholder-secondary-image">
 											<div class="file-btn">
 												<input type="file" id="secondary_images" name="product[secondary_images][]">
 												<label class="btn btn-info">Upload</label>
@@ -466,20 +469,20 @@
 	</div> <!-- end row -->
 @endsection
 
-@section('script')
-	<script src="{{ asset('assets/libs/parsleyjs/parsleyjs.min.js') }}"></script>
+@section("script")
+	<script src="{{ asset("assets/libs/parsleyjs/parsleyjs.min.js") }}"></script>
 	<!-- Plugins js -->
-	<script src="{{ asset('assets/js/pages/form-validation.init.js') }}"></script>
+	<script src="{{ asset("assets/js/pages/form-validation.init.js") }}"></script>
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 	<!-- select2 -->
-	<script src="{{ asset('assets/libs/select2/select2.min.js') }}"></script>
+	<script src="{{ asset("assets/libs/select2/select2.min.js") }}"></script>
 @endsection
 
 @section("script-bottom")
 	<script>
 		class ProductOptionManagement {
-			#productOptions = JSON.parse('@json($productOptions, JSON_THROW_ON_ERROR)');
-			#productOptionsAlreadyPresentIds = JSON.parse('@json($assignedProductOptionValues === [] ? [] : $assignedProductOptionValues->keys()->toArray(), JSON_THROW_ON_ERROR)');
+			#productOptions = JSON.parse(`@json($productOptions, JSON_THROW_ON_ERROR)`);
+			#productOptionsAlreadyPresentIds = JSON.parse(`@json($assignedProductOptionValues === [] ? [] : $assignedProductOptionValues->keys()->toArray(), JSON_THROW_ON_ERROR)`);
 			#productOptionValueIndex = {{ $model?->optionValues->count() ?? 0 }};
 			#productOptionValueAvailableIndex = [];
 
@@ -514,8 +517,8 @@
 			}
 
 			#generateProductOptionValueRowHtml(optionId, productOptionValueIndexCounter, optionValues) {
-				const productOptionStockBehaviour = JSON.parse('{!! ProductStockBehaviour::formattedJsonArray() !!}');
-				const productOptionUnitAdjustment = JSON.parse('{!! ProductOptionUnitAdjustment::formattedJsonArray() !!}');
+				const productOptionStockBehaviour = JSON.parse(`{!! ProductStockBehaviour::formattedJsonArray() !!}`);
+				const productOptionUnitAdjustment = JSON.parse(`{!! ProductOptionUnitAdjustment::formattedJsonArray() !!}`);
 
 				const dropdownOptionsHtml = optionValues.reduce((generatedDropdownOptionsHtml, optionValue) => {
 					return `${ generatedDropdownOptionsHtml }<option value="${ optionValue.id }">${ optionValue.name }</option>`;

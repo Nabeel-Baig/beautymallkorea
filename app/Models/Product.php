@@ -9,6 +9,8 @@ use App\Enums\ProductPromotion;
 use App\Enums\ProductShipping;
 use App\Enums\ProductStockBehaviour;
 use App\Enums\WeightClass;
+use App\ValueObjects\ProductDimensionValueObject;
+use App\ValueObjects\ProductMetaValueObject;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -80,6 +82,24 @@ class Product extends Model {
 
 	final public function orderItems(): HasMany {
 		return $this->hasMany(OrderItem::class, "product_id", "id");
+	}
+
+	final public static function prepareMetaValueObject(array $meta): ProductMetaValueObject {
+		$productMetaValueObject = new ProductMetaValueObject();
+		$productMetaValueObject->setMetaTitle($meta["meta_title"] ?? "");
+		$productMetaValueObject->setMetaDescription($meta["meta_description"] ?? "");
+		$productMetaValueObject->setMetaKeywords($meta["meta_keywords"] ?? "");
+
+		return $productMetaValueObject;
+	}
+
+	final public static function prepareDimensionValueObject(array $dimension): ProductDimensionValueObject {
+		$productDimensionValueObject = new ProductDimensionValueObject();
+		$productDimensionValueObject->setDimensionLength($dimension["dimension_length"] ?? "");
+		$productDimensionValueObject->setDimensionWidth($dimension["dimension_width"] ?? "");
+		$productDimensionValueObject->setDimensionHeight($dimension["dimension_height"] ?? "");
+
+		return $productDimensionValueObject;
 	}
 
 	/** @noinspection MethodVisibilityInspection */

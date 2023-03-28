@@ -106,6 +106,10 @@ class ProductService {
 	private function manageProductsBasicData(Product|null $product, array $productData): Product {
 		$productData = $this->handleProductImagesData($productData);
 
+		$productData["meta"] = Product::prepareMetaValueObject($productData["meta"]);
+		$productData["dimension"] = Product::prepareDimensionValueObject($productData["dimension"]);
+		$productData["image"] = $productData["image"] ?? "assets/uploads/products/default-product.png";
+
 		if ($product === null) {
 			return Product::create($productData);
 		}
