@@ -577,8 +577,8 @@
 			}
 
 			#generateProductOptionValueRowHtml(optionId, productOptionValueIndexCounter, optionValues) {
-				const productOptionStockBehaviour = JSON.parse(`{!! ProductStockBehaviour::formattedJsonArray() !!}`);
-				const productOptionUnitAdjustment = JSON.parse(`{!! ProductOptionUnitAdjustment::formattedJsonArray() !!}`);
+				const productOptionStockBehaviour = JSON.parse(`@json(ProductStockBehaviour::formattedNameValueArray(), JSON_THROW_ON_ERROR)`);
+				const productOptionUnitAdjustment = JSON.parse(`@json(ProductOptionUnitAdjustment::formattedNameValueArray(), JSON_THROW_ON_ERROR)`);
 
 				const dropdownOptionsHtml = optionValues.reduce((generatedDropdownOptionsHtml, optionValue) => {
 					return `${ generatedDropdownOptionsHtml }<option value="${ optionValue.id }">${ optionValue.name }</option>`;

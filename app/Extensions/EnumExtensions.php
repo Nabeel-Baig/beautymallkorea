@@ -16,16 +16,14 @@ trait EnumExtensions {
 	/**
 	 * @throws JsonException
 	 */
-	public static function formattedJsonArray(): string {
-		$formattedJsonObject = array_map(static function (UnitEnum $enumEntry) {
+	public static function formattedNameValueArray(): array {
+		return array_map(static function (UnitEnum $enumEntry) {
 			$jsonEnum = new stdClass();
 			$jsonEnum->name = self::formattedName($enumEntry);
 			$jsonEnum->value = $enumEntry->value;
 
 			return $jsonEnum;
 		}, self::cases());
-
-		return json_encode($formattedJsonObject, JSON_THROW_ON_ERROR);
 	}
 
 	public static function random(): self {
