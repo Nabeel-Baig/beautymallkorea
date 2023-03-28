@@ -93,7 +93,8 @@ class ProductController extends Controller {
 
 		$this->productService->manage($manageProductRequest, $product);
 
-		return redirect()->route("admin.products.index")->withUpdatedSuccessToastr("Product");
+		$withSuccessToastrMethod = $product === null ? "withCreatedSuccessToastr" : "withUpdatedSuccessToastr";
+		return redirect()->route("admin.products.index")->$withSuccessToastrMethod("Product");
 	}
 
 	/**
