@@ -8,8 +8,8 @@ class CreateCustomersTable extends Migration {
 	final public function up(): void {
 		Schema::create("customers", static function (Blueprint $table) {
 			$table->id();
-			$table->string("first_name");
-			$table->string("last_name");
+			$table->string("first_name", 32);
+			$table->string("last_name", 32);
 			$table->string("profile_picture");
 			$table->string("email")->unique();
 			$table->string("password");
@@ -17,6 +17,7 @@ class CreateCustomersTable extends Migration {
 			$table->boolean("customer_verified")->default(false);
 			$table->text("customer_details")->nullable();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

@@ -8,7 +8,11 @@ use Illuminate\Support\Str;
 
 class Tag extends Model {
 	protected $table = "tags";
-	protected $fillable = ["name", "slug", "is_active"];
+
+	protected $fillable = [
+		"name",
+		"slug",
+	];
 
 	final public function products(): BelongsToMany {
 		return $this->belongsToMany(Product::class, "product_tags", "tag_id", "product_id")->withTimestamps();

@@ -12,6 +12,7 @@ class CreateOptionValuesTable extends Migration {
 			$table->string("name");
 			$table->string("image")->nullable();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

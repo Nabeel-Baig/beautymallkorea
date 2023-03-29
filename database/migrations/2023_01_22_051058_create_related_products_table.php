@@ -11,6 +11,7 @@ class CreateRelatedProductsTable extends Migration {
 			$table->foreignId("product_id")->constrained("products")->cascadeOnUpdate()->cascadeOnDelete();
 			$table->foreignId("related_product_id")->constrained("products")->cascadeOnUpdate()->cascadeOnDelete();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

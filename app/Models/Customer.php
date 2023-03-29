@@ -9,6 +9,7 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as IAuthenticatable;
 use Illuminate\Contracts\Auth\CanResetPassword as ICanResetPassword;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Arr;
@@ -19,10 +20,29 @@ class Customer extends Model implements IAuthenticatable, ICanResetPassword, JWT
 	use Authenticatable, CanResetPassword, Notifiable;
 
 	protected $table = "customers";
-	protected $fillable = ["first_name", "last_name", "email", "password", "profile_picture", "contact", "customer_verified", "customer_details"];
+
+	protected $fillable = [
+		"first_name",
+		"last_name",
+		"email",
+		"password",
+		"profile_picture",
+		"contact",
+		"customer_verified",
+		"customer_details",
+	];
+
 	protected $casts = [
 		"customer_details" => CustomerDetails::class,
 	];
+
+	final public function addresses(): HasMany {
+		return $this->hasMany(Address::class, "customer_id", "id");
+	}
+
+	final public function orders(): HasMany {
+		return $this->hasMany(Order::class, "customer_id", "id");
+	}
 
 	final public function updateCurrentActiveIp(): self {
 		$request = app(Request::class);

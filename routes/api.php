@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\BannerController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\QuickCategoryController;
 use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\Api\TagController;
 use Illuminate\Support\Facades\Route;
@@ -58,3 +59,4 @@ Route::group(["prefix" => "tag"], static function () {
 
 Route::get("/setting", [SettingController::class, "setting"]);
 Route::get("/banners/{slug}", [BannerController::class, "index"]);
+Route::get("/quick-categories", [QuickCategoryController::class, "index"]);

@@ -32,7 +32,7 @@ class CustomerSeeder extends Seeder {
 				"password" => $passwordHash,
 				"contact" => fake()->phoneNumber,
 				"customer_verified" => Arr::random([true, false]),
-				"customer_details" => json_encode($customerDetails, JSON_THROW_ON_ERROR),
+				"customer_details" => json_encode($customerDetails, JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES),
 				"created_at" => $now,
 				"updated_at" => $now,
 			];

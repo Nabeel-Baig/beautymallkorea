@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\OptionValueController;
 use App\Http\Controllers\Admin\PermissionsController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\QuickCategoryController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\TagController;
@@ -59,6 +60,11 @@ Route::group([
 	// Categories
 	Route::delete('categories/destroy', [CategoriesController::class, 'massDestroy'])->name('categories.massDestroy');
 	Route::resource('categories', CategoriesController::class);
+
+	// QuickCategory
+	Route::delete('quickcategories/destroy', [QuickCategoryController::class, 'massDestroy'])->name('quickcategories.massDestroy');
+	Route::get("quickcategories/paginate", [QuickCategoryController::class, "paginate"])->name("quickcategories.paginate");
+	Route::resource('quickcategories', QuickCategoryController::class);
 
 	// Tags
 	Route::group(["prefix" => "tags", "as" => "tags."], static function () {

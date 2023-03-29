@@ -2,7 +2,11 @@
 
 namespace App\Enums;
 
+use App\Extensions\EnumExtensions;
+
 enum PermissionEnum: string {
+	use EnumExtensions;
+
 	case USER_MANAGEMENT_ACCESS = "user_management_access";
 	case PERMISSION_CREATE = "permission_create";
 	case PERMISSION_EDIT = "permission_edit";
@@ -30,6 +34,11 @@ enum PermissionEnum: string {
 	case BANNER_SHOW = "banner_show";
 	case BANNER_DELETE = "banner_delete";
 	case BANNER_ACCESS = "banner_access";
+	case QUICK_CATEGORY_CREATE = "quick_category_create";
+	case QUICK_CATEGORY_EDIT = "quick_category_edit";
+	case QUICK_CATEGORY_SHOW = "quick_category_show";
+	case QUICK_CATEGORY_DELETE = "quick_category_delete";
+	case QUICK_CATEGORY_ACCESS = "quick_category_access";
 	case ORDER_CREATE = "order_create";
 	case ORDER_EDIT = "order_edit";
 	case ORDER_SHOW = "order_show";

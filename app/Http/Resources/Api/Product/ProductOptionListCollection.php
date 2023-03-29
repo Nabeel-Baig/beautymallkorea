@@ -13,7 +13,7 @@ class ProductOptionListCollection extends ResourceCollection {
 	 *
 	 * @return array
 	 */
-	final public function toArray($request): array {
+	final public function toArray(Request $request): array {
 		$this->collection->transform(static function (ProductOption $productOption) {
 			return new ProductOptionResource($productOption);
 		});

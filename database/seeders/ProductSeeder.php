@@ -3,10 +3,12 @@
 
 namespace Database\Seeders;
 
-use App\Enums\ProductOptionPriceAdjustment;
+use App\Enums\DimensionClass;
+use App\Enums\ProductOptionUnitAdjustment;
 use App\Enums\ProductPromotion;
 use App\Enums\ProductShipping;
 use App\Enums\ProductStockBehaviour;
+use App\Enums\WeightClass;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\OptionValue;
@@ -16,6 +18,8 @@ use App\Models\ProductOption;
 use App\Models\ProductTag;
 use App\Models\RelatedProduct;
 use App\Models\Tag;
+use App\ValueObjects\ProductDimensionValueObject;
+use App\ValueObjects\ProductMetaValueObject;
 use Exception;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
@@ -62,20 +66,32 @@ class ProductSeeder extends Seeder {
 		$hasDiscountPrice = random_int(0, 1) === 1;
 		$discountPrice = $hasDiscountPrice ? random_int(25 * 100, $price * 100) / 100 : null;
 
+		$productDimensionValueObject = new ProductDimensionValueObject();
+		$productDimensionValueObject->setDimensionLength(random_int(0 * 100, 5 * 100) / 100);
+		$productDimensionValueObject->setDimensionWidth(random_int(0 * 100, 5 * 100) / 100);
+		$productDimensionValueObject->setDimensionHeight(random_int(0 * 100, 5 * 100) / 100);
+
+		$productMetaValueObject = new ProductMetaValueObject();
+		$productMetaValueObject->setMetaTitle("SEO Title $identifier");
+		$productMetaValueObject->setMetaKeywords("SEO Keyword $identifier");
+		$productMetaValueObject->setMetaDescription("SEO Description $identifier");
+
 		return [
 			"id" => $productId,
 			"brand_id" => $brands->random()->id,
 			"name" => "Product - $identifier",
 			"slug" => Str::slug("Product - $identifier"),
 			"description" => "Lorem ipsum dolor sit amet",
-			"meta_title" => "SEO Title $identifier",
-			"meta_description" => "SEO Description $identifier",
-			"meta_keywords" => "SEO Keyword $identifier",
+			"meta" => json_encode($productMetaValueObject, JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES),
 			"sku" => Str::uuid(),
 			"upc" => Str::uuid(),
 			"price" => $price,
 			"discount_price" => $discountPrice,
 			"quantity" => random_int(0, 50),
+			"dimension" => json_encode($productDimensionValueObject, JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES),
+			"dimension_class" => random_int(DimensionClass::INCH->value, DimensionClass::CENTIMETER->value),
+			"weight" => random_int(10 * 100, 50 * 100) / 100,
+			"weight_class" => random_int(WeightClass::KILOGRAM->value, WeightClass::POUND->value),
 			"image" => "images/product.png",
 			"secondary_images" => "[]",
 			"min_order_quantity" => random_int(1, 3),
@@ -121,8 +137,10 @@ class ProductSeeder extends Seeder {
 				"product_id" => $productId,
 				"quantity" => random_int(1, 100),
 				"subtract_stock" => random_int(ProductStockBehaviour::CONSISTENT_STOCK->value, ProductStockBehaviour::SUBTRACT_STOCK->value),
-				"price_difference" => random_int(0 * 100, 50 * 100) / 100,
-				"price_adjustment" => random_int(ProductOptionPriceAdjustment::NEGATIVE->value, ProductOptionPriceAdjustment::POSITIVE->value),
+				"weight_difference" => random_int(0 * 100, 5 * 100) / 100,
+				"weight_adjustment" => random_int(ProductOptionUnitAdjustment::NEGATIVE->value, ProductOptionUnitAdjustment::POSITIVE->value),
+				"price_difference" => random_int(0 * 100, 25 * 100) / 100,
+				"price_adjustment" => random_int(ProductOptionUnitAdjustment::NEGATIVE->value, ProductOptionUnitAdjustment::POSITIVE->value),
 				"created_at" => $timestamp,
 				"updated_at" => $timestamp,
 			];

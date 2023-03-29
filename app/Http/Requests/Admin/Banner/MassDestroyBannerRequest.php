@@ -2,26 +2,24 @@
 
 namespace App\Http\Requests\Admin\Banner;
 
+use App\Enums\PermissionEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class MassDestroyBannerRequest extends FormRequest {
-	/**
-	 * Determine if the user is authorized to make this request.
-	 *
-	 * @return bool
-	 */
-	public function authorize() {
-		return false;
+
+	public function authorize(): bool
+	{
+		abort_if(Gate::denies(PermissionEnum::BANNER_EDIT->value),Response::HTTP_FORBIDDEN,'403 Forbidden');
+		return true;
 	}
 
-	/**
-	 * Get the validation rules that apply to the request.
-	 *
-	 * @return array<string, mixed>
-	 */
-	public function rules() {
+	public function rules(): array
+	{
 		return [
-			//
+			'ids' => 'required|array',
+			'ids.*' => 'exists:banners,id',
 		];
 	}
 }

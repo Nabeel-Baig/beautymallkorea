@@ -13,9 +13,9 @@ use App\Services\OptionService;
 use App\Services\ProductService;
 use App\Services\TagService;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
 
 class ProductController extends Controller {
 	private readonly string $title;
@@ -36,8 +36,8 @@ class ProductController extends Controller {
 	final public function index(): View {
 		$this->authorize("access", [Product::class, PermissionEnum::PRODUCT_ACCESS]);
 
-		$content['title'] = $this->title;
-		$content['headers'] = ["ID", "Image", "Name", "Price", "Quantity"];
+		$content["title"] = $this->title;
+		$content["headers"] = ["ID", "Image", "Name", "Price", "Quantity"];
 
 		return view("admin.products.index")->with($content);
 	}
@@ -77,9 +77,12 @@ class ProductController extends Controller {
 	final public function view(Product $product): View {
 		$this->authorize("access", [Product::class, PermissionEnum::PRODUCT_SHOW]);
 
-		$content = $this->productService->fetchProductDataForManagement($product);
+		$content["title"] = $this->title;
+		$productData = $this->productService->fetchProductDataForManagement($product);
 
-		return view('admin.products.view')->with($content);
+		$content = array_merge($content, $productData);
+
+		return view("admin.products.view")->with($content);
 	}
 
 	/**
@@ -90,7 +93,8 @@ class ProductController extends Controller {
 
 		$this->productService->manage($manageProductRequest, $product);
 
-		return redirect()->route("admin.products.index")->withUpdatedSuccessToastr("Product");
+		$withSuccessToastrMethod = $product === null ? "withCreatedSuccessToastr" : "withUpdatedSuccessToastr";
+		return redirect()->route("admin.products.index")->$withSuccessToastrMethod("Product");
 	}
 
 	/**

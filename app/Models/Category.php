@@ -25,12 +25,6 @@ class Category extends Model {
 		"deleted_at",
 	];
 
-	protected $dates = [
-		"updated_at",
-		"created_at",
-		"deleted_at",
-	];
-
 	final public function childrenCategories(): HasMany {
 		return $this->hasMany(self::class, "category_id", "id")->with("childrenCategories")->orderBy("sort_order");
 	}

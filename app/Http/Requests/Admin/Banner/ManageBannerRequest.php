@@ -20,7 +20,7 @@ class ManageBannerRequest extends FormRequest {
 			"banner_type" => "required|string",
 			"title" => "nullable|sometimes|required|string",
 			"link" => "nullable|sometimes|required|url",
-			"image" => "required|image",
+			"image" => "nullable|sometimes|required|image",
 			"sort_order" => "required|integer",
 		];
 	}
