@@ -14,8 +14,8 @@ use Illuminate\Validation\Rules\Enum;
 class ManageProductRequest extends FormRequest {
 	final public function rules(): array {
 		$product = $this->route("product");
-		$uniqueValidationUpdateConstraint = $product !== null ? ",$product->id" : "";
-		$productImageValidationConstraint = [$product !== null ? "nullable" : "required"];
+		$uniqueValidationUpdateConstraint = $product === null ? "" : ",$product->id";
+		$productImageValidationConstraint = [$product === null ? "required" : "nullable"];
 
 		/**
 		 * The input is taken as multidimensional array in separate keys

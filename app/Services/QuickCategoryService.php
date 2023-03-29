@@ -6,16 +6,15 @@ use App\Enums\PermissionEnum;
 use App\Http\Requests\Admin\QuickCategory\MassDestroyQuickCategoryRequest;
 use App\Http\Requests\Admin\QuickCategory\StoreQuickCategoryRequest;
 use App\Http\Requests\Admin\QuickCategory\UpdateQuickCategoryRequest;
-use App\Models\Quickcategory;
+use App\Models\QuickCategory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 
-class QuickCategoryService
-{
+class QuickCategoryService {
 	public function __construct() {}
 
 	final public function paginate(): JsonResponse {
-		return datatables()->of(Quickcategory::orderBy('id', 'desc')->get())
+		return datatables()->of(QuickCategory::orderBy('id', 'desc')->get())
 			->addColumn('selection', function ($data) {
 				return '<input type="checkbox" class="delete_checkbox flat" value="' . $data['id'] . '">';
 			})->addColumn('image', function ($data) {
@@ -33,11 +32,11 @@ class QuickCategoryService
 			})->rawColumns(['selection', 'actions', 'image'])->make(true);
 	}
 
-	final public function create(StoreQuickCategoryRequest $storeQuickCategoryRequest): Quickcategory {
-		return Quickcategory::create(handleFiles('quickcategories', $storeQuickCategoryRequest->validated()));
+	final public function create(StoreQuickCategoryRequest $storeQuickCategoryRequest): QuickCategory {
+		return QuickCategory::create(handleFiles('quickcategories', $storeQuickCategoryRequest->validated()));
 	}
 
-	final public function update(UpdateQuickCategoryRequest $updateQuickCategoryRequest, Quickcategory $quickCategory): Quickcategory {
+	final public function update(UpdateQuickCategoryRequest $updateQuickCategoryRequest, QuickCategory $quickCategory): QuickCategory {
 		$data = handleFilesIfPresent('quickcategories', $updateQuickCategoryRequest->validated(), $quickCategory);
 		$quickCategory->update($data);
 		return $quickCategory;
@@ -46,10 +45,10 @@ class QuickCategoryService
 	final public function deleteMany(MassDestroyQuickCategoryRequest $massDestroyQuickCategoryRequest): void {
 		$recordsToDelete = $massDestroyQuickCategoryRequest->get("ids");
 
-		Quickcategory::whereIn("id", $recordsToDelete)->delete();
+		QuickCategory::whereIn("id", $recordsToDelete)->delete();
 	}
 
-	final public function delete(Quickcategory $quickCategory): void {
+	final public function delete(QuickCategory $quickCategory): void {
 		$quickCategory->delete();
 	}
 }

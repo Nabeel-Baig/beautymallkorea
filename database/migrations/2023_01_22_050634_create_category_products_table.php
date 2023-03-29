@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateCategoryProductsTable extends Migration {
 	final public function up(): void {
-		Schema::create('category_products', static function (Blueprint $table) {
+		Schema::create("category_products", static function (Blueprint $table) {
 			$table->id();
 			$table->foreignId("product_id")->constrained("products")->cascadeOnUpdate()->cascadeOnDelete();
 			$table->foreignId("category_id")->constrained("categories")->cascadeOnUpdate()->cascadeOnDelete();
@@ -15,6 +15,6 @@ class CreateCategoryProductsTable extends Migration {
 	}
 
 	final public function down(): void {
-		Schema::dropIfExists('category_products');
+		Schema::dropIfExists("category_products");
 	}
 }
