@@ -15,7 +15,7 @@ class ManageProductRequest extends FormRequest {
 	final public function rules(): array {
 		$product = $this->route("product");
 		$uniqueValidationUpdateConstraint = $product !== null ? ",$product->id" : "";
-		$productImageValidationConstraint = $product !== null ? ["optional"] : [];
+		$productImageValidationConstraint = [$product !== null ? "nullable" : "required"];
 
 		/**
 		 * The input is taken as multidimensional array in separate keys
@@ -38,25 +38,25 @@ class ManageProductRequest extends FormRequest {
 			"product.dimension.dimension_length" => ["required", "numeric"],
 			"product.dimension.dimension_width" => ["required", "numeric"],
 			"product.dimension.dimension_height" => ["required", "numeric"],
-			"product.dimension_class" => ["nullable", new Enum(DimensionClass::class)],
+			"product.dimension_class" => ["required", new Enum(DimensionClass::class)],
 			"product.weight" => ["required", "numeric"],
-			"product.weight_class" => ["nullable", new Enum(WeightClass::class)],
-			"product.min_order_quantity" => ["nullable", "numeric"],
-			"product.subtract_stock" => ["nullable", new Enum(ProductStockBehaviour::class)],
-			"product.require_shipping" => ["nullable", new Enum(ProductShipping::class)],
-			"product.promotion_status" => ["nullable", new Enum(ProductPromotion::class)],
-			// ============================================================================================
+			"product.weight_class" => ["required", new Enum(WeightClass::class)],
+			"product.min_order_quantity" => ["required", "numeric"],
+			"product.subtract_stock" => ["required", new Enum(ProductStockBehaviour::class)],
+			"product.require_shipping" => ["required", new Enum(ProductShipping::class)],
+			"product.promotion_status" => ["required", new Enum(ProductPromotion::class)],
+			// ==============================================================================================
 
 			// Product Images
 			"product.image" => [...$productImageValidationConstraint, "image"],
 			"product.old_image" => ["nullable", "string"],
 
-			"product.secondary_images.*" => ["image"],
 			"product.secondary_images" => ["nullable", "array"],
+			"product.secondary_images.*" => ["required", "image"],
 
-			"product.old_secondary_images.*" => ["string"],
 			"product.old_secondary_images" => ["nullable", "array"],
-			// ============================================================================================
+			"product.old_secondary_images.*" => ["required", "string"],
+			// ==============================================================================================
 
 			// Product Options
 			"options" => ["nullable", "array"],
@@ -67,22 +67,22 @@ class ManageProductRequest extends FormRequest {
 			"options.*.price_adjustment" => ["nullable", new Enum(ProductOptionUnitAdjustment::class)],
 			"options.*.weight_difference" => ["nullable", "numeric"],
 			"options.*.weight_adjustment" => ["nullable", new Enum(ProductOptionUnitAdjustment::class)],
-			// ============================================================================================
+			// ==============================================================================================
 
 			// Product Tags
 			"tags" => ["nullable", "array"],
 			"tags.*" => ["required", "numeric"],
-			// ============================================================================================
+			// ==============================================================================================
 
 			// Product Related Suggestions
 			"related_products" => ["nullable", "array"],
 			"related_products.*" => ["required", "numeric"],
-			// ============================================================================================
+			// ==============================================================================================
 
 			// Product Categories
 			"categories" => ["nullable", "array"],
 			"categories.*" => ["required", "numeric"],
-			// ============================================================================================
+			// ==============================================================================================
 		];
 	}
 }
