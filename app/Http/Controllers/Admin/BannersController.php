@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\PermissionEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Banner\ManageBannerRequest;
+use App\Http\Requests\Admin\Banner\MassDestroyBannerRequest;
 use App\Models\Banner;
 use App\Services\BannerService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,10 +40,10 @@ class BannersController extends Controller
 		return view('admin.' . request()->segment(2) . '.form')->with($content);
     }
 
-    final public function store(ManageBannerRequest $request): RedirectResponse
+    final public function store(ManageBannerRequest $manageBannerRequest): RedirectResponse
     {
 		abort_if(Gate::denies(PermissionEnum::BANNER_CREATE->value),Response::HTTP_FORBIDDEN,'403 Forbidden');
-		Banner::create(handleFiles(\request()->segment(2), $request->validated()));
+		$this->bannerService->create($manageBannerRequest);
 		return redirect()->route('admin.' . request()->segment(2) . '.index')->withToastSuccess('Banner Created Successfully!');
     }
     public function show($id)
@@ -65,14 +65,17 @@ class BannersController extends Controller
 		return redirect()->route('admin.' . request()->segment(2) . '.index')->withUpdatedSuccessToastr("Banner");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function destroy(Banner $banner): JsonResponse
+	{
+		abort_if(Gate::denies(PermissionEnum::BANNER_DELETE->value),Response::HTTP_FORBIDDEN,'403 Forbidden');
+		$this->bannerService->delete($banner);
+		return \response()->json('Banner Deleted Successfully!');
+
     }
+
+	final public function massDestroy(MassDestroyBannerRequest $massDestroyBannerRequest): JsonResponse {
+		abort_if(Gate::denies(PermissionEnum::BANNER_EDIT->value),Response::HTTP_FORBIDDEN,'403 Forbidden');
+		$this->bannerService->deleteMany($massDestroyBannerRequest);
+		return \response()->json('Selected records Deleted Successfully.');
+	}
 }

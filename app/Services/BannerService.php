@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Enums\PermissionEnum;
 use App\Http\Requests\Admin\Banner\ManageBannerRequest;
+use App\Http\Requests\Admin\Banner\MassDestroyBannerRequest;
 use App\Models\Banner;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
@@ -31,14 +32,8 @@ class BannerService {
 			})->rawColumns(['selection', 'actions', 'image'])->make(true);
 	}
 
-	final public function getOptionsForDropdown(): Collection {
-		return Banner::select(["id", "name"])->get();
-	}
-
-	final public function create(CreateOptionRequest $createOptionRequest): Option {
-		$optionData = $createOptionRequest->only(["name"]);
-
-		return Banner::create($optionData);
+	final public function create(ManageBannerRequest $manageBannerRequest): Banner {
+		return Banner::create(handleFiles('banners', $manageBannerRequest->validated()));
 	}
 
 	final public function update(ManageBannerRequest $request, Banner $banner): Banner {
@@ -47,14 +42,14 @@ class BannerService {
 		return $banner;
 	}
 
-	final public function deleteMany(DeleteManyOptionRequest $deleteManyOptionRequest): void {
-		$recordsToDelete = $deleteManyOptionRequest->get("ids");
+	final public function deleteMany(MassDestroyBannerRequest $massDestroyBannerRequest): void {
+		$recordsToDelete = $massDestroyBannerRequest->get("ids");
 
 		Banner::whereIn("id", $recordsToDelete)->delete();
 	}
 
-	final public function delete(Option $option): void {
-		$option->delete();
+	final public function delete(Banner $banner): void {
+		$banner->delete();
 	}
 
 }

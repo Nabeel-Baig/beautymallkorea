@@ -73,6 +73,11 @@
 													<a href="{{ route('admin.categories.index') }}" key="t-products">Categories</a>
 												</li>
 											@endcan
+											@can(PermissionEnum::QUICK_CATEGORY_ACCESS->value)
+												<li>
+													<a href="{{ route('admin.quickcategories.index') }}" key="t-products">Quick Categories</a>
+												</li>
+											@endcan
 											@can(PermissionEnum::BRAND_ACCESS->value)
 												<li>
 													<a href="{{ route('admin.brands.index') }}" key="t-products">Brands</a>
