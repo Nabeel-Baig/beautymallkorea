@@ -92,6 +92,14 @@
 						</a>
 					</li>
 				@endcan
+				@can(PermissionEnum::CUSTOMER_ACCESS->value)
+					<li>
+						<a href="{{ route('admin.customers.index') }}" class="waves-effect">
+							<i class="bx bx-cog"></i>
+							<span>Customers</span>
+						</a>
+					</li>
+				@endcan
 				@can('setting_edit')
 					<li>
 						<a href="{{ route('admin.settings.edit',$setting->id) }}" class="waves-effect">

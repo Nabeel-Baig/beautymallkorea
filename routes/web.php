@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BannersController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\OptionValueController;
@@ -65,6 +66,11 @@ Route::group([
 	Route::delete('quickcategories/destroy', [QuickCategoryController::class, 'massDestroy'])->name('quickcategories.massDestroy');
 	Route::get("quickcategories/paginate", [QuickCategoryController::class, "paginate"])->name("quickcategories.paginate");
 	Route::resource('quickcategories', QuickCategoryController::class);
+
+	// Customers
+	Route::delete('customers/destroy', [CustomersController::class, 'massDestroy'])->name('customers.massDestroy');
+	Route::get("customers/paginate", [CustomersController::class, "paginate"])->name("customers.paginate");
+	Route::resource('customers', CustomersController::class);
 
 	// Tags
 	Route::group(["prefix" => "tags", "as" => "tags."], static function () {
