@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateOptionsTable extends Migration {
 	final public function up(): void {
-		Schema::create('options', static function (Blueprint $table) {
+		Schema::create("options", static function (Blueprint $table) {
 			$table->id();
 			$table->string("name");
 			$table->timestamps();
@@ -14,6 +14,6 @@ class CreateOptionsTable extends Migration {
 	}
 
 	final public function down(): void {
-		Schema::dropIfExists('options');
+		Schema::dropIfExists("options");
 	}
 }
