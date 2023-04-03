@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BannersController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Admin\CouponsController;
 use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OptionController;
@@ -71,6 +72,11 @@ Route::group([
 	Route::delete('customers/destroy', [CustomersController::class, 'massDestroy'])->name('customers.massDestroy');
 	Route::get("customers/paginate", [CustomersController::class, "paginate"])->name("customers.paginate");
 	Route::resource('customers', CustomersController::class);
+
+	// Coupons
+	Route::delete('coupons/destroy', [CouponsController::class, 'massDestroy'])->name('coupons.massDestroy');
+	Route::get("coupons/paginate", [CouponsController::class, "paginate"])->name("coupons.paginate");
+	Route::resource('coupons', CouponsController::class);
 
 	// Tags
 	Route::group(["prefix" => "tags", "as" => "tags."], static function () {

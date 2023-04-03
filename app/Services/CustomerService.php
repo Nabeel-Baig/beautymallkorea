@@ -37,8 +37,8 @@ class CustomerService
 			})->rawColumns(['selection', 'actions', 'image'])->make(true);
 	}
 
-	final public function create(SignUpRequest $storeQuickCategoryRequest): Customer {
-		return Customer::create(handleFiles('customers', $storeQuickCategoryRequest->validated()));
+	final public function create(SignUpRequest $signUpRequest): Customer {
+		return Customer::create(handleFiles('customers', $signUpRequest->validated()));
 	}
 
 	final public function update(UpdateCustomerRequest $updateCustomerRequest, Customer $customer): Customer {
