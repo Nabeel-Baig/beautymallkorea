@@ -5,7 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreateQuickCategoriesTable extends Migration {
-
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
 	final public function up(): void {
 		Schema::create("quick_categories", static function (Blueprint $table) {
 			$table->id();
@@ -18,7 +22,11 @@ class CreateQuickCategoriesTable extends Migration {
 		});
 	}
 
-
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
 	final public function down(): void {
 		Schema::dropIfExists("quick_categories");
 	}

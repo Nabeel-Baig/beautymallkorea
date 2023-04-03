@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreateOptionsTable extends Migration {
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
 	final public function up(): void {
 		Schema::create("options", static function (Blueprint $table) {
 			$table->id();
@@ -13,6 +18,11 @@ class CreateOptionsTable extends Migration {
 		});
 	}
 
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
 	final public function down(): void {
 		Schema::dropIfExists("options");
 	}

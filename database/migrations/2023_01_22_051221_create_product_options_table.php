@@ -7,6 +7,11 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreateProductOptionsTable extends Migration {
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
 	final public function up(): void {
 		Schema::create("product_options", static function (Blueprint $table) {
 			$table->id();
@@ -23,6 +28,11 @@ class CreateProductOptionsTable extends Migration {
 		});
 	}
 
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
 	final public function down(): void {
 		Schema::dropIfExists("product_options");
 	}

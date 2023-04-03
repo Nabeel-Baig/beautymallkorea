@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration {
 			$table->boolean("is_authenticate")->default(false);
 			$table->rememberToken();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

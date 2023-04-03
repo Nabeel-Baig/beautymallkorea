@@ -10,6 +10,11 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreateProductsTable extends Migration {
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
 	final public function up(): void {
 		Schema::create("products", static function (Blueprint $table) {
 			$table->id();
@@ -38,6 +43,11 @@ class CreateProductsTable extends Migration {
 		});
 	}
 
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
 	final public function down(): void {
 		Schema::dropIfExists("products");
 	}

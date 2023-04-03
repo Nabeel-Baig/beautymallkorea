@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Casts\CustomerDetails;
+use App\Traits\Ownerable;
 use App\ValueObjects\CustomerDetailsValueObject;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -10,6 +11,7 @@ use Illuminate\Contracts\Auth\Authenticatable as IAuthenticatable;
 use Illuminate\Contracts\Auth\CanResetPassword as ICanResetPassword;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Arr;
@@ -17,7 +19,7 @@ use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Customer extends Model implements IAuthenticatable, ICanResetPassword, JWTSubject {
-	use Authenticatable, CanResetPassword, Notifiable;
+	use SoftDeletes, Authenticatable, CanResetPassword, Notifiable, Ownerable;
 
 	protected $table = "customers";
 
