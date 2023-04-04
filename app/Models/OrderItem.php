@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Casts\OrderItemProductOption;
 use App\Casts\ProductDimension;
+use App\Enums\DimensionClass;
+use App\Enums\WeightClass;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -30,8 +32,10 @@ class OrderItem extends Model {
 	];
 
 	protected $casts = [
-		"product_dimension" => ProductDimension::class,
 		"product_option_name" => OrderItemProductOption::class,
+		"product_weight_class" => WeightClass::class,
+		"product_dimension" => ProductDimension::class,
+		"product_dimension_class" => DimensionClass::class,
 	];
 
 	final public function order(): BelongsTo {

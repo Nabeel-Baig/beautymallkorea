@@ -16,7 +16,6 @@ class CreateCategoryProductsTable extends Migration {
 			$table->foreignId("product_id")->constrained("products")->cascadeOnUpdate()->cascadeOnDelete();
 			$table->foreignId("category_id")->constrained("categories")->cascadeOnUpdate()->cascadeOnDelete();
 			$table->timestamps();
-			$table->softDeletes();
 		});
 	}
 
