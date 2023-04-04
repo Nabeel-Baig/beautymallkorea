@@ -57,13 +57,12 @@
 						</div>
 
 						<div class="mb-3">
-							<label for="type" class="form-label">Require Shipping</label>
-							<select name="product[require_shipping]" id="type"
+							<label for="type" class="form-label">{{ ucwords(str_replace('_',' ','type')) }}</label>
+							<select name="type" id="type"
 									class="form-control @error("type") parsley-error @enderror" required>
 								<option value="">Select Coupon Type</option>
 								@foreach(CouponType::cases() as $couponTypes)
-									<option value="{{ $couponTypes->value }}"
-											>{{ CouponType::formattedName($couponTypes) }}</option>
+									<option value="{{ $couponTypes->value }}" {{ (($couponTypes->value == old('type')) || (isset($coupon) ? ($couponTypes->value === $coupon->type) : '')) ? 'selected' : '' }}>{{ CouponType::formattedName($couponTypes) }}</option>
 								@endforeach
 							</select>
 							@error("type")
@@ -99,28 +98,40 @@
 						</div>
 
 						<div class="mb-3">
-							<label for="product_id" class="form-label">Products
-								<span title="Choose specific products the coupon will apply to. Select no products to apply coupon to entire cart."><i class="fas fa-info"></i></span>
+							<div style="padding-bottom: 4px">
+								<span class="btn btn-info btn-xs select-all" style="border-radius: 0">Select All</span>
+								<span class="btn btn-danger btn-xs deselect-all" style="border-radius: 0">Delect All</span>
+							</div>
+							<label for="coupons_categories" class="form-label">Categories
+								<span title="Choose all products under selected category. Select no categories to apply coupon to entire cart."><i class="fas fa-info"></i></span>
 							</label>
-							<select name="product_id[]" id="coupons_products" style="width: 100%" class="form-control select2" multiple>
-								@foreach($products as $product)
-									<option value="{{ $product->id }}">{{ $product->name }}</option>
+							<select name="categories[]" id="coupons_categories" style="width: 100%" class="form-control select2 {{ $errors->has('categories') ? 'parsley-error' : '' }}" multiple>
+								@foreach($categories as $id => $category)
+									<option value="{{ $id }}" {{ (in_array($id, old('categories',[])) || (isset($coupon) && $coupon->categories->contains($id)) ? 'selected' : '') }}>{{ $category }}</option>
 								@endforeach
 							</select>
+							@if($errors->has('categories'))
+								<span class="text-danger">{{ $errors->first('categories') }}</span>
+							@endif
 						</div>
 
 						<div class="mb-3">
-							<label for="category_id" class="form-label">Categories
-								<span title="Choose all products under selected category. Select no categories to apply coupon to entire cart."><i class="fas fa-info"></i></span>
+							<div style="padding-bottom: 4px">
+								<span class="btn btn-info btn-xs select-all" style="border-radius: 0">Select All</span>
+								<span class="btn btn-danger btn-xs deselect-all" style="border-radius: 0">Delect All</span>
+							</div>
+							<label for="coupons_products" class="form-label">Products
+								<span title="Choose specific products the coupon will apply to. Select no products to apply coupon to entire cart."><i class="fas fa-info"></i></span>
 							</label>
-							<select name="category_id[]" id="coupons_categories" style="width: 100%" class="form-control select2" multiple>
-								@foreach($categories as $category)
-									<option value="{{ $category->id }}">{{ $category->name }}</option>
+							<select name="products[]" id="coupons_products" style="width: 100%" class="form-control select2 {{ $errors->has('products') ? 'parsley-error' : '' }}" multiple>
+								@foreach($products as $id => $product)
+									<option value="{{ $id }}" {{ (in_array($id, old('products',[])) || (isset($coupon) && $coupon->products->contains($id))) ? 'selected' : '' }}>{{ $product }}</option>
 								@endforeach
 							</select>
+							@if($errors->has('products'))
+								<span class="text-danger">{{ $errors->first('products') }}</span>
+							@endif
 						</div>
-
-
 
 						<div class="mb-3">
 							<div>
@@ -150,6 +161,16 @@
         $(function () {
 			$("#coupons_products, #coupons_categories").select2({
 				closeOnSelect: false,
+			});
+			$(".select-all").click(function () {
+				let $select2 = $(this).parent().siblings(".select2");
+				$select2.find("option").prop("selected", "selected");
+				$select2.trigger("change");
+			});
+			$(".deselect-all").click(function () {
+				let $select2 = $(this).parent().siblings(".select2");
+				$select2.find("option").prop("selected", "");
+				$select2.trigger("change");
 			});
 		});
 	</script>

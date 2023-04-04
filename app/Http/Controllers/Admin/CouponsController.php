@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\PermissionEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Coupon\MassDestroyCouponRequest;
 use App\Http\Requests\Admin\Coupon\StoreCouponRequest;
+use App\Http\Requests\Admin\Coupon\UpdateCouponRequest;
+use App\Models\Coupon;
 use App\Services\CouponService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -56,7 +59,7 @@ class CouponsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    final public function show(string $id)
     {
         //
     }
@@ -64,24 +67,36 @@ class CouponsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+	final public function edit(Coupon $coupon)
     {
-        //
+		abort_if(Gate::denies(PermissionEnum::COUPON_EDIT->value),Response::HTTP_FORBIDDEN,'403 Forbidden');
+		$products = $this->couponService->getProductsForDropdown();
+		$categories = $this->couponService->getCategoriesForDropdown();
+		$coupon = $this->couponService->fetchCouponWithCategoriesAndProducts($coupon);
+		$title = $this->title;
+		return view('admin.coupons.form',compact('title','coupon','categories','products'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+	final public function update(UpdateCouponRequest $updateCouponRequest, Coupon $coupon)
     {
-        //
+		$this->couponService->update($updateCouponRequest, $coupon);
+		return redirect()->route('admin.coupons.index')->withUpdatedSuccessToastr("Coupon");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
-    }
+	final public function destroy(Coupon $coupon): JsonResponse {
+		abort_if(Gate::denies(PermissionEnum::COUPON_DELETE->value), Response::HTTP_FORBIDDEN, '403 Forbidden');
+		$this->couponService->delete($coupon);
+		return \response()->json('Coupon Deleted Successfully!');
+	}
+
+	final public function massDestroy(MassDestroyCouponRequest $massDestroyCouponRequest): JsonResponse {
+		$this->couponService->deleteMany($massDestroyCouponRequest);
+		return \response()->json('Selected records Deleted Successfully.');
+	}
 }

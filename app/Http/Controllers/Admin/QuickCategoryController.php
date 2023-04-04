@@ -48,19 +48,19 @@ class QuickCategoryController extends Controller {
 		//
 	}
 
-	public function edit(QuickCategory $quickcategory): View {
+	final public function edit(QuickCategory $quickcategory): View {
 		abort_if(Gate::denies(PermissionEnum::QUICK_CATEGORY_EDIT->value), Response::HTTP_FORBIDDEN, '403 Forbidden');
 		$title = $this->title;
 		return view('admin.quickcategories.form', compact('title', 'quickcategory'));
 	}
 
-	public function update(UpdateQuickCategoryRequest $updateQuickCategoryRequest, QuickCategory $quickcategory) {
+	final public function update(UpdateQuickCategoryRequest $updateQuickCategoryRequest, QuickCategory $quickcategory) {
 		abort_if(Gate::denies(PermissionEnum::QUICK_CATEGORY_EDIT->value), Response::HTTP_FORBIDDEN, '403 Forbidden');
 		$this->quickCategoryService->update($updateQuickCategoryRequest, $quickcategory);
 		return redirect()->route('admin.quickcategories.index')->withUpdatedSuccessToastr("Quick Category");
 	}
 
-	public function destroy(QuickCategory $quickcategory): JsonResponse {
+	final public function destroy(QuickCategory $quickcategory): JsonResponse {
 		abort_if(Gate::denies(PermissionEnum::QUICK_CATEGORY_DELETE->value), Response::HTTP_FORBIDDEN, '403 Forbidden');
 		$this->quickCategoryService->delete($quickcategory);
 		return \response()->json('Quick Category Deleted Successfully!');

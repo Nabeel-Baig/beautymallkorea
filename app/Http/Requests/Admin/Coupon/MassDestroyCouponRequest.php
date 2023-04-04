@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\Admin\Coupon;
 
+use App\Enums\PermissionEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class MassDestroyCouponRequest extends FormRequest
 {
@@ -11,7 +14,8 @@ class MassDestroyCouponRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+		abort_if(Gate::denies(PermissionEnum::COUPON_DELETE->value), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        return true;
     }
 
     /**
@@ -22,7 +26,8 @@ class MassDestroyCouponRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'ids' => 'required|array',
+			'ids.*' => 'exists:coupons,id'
         ];
     }
 }
