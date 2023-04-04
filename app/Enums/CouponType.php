@@ -4,8 +4,7 @@ namespace App\Enums;
 
 use App\Extensions\EnumExtensions;
 
-enum CouponType: int
-{
+enum CouponType: int {
 	use EnumExtensions;
 
 	case PERCENTAGE = 0;

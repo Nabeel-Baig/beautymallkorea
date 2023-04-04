@@ -87,6 +87,10 @@ class Product extends Model {
 		return $this->hasMany(OrderItem::class, "product_id", "id");
 	}
 
+	final public function wishlistProducts(): HasMany {
+		return $this->hasMany(Wishlist::class, "product_id", "id");
+	}
+
 	final public static function prepareMetaValueObject(array $meta): ProductMetaValueObject {
 		$productMetaValueObject = new ProductMetaValueObject();
 		$productMetaValueObject->setMetaTitle($meta["meta_title"] ?? "");

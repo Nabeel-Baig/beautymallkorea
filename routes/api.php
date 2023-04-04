@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\QuickCategoryController;
 use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\Api\TagController;
@@ -68,6 +69,11 @@ Route::group(["prefix" => "address", "middleware" => "auth:jwt"], static functio
 
 Route::group(["prefix" => "order", "middleware" => "auth:jwt"], static function () {
 	Route::get("/", [OrderController::class, "index"]);
+});
+
+Route::group(["prefix" => "profile", "middleware" => "auth:jwt"], static function () {
+	Route::get("/", [ProfileController::class, "index"]);
+	Route::patch("/update", [ProfileController::class, "update"]);
 });
 
 Route::get("/setting", [SettingController::class, "setting"]);
