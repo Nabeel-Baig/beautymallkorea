@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\OptionValueController;
+use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\PermissionsController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\QuickCategoryController;
@@ -77,6 +78,11 @@ Route::group([
 	Route::delete('coupons/destroy', [CouponsController::class, 'massDestroy'])->name('coupons.massDestroy');
 	Route::get("coupons/paginate", [CouponsController::class, "paginate"])->name("coupons.paginate");
 	Route::resource('coupons', CouponsController::class);
+
+	// Orders
+	Route::delete('orders/destroy', [OrdersController::class, 'massDestroy'])->name('orders.massDestroy');
+	Route::get("orders/paginate", [OrdersController::class, "paginate"])->name("orders.paginate");
+	Route::resource('orders', OrdersController::class);
 
 	// Tags
 	Route::group(["prefix" => "tags", "as" => "tags."], static function () {

@@ -2,72 +2,40 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\PermissionEnum;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Models\Order;
+use App\Services\OrderService;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Http\JsonResponse;
+use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
-use App\Http\Requests\orders\StoreOrderRequest;
-use App\Http\Requests\orders\UpdateOrderRequest;
-use App\Http\Requests\orders\MassDestroyOrderRequest;
-use Gate;
 
 class OrdersController extends Controller
 {
-    public function __construct()
+    public function __construct(private readonly OrderService $orderService)
     {
         $this->title = ucwords('orders');
     }
 
-    public function index()
+    final public function index(): View
     {
-        abort_if(Gate::denies('order_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        if (request()->ajax()) {
-            $orders = Order::with(['funds:id,name','users:id,name'])->orderBy('id','desc');
-            $user = \auth()->user();
-            if ($user->CountUserRole() > 0) {
-                $orders->get();
-            } else {
-                $orders->where('user_id',$user->id)->get();
-            }
-            return datatables()->of($orders)
-                ->addColumn('checkbox', function ($data) {
-                    return '<input type="checkbox" class="delete_checkbox flat" value="' . $data['id'] . '">';
-                })->addColumn('action', function ($data) {
-                    $view = ''; $delete = '';
-                    if (Gate::allows('order_show')) {
-                        $view = '<button title="View" type="button" name="view" id="' . $data['id'] . '" class="view btn btn-info btn-sm"><i class="fa fa-eye"></i></button>&nbsp;';
-                    }
-                    if (Gate::allows('order_delete')) {
-                        $delete = '<button title="Delete" type="button" name="delete" id="' . $data['id'] . '" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
-                    }
-                    return $view.$delete;
-                })->rawColumns(['checkbox', 'action'])->make(true);
-        }
-        $content['title'] = $this->title;
-        return view('admin.' . request()->segment(2) . '.list')->with($content);
+        abort_if(Gate::denies(PermissionEnum::ORDER_ACCESS->value), Response::HTTP_FORBIDDEN, '403 Forbidden');
+		$content['title'] = $this->title;
+		$content['headers'] = ["Order ID", "First Name", "Last Name", "Email", "Contact", "Status", "Total", "Created At"];
+		return view("admin.orders.index")->with($content);
     }
 
-    public function create()
-    {
-        abort_if(Gate::denies('order_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $categories = Category::latest()->get()->pluck('name', 'id');
-        $title = $this->title;
-        return view('admin.' . request()->segment(2) . '.create', compact('categories','title'));
-    }
+	final public function paginate(): JsonResponse {
+		abort_if(Gate::denies(PermissionEnum::ORDER_ACCESS->value),Response::HTTP_FORBIDDEN,'403 Forbidden');
+		return $this->orderService->paginate();
+	}
 
-    public function store(StoreOrderRequest $request)
+	final public function show(Order $order): View
     {
-        $order = handleFiles(\request()->segment(2),$request->validated());
-        $order += ['user_id' => auth()->user()->id];
-        Order::create($order);
-        return redirect()->route('admin.' . request()->segment(2) . '.index')->withToastSuccess('Order Created Successfully!');
-    }
-
-    public function show(Order $order)
-    {
-        abort_if(Gate::denies('order_show'),RESPONSE::HTTP_FORBIDDEN, '403 Forbidden');
-        $order->load('funds');
-        return \response()->json($order);
+		$order->load('orderItems');
+        abort_if(Gate::denies(PermissionEnum::ORDER_SHOW->value),RESPONSE::HTTP_FORBIDDEN, '403 Forbidden');
+        return view('admin.orders.invoice',compact('order'));
     }
 
     public function edit(Order $order)
