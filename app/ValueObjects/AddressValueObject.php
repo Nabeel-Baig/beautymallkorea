@@ -62,12 +62,12 @@ class AddressValueObject implements JsonSerializable {
 
 	final public function jsonSerialize(): array {
 		return [
-			"address_line_one" => $this->address_line_one,
-			"address_line_two" => $this->address_line_two,
-			"address_city" => $this->address_city,
-			"address_state" => $this->address_state,
-			"address_country" => $this->address_country,
-			"address_zip_code" => $this->address_zip_code,
+			"addressLineOne" => $this->address_line_one,
+			"addressLineTwo" => $this->address_line_two,
+			"addressCity" => $this->address_city,
+			"addressState" => $this->address_state,
+			"addressCountry" => $this->address_country,
+			"addressZipCode" => $this->address_zip_code,
 		];
 	}
 }

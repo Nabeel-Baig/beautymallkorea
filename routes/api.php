@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BannerController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\QuickCategoryController;
 use App\Http\Controllers\Api\SettingController;
@@ -63,6 +64,10 @@ Route::group(["prefix" => "address", "middleware" => "auth:jwt"], static functio
 	Route::post("/create", [AddressController::class, "create"]);
 	Route::patch("/update/{address:id}", [AddressController::class, "update"]);
 	Route::delete("/delete/{address:id}", [AddressController::class, "delete"]);
+});
+
+Route::group(["prefix" => "order", "middleware" => "auth:jwt"], static function () {
+	Route::get("/", [OrderController::class, "index"]);
 });
 
 Route::get("/setting", [SettingController::class, "setting"]);

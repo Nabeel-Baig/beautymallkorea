@@ -15,12 +15,12 @@ class OrderAddress implements CastsAttributes {
 		$decodedValue = $value !== null ? json_decode($value, true, 512, JSON_THROW_ON_ERROR) : null;
 
 		$addressValueObject = new AddressValueObject();
-		$addressValueObject->setAddressLineOne($addressValueObject["addressLineOne"] ?? "");
-		$addressValueObject->setAddressLineTwo($addressValueObject["addressLineTwo"] ?? "");
-		$addressValueObject->setAddressCity($addressValueObject["addressCity"] ?? "");
-		$addressValueObject->setAddressState($addressValueObject["addressState"] ?? "");
-		$addressValueObject->setAddressCountry($addressValueObject["addressCountry"] ?? "");
-		$addressValueObject->setAddressZipCode($addressValueObject["addressZipCode"] ?? "");
+		$addressValueObject->setAddressLineOne($decodedValue["addressLineOne"] ?? "");
+		$addressValueObject->setAddressLineTwo($decodedValue["addressLineTwo"] ?? "");
+		$addressValueObject->setAddressCity($decodedValue["addressCity"] ?? "");
+		$addressValueObject->setAddressState($decodedValue["addressState"] ?? "");
+		$addressValueObject->setAddressCountry($decodedValue["addressCountry"] ?? "");
+		$addressValueObject->setAddressZipCode($decodedValue["addressZipCode"] ?? "");
 
 		return $addressValueObject;
 	}

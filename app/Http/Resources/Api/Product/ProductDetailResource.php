@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Api\Product;
 
+use App\Enums\DimensionClass;
+use App\Enums\WeightClass;
 use App\Http\Resources\Api\Brand\BrandResource;
 use App\Http\Resources\Api\Category\CategoryListCollection;
 use App\Http\Resources\Api\Tag\TagListCollection;
@@ -29,6 +31,10 @@ class ProductDetailResource extends JsonResource {
 			"price" => $this->price,
 			"discount_price" => $this->discount_price,
 			"quantity" => $this->quantity,
+			"dimension" => $this->dimension,
+			"dimension_class" => DimensionClass::formattedName($this->dimension_class),
+			"weight" => $this->weight,
+			"weight_class" => WeightClass::formattedName($this->weight_class),
 			"image" => $this->image,
 			"secondary_images" => $this->secondary_images,
 			"min_order_quantity" => $this->min_order_quantity,
