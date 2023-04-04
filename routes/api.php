@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BannerController;
 use App\Http\Controllers\Api\BrandController;
@@ -55,6 +56,13 @@ Route::group(["prefix" => "product"], static function () {
 
 Route::group(["prefix" => "tag"], static function () {
 	Route::get("/{tag:slug}/products", [TagController::class, "tagProducts"]);
+});
+
+Route::group(["prefix" => "address", "middleware" => "auth:jwt"], static function () {
+	Route::get("/", [AddressController::class, "index"]);
+	Route::post("/create", [AddressController::class, "create"]);
+	Route::patch("/update/{address:id}", [AddressController::class, "update"]);
+	Route::delete("/delete/{address:id}", [AddressController::class, "delete"]);
 });
 
 Route::get("/setting", [SettingController::class, "setting"]);

@@ -9,11 +9,11 @@ use App\Http\Requests\Api\Auth\ResetPasswordRequest;
 use App\Http\Requests\Api\Auth\SignInRequest;
 use App\Http\Requests\Api\Auth\SignUpRequest;
 use App\Http\Resources\Api\Auth\AuthenticatedResponse;
-use App\Services\Api\AuthService;
+use App\Services\Api\AuthApiService;
 use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller {
-	public function __construct(private readonly AuthService $authService) {}
+	public function __construct(private readonly AuthApiService $authService) {}
 
 	final public function signIn(SignInRequest $signInRequest): AuthenticatedResponse {
 		$accessToken = $this->authService->signInCustomer($signInRequest);

@@ -11,7 +11,7 @@ use App\Models\Customer;
 use Illuminate\Support\Facades\Password;
 use Tymon\JWTAuth\JWTGuard;
 
-class AuthService {
+class AuthApiService {
 	final public function signInCustomer(SignInRequest $signInRequest): ?string {
 		$customer = $this->validateCustomer($signInRequest);
 
@@ -31,10 +31,7 @@ class AuthService {
 	}
 
 	final public function signOutCustomer(): void {
-		$guard = $this->getAuthGuard();
-
-		$customer = $guard->user();
-		assert($customer instanceof Customer);
+		$customer = $this->getAuthenticatedCustomer($guard = $this->getAuthGuard());
 
 		$customer->updateCurrentActiveIp()->save();
 		$guard->logout();
@@ -45,10 +42,7 @@ class AuthService {
 	}
 
 	final public function changePassword(ChangePasswordRequest $changePasswordRequest): string {
-		$guard = $this->getAuthGuard();
-
-		$customer = $guard->user();
-		assert($customer instanceof Customer);
+		$customer = $this->getAuthenticatedCustomer($guard = $this->getAuthGuard());
 
 		$customer->updatePassword($changePasswordRequest->input("password"))->save();
 		$guard->logout();
@@ -64,6 +58,15 @@ class AuthService {
 		return Password::broker("customers")->reset($resetPasswordRequest->validated(), static function (Customer $customer, string $password) {
 			$customer->updatePassword($password)->save();
 		});
+	}
+
+	final public function getAuthenticatedCustomer(JWTGuard $guard = null): Customer {
+		$guard ??= $this->getAuthGuard();
+
+		$customer = $guard->user();
+		assert($customer instanceof Customer);
+
+		return $customer;
 	}
 
 	private function validateCustomer(SignInRequest $signInRequest): ?Customer {

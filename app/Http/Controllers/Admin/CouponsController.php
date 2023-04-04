@@ -59,10 +59,10 @@ class CouponsController extends Controller
     /**
      * Display the specified resource.
      */
-    final public function show(string $id)
-    {
-        //
-    }
+	final public function show(Coupon $coupon): JsonResponse {
+		$coupon = $this->couponService->fetchCouponWithCategoriesAndProducts($coupon);
+		return \response()->json($coupon);
+	}
 
     /**
      * Show the form for editing the specified resource.

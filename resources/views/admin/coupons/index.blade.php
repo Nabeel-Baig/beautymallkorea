@@ -72,24 +72,36 @@
 							<table class="table table-hover table-striped">
 								<tbody>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','first_name'))}}</th>
-									<td id="first_name" align="center"></td>
+									<th>{{ucwords(str_replace('_',' ','name'))}}</th>
+									<td id="name" align="center"></td>
 								</tr>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','last_name'))}}</th>
-									<td id="last_name" align="center"></td>
+									<th>{{ucwords(str_replace('_',' ','code'))}}</th>
+									<td id="code" align="center"></td>
 								</tr>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','email'))}}</th>
-									<td id="email" align="center"></td>
+									<th>{{ucwords(str_replace('_',' ','type'))}}</th>
+									<td id="type" align="center"></td>
 								</tr>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','contact'))}}</th>
-									<td id="contact" align="center"></td>
+									<th>{{ucwords(str_replace('_',' ','discount'))}}</th>
+									<td id="discount" align="center"></td>
 								</tr>
 								<tr>
-									<th>{{ucwords(str_replace('_',' ','profile_picture'))}}</th>
-									<td id="profile_picture" align="center"></td>
+									<th>{{ucwords(str_replace('_',' ','date_start'))}}</th>
+									<td id="date_start" align="center"></td>
+								</tr>
+								<tr>
+									<th>{{ucwords(str_replace('_',' ','date_end'))}}</th>
+									<td id="date_end" align="center"></td>
+								</tr>
+								<tr>
+									<th>{{ucwords(str_replace('_',' ','categories'))}}</th>
+									<td id="categories" align="center"></td>
+								</tr>
+								<tr>
+									<th>{{ucwords(str_replace('_',' ','products'))}}</th>
+									<td id="products" align="center"></td>
 								</tr>
 								</tbody>
 							</table>
@@ -222,12 +234,18 @@
 					url: url.replace(":id", id),
 					dataType: "json",
 					success: function (data) {
-						let profile_picture = (data.profile_picture === null) ?`<img alt="No Image" src="{{asset('images/placeholder.png')}}" width="100" />` : `<img alt="${ data.first_name }" src="{{asset('')}}${ data.profile_picture }" width="100" />`;
-						document.getElementById("first_name").innerText = data.first_name;
-						document.getElementById("last_name").innerText = data.last_name;
-						document.getElementById("email").innerText = data.email;
-						document.getElementById("contact").innerText = data.contact;
-						document.getElementById("profile_picture").innerHTML = profile_picture;
+						let categories = "";
+						let products = "";
+						data.categories.forEach(item => categories += `<span class="badge bg-primary">${ item.name }</span>`);
+						data.products.forEach(item => products += `<span class="badge bg-primary">${ item.name }</span>`);
+						document.getElementById("name").innerText = data.name;
+						document.getElementById("code").innerText = data.code;
+						document.getElementById("type").innerText = data.type;
+						document.getElementById("discount").innerText = data.discount;
+						document.getElementById("date_start").innerText = data.date_start;
+						document.getElementById("date_end").innerText = data.date_end;
+						document.getElementById("categories").innerHTML = categories;
+						document.getElementById("products").innerHTML = products;
 						$("#viewModal").modal("show");
 					}
 				});

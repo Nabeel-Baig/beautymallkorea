@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreateBannersTable extends Migration {
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
 	final public function up(): void {
 		Schema::create("banners", static function (Blueprint $table) {
 			$table->id();
@@ -18,6 +23,11 @@ class CreateBannersTable extends Migration {
 		});
 	}
 
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
 	final public function down(): void {
 		Schema::dropIfExists("banners");
 	}

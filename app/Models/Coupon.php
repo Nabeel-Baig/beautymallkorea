@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Coupon extends Model
 {
-    use HasFactory;
+	use HasFactory;
 	use SoftDeletes;
 
 	protected $fillable = [
@@ -26,11 +26,11 @@ class Coupon extends Model
 
 	final public function categories(): BelongsToMany
 	{
-		return $this->belongsToMany(Category::class,'coupon_categories','coupon_id','category_id')->withTimestamps();
+		return $this->belongsToMany(Category::class, 'coupon_categories', 'coupon_id', 'category_id')->withTimestamps();
 	}
 
 	final public function products(): BelongsToMany
 	{
-		return $this->belongsToMany(Product::class,'coupon_products','coupon_id','product_id')->withTimestamps();
+		return $this->belongsToMany(Product::class, 'coupon_products', 'coupon_id', 'product_id')->withTimestamps();
 	}
 }
