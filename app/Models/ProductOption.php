@@ -42,4 +42,8 @@ class ProductOption extends Model {
 	final public function orderItems(): HasMany {
 		return $this->hasMany(OrderItem::class, "product_option_id", "id");
 	}
+
+	final public function wishlistProducts(): HasMany {
+		return $this->hasMany(Wishlist::class, "product_option_id", "id");
+	}
 }

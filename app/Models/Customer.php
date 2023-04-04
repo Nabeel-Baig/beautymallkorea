@@ -46,6 +46,10 @@ class Customer extends Model implements IAuthenticatable, ICanResetPassword, JWT
 		return $this->hasMany(Order::class, "customer_id", "id");
 	}
 
+	final public function wishlistProducts(): HasMany {
+		return $this->hasMany(Wishlist::class, "customer_id", "id");
+	}
+
 	final public function updateCurrentActiveIp(): self {
 		$request = app(Request::class);
 
