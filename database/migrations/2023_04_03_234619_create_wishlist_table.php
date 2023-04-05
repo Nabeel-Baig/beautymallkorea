@@ -10,7 +10,7 @@ class CreateWishlistTable extends Migration {
 			$table->id();
 			$table->foreignId("customer_id")->constrained("customers")->cascadeOnUpdate()->cascadeOnDelete();
 			$table->foreignId("product_id")->constrained("products")->cascadeOnUpdate()->cascadeOnDelete();
-			$table->foreignId("product_option_id")->constrained("product_options")->cascadeOnUpdate()->cascadeOnDelete();
+			$table->foreignId("product_option_id")->nullable()->constrained("product_options")->cascadeOnUpdate()->nullOnDelete();
 			$table->timestamps();
 		});
 	}

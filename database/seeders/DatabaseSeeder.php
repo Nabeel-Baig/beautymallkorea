@@ -29,6 +29,8 @@ class DatabaseSeeder extends Seeder {
 			AddressSeeder::class,
 			OrderSeeder::class,
 			QuickCategorySeeder::class,
+			CouponSeeder::class,
+			WishlistSeeder::class,
 		]);
 	}
 }
