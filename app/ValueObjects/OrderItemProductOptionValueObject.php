@@ -24,6 +24,10 @@ class OrderItemProductOptionValueObject implements JsonSerializable {
 		$this->optionValueName = $optionValueName;
 	}
 
+	final public function isEmpty(): bool {
+		return $this->optionName === "" && $this->optionValueName === "";
+	}
+
 	final public function jsonSerialize(): array {
 		return [
 			"optionName" => $this->optionName,
