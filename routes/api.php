@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\BannerController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\OrderProcessingMethodController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\QuickCategoryController;
@@ -67,14 +68,25 @@ Route::group(["prefix" => "address", "middleware" => "auth:jwt"], static functio
 	Route::delete("/delete/{address:id}", [AddressController::class, "delete"]);
 });
 
-Route::group(["prefix" => "order", "middleware" => "auth:jwt"], static function () {
-	Route::get("/", [OrderController::class, "index"]);
+Route::group(["prefix" => "order"], static function () {
+	Route::post("checkout/guest", [OrderController::class, "guestCheckout"]);
+
+	Route::group(["middleware" => "auth:jwt"], static function () {
+		Route::get("/", [OrderController::class, "index"]);
+		Route::post("checkout/identified", [OrderController::class, "identifiedCheckout"]);
+	});
 });
 
 Route::group(["prefix" => "profile", "middleware" => "auth:jwt"], static function () {
 	Route::get("/", [ProfileController::class, "index"]);
 	Route::patch("/update", [ProfileController::class, "update"]);
 });
+
+Route::group(["prefix" => "order-processing"], static function () {
+	Route::get("payment-method", [OrderProcessingMethodController::class, "paymentMethod"]);
+	Route::get("shipping-method", [OrderProcessingMethodController::class, "shippingMethod"]);
+});
+
 
 Route::get("/setting", [SettingController::class, "setting"]);
 Route::get("/banners/{slug}", [BannerController::class, "index"]);
