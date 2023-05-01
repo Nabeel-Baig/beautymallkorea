@@ -7,8 +7,11 @@ use App\Enums\ProductStockBehaviour;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProductOption extends Model {
+	use SoftDeletes;
+
 	protected $table = "product_options";
 
 	protected $fillable = [
@@ -38,5 +41,9 @@ class ProductOption extends Model {
 
 	final public function orderItems(): HasMany {
 		return $this->hasMany(OrderItem::class, "product_option_id", "id");
+	}
+
+	final public function wishlistProducts(): HasMany {
+		return $this->hasMany(Wishlist::class, "product_option_id", "id");
 	}
 }

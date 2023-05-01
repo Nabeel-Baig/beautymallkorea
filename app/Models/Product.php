@@ -15,9 +15,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 class Product extends Model {
+	use SoftDeletes;
+
 	protected $table = "products";
 
 	protected $fillable = [
@@ -82,6 +85,10 @@ class Product extends Model {
 
 	final public function orderItems(): HasMany {
 		return $this->hasMany(OrderItem::class, "product_id", "id");
+	}
+
+	final public function wishlistProducts(): HasMany {
+		return $this->hasMany(Wishlist::class, "product_id", "id");
 	}
 
 	final public static function prepareMetaValueObject(array $meta): ProductMetaValueObject {

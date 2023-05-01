@@ -92,6 +92,30 @@
 						</a>
 					</li>
 				@endcan
+				@can(PermissionEnum::CUSTOMER_ACCESS->value)
+					<li>
+						<a href="{{ route('admin.customers.index') }}" class="waves-effect">
+							<i class="bx bx-cog"></i>
+							<span>Customers</span>
+						</a>
+					</li>
+				@endcan
+				@can(PermissionEnum::COUPON_ACCESS->value)
+					<li>
+						<a href="{{ route('admin.coupons.index') }}" class="waves-effect">
+							<i class="bx bx-cog"></i>
+							<span>Coupons</span>
+						</a>
+					</li>
+				@endcan
+				@can(PermissionEnum::ORDER_ACCESS->value)
+					<li>
+						<a href="{{ route('admin.orders.index') }}" class="waves-effect">
+							<i class="bx bx-cog"></i>
+							<span>Orders</span>
+						</a>
+					</li>
+				@endcan
 				@can('setting_edit')
 					<li>
 						<a href="{{ route('admin.settings.edit',$setting->id) }}" class="waves-effect">

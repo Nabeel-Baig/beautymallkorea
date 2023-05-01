@@ -7,6 +7,7 @@ use App\Casts\OrderDetails;
 use App\Enums\OrderStatus;
 use App\Enums\PaymentMethod;
 use App\Enums\ShippingMethod;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -54,5 +55,21 @@ class Order extends Model {
 
 	final public function orderItems(): HasMany {
 		return $this->hasMany(OrderItem::class, "order_id", "id");
+	}
+
+	final public function customerFullName(): Attribute {
+		return Attribute::make(
+			get: static function (mixed $value, array $attributes) {
+				return "{$attributes["first_name"]} {$attributes["last_name"]}";
+			},
+		);
+	}
+
+	final public function customerShippingFullName(): Attribute {
+		return Attribute::make(
+			get: static function (mixed $value, array $attributes) {
+				return "{$attributes["shipping_first_name"]} {$attributes["shipping_last_name"]}";
+			},
+		);
 	}
 }

@@ -38,7 +38,7 @@ class OrderSeeder extends Seeder {
 
 		for ($orderIndex = 1; $orderIndex <= 500; $orderIndex++) {
 			$randomCustomer = $customersWithAddresses->random();
-			$randomProducts = $productsWithOptions->random(random_int(1, 4));
+			$randomProducts = $productsWithOptions->random(random_int(1, 2));
 
 			$order = $this->generateOrderEntry($orderIndex, $randomCustomer, $timestamp);
 			$associatedOrderItems = $this->generateOrderItemEntries($orderIndex, $randomProducts, $timestamp);

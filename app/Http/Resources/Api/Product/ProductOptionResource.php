@@ -15,6 +15,7 @@ class ProductOptionResource extends JsonResource {
 	 */
 	final public function toArray(Request $request): array {
 		return [
+			"id" => $this->id,
 			"quantity" => $this->quantity,
 			"subtract_stock" => $this->subtract_stock,
 			"price_difference" => $this->price_difference,

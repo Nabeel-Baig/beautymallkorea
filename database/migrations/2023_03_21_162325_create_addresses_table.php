@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreateAddressesTable extends Migration {
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
 	final public function up(): void {
 		Schema::create("addresses", static function (Blueprint $table) {
 			$table->id();
@@ -17,9 +22,15 @@ class CreateAddressesTable extends Migration {
 			$table->string("address_country");
 			$table->string("address_zip_code");
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
 	final public function down(): void {
 		Schema::dropIfExists("addresses");
 	}

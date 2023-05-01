@@ -2,20 +2,18 @@
 
 namespace Database\Seeders;
 
-use App\Models\Quickcategory;
+use App\Models\QuickCategory;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
-class QuickcategorySeeder extends Seeder
-{
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        $now = Carbon::now()->toDateTimeString();
+class QuickCategorySeeder extends Seeder {
+	/**
+	 * Run the database seeds.
+	 *
+	 * @return void
+	 */
+	final public function run(): void {
+		$now = Carbon::now()->toDateTimeString();
 		$quickCategories = [
 			[
 				'name' => 'SKINCARE',
@@ -56,8 +54,9 @@ class QuickcategorySeeder extends Seeder
 				'sort_order' => 5,
 				"created_at" => $now,
 				"updated_at" => $now,
-			]
+			],
 		];
-		Quickcategory::insert($quickCategories);
-    }
+
+		QuickCategory::insert($quickCategories);
+	}
 }

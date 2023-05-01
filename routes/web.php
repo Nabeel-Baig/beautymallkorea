@@ -3,9 +3,12 @@
 use App\Http\Controllers\Admin\BannersController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Admin\CouponsController;
+use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\OptionValueController;
+use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\PermissionsController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\QuickCategoryController;
@@ -65,6 +68,21 @@ Route::group([
 	Route::delete('quickcategories/destroy', [QuickCategoryController::class, 'massDestroy'])->name('quickcategories.massDestroy');
 	Route::get("quickcategories/paginate", [QuickCategoryController::class, "paginate"])->name("quickcategories.paginate");
 	Route::resource('quickcategories', QuickCategoryController::class);
+
+	// Customers
+	Route::delete('customers/destroy', [CustomersController::class, 'massDestroy'])->name('customers.massDestroy');
+	Route::get("customers/paginate", [CustomersController::class, "paginate"])->name("customers.paginate");
+	Route::resource('customers', CustomersController::class);
+
+	// Coupons
+	Route::delete('coupons/destroy', [CouponsController::class, 'massDestroy'])->name('coupons.massDestroy');
+	Route::get("coupons/paginate", [CouponsController::class, "paginate"])->name("coupons.paginate");
+	Route::resource('coupons', CouponsController::class);
+
+	// Orders
+	Route::delete('orders/destroy', [OrdersController::class, 'massDestroy'])->name('orders.massDestroy');
+	Route::get("orders/paginate", [OrdersController::class, "paginate"])->name("orders.paginate");
+	Route::resource('orders', OrdersController::class);
 
 	// Tags
 	Route::group(["prefix" => "tags", "as" => "tags."], static function () {

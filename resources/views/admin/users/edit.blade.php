@@ -36,7 +36,7 @@
 							<select class="form-control select2 {{ $errors->has('roles') ? 'parsley-error' : '' }}"
 									name="roles[]" id="roles" multiple required>
 								@foreach($roles as $id => $roles)
-									<option value="{{ $id }}" {{ (in_array($id, old('role', [])) || isset($user) && $user->roles->contains($id)) ? 'selected' : '' }}>{{ $roles }}</option>
+									<option value="{{ $id }}" {{ (in_array($id, old('roles', [])) || isset($user) && $user->roles->contains($id)) ? 'selected' : '' }}>{{ $roles }}</option>
 								@endforeach
 							</select>
 							@if($errors->has('roles'))

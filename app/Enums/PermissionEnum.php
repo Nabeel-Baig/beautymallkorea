@@ -71,4 +71,16 @@ enum PermissionEnum: string {
 	case PRODUCT_SHOW = "product_show";
 	case PRODUCT_DELETE = "product_delete";
 	case PRODUCT_ACCESS = "product_access";
+
+	case CUSTOMER_CREATE = "customer_create";
+	case CUSTOMER_EDIT = "customer_edit";
+	case CUSTOMER_SHOW = "customer_show";
+	case CUSTOMER_DELETE = "customer_delete";
+	case CUSTOMER_ACCESS = "customer_access";
+
+	case COUPON_CREATE = "coupon_create";
+	case COUPON_EDIT = "coupon_edit";
+	case COUPON_SHOW = "coupon_show";
+	case COUPON_DELETE = "coupon_delete";
+	case COUPON_ACCESS = "coupon_access";
 }

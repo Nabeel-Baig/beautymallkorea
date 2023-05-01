@@ -27,8 +27,10 @@ class DatabaseSeeder extends Seeder {
 			BannerSeeder::class,
 			CustomerSeeder::class,
 			AddressSeeder::class,
-//			OrderSeeder::class,
-			QuickcategorySeeder::class
+			OrderSeeder::class,
+			QuickCategorySeeder::class,
+			CouponSeeder::class,
+			WishlistSeeder::class,
 		]);
 	}
 }

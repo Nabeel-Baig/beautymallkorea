@@ -1,4 +1,8 @@
-@php use App\Models\Product; @endphp
+@php
+	use App\Enums\DimensionClass;
+	use App\Enums\WeightClass;
+	use App\Models\Product;
+@endphp
 @extends("layouts.master")
 @section("title")
 	View {{ $title }}
@@ -69,7 +73,7 @@
 								</tr>
 								<tr>
 									<th>Dimension Class</th>
-									<td style="text-align: center">{{ $model->dimension_class::formattedName($model->dimension_class) ?? "" }}</td>
+									<td style="text-align: center">{{ DimensionClass::formattedName($model->dimension_class) ?? "" }}</td>
 								</tr>
 								<tr>
 									<th>Weight</th>
@@ -77,7 +81,7 @@
 								</tr>
 								<tr>
 									<th>Weight Class</th>
-									<td style="text-align: center">{{ $model->weight_class::formattedName($model->weight_class) ?? "" }}</td>
+									<td style="text-align: center">{{ WeightClass::formattedName($model->weight_class) ?? "" }}</td>
 								</tr>
 								<tr>
 									<th>Image</th>

@@ -34,9 +34,11 @@ class ProductDimensionValueObject implements JsonSerializable {
 	}
 
 	final public function jsonSerialize(): array {
-		return ["dimensionLength" => $this->dimensionLength,
+		return [
+			"dimensionLength" => $this->dimensionLength,
 			"dimensionWidth" => $this->dimensionWidth,
-			"dimensionHeight" => $this->dimensionHeight,];
+			"dimensionHeight" => $this->dimensionHeight,
+		];
 	}
 
 	final public function formattedDimension(): string {
