@@ -72,4 +72,14 @@ class Order extends Model {
 			},
 		);
 	}
+
+	/**
+	 * @noinspection MethodVisibilityInspection
+	 */
+	protected static function booted(): void {
+		static::creating(static function (self $order) {
+			$order->order_status = OrderStatus::PENDING;
+			$order->total_amount = $order->actual_amount + $order->shipping_amount - $order->discount_amount;
+		});
+	}
 }

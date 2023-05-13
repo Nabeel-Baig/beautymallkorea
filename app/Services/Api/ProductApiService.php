@@ -71,6 +71,18 @@ class ProductApiService {
 		})->get();
 	}
 
+	final public function fetchProductsForOrderCreation(array $productSlugs): Collection {
+		$optionColumnSelection = ["id", "name"];
+		$optionValueColumnSelection = ["id", "name", "option_id", "image"];
+		$productOptionColumnSelection = ["id", "product_id", "option_value_id", "price_difference", "price_adjustment", "weight_difference", "weight_adjustment", "quantity", "subtract_stock"];
+		$productColumnSelection = ["id", "name", "slug", "image", "dimension", "dimension_class", "weight", "weight_class", "quantity", "subtract_stock", "price", "discount_price"];
+
+		$optionSelection = static fn(BelongsTo $option) => $option->select($optionColumnSelection);
+		$optionValueSelection = static fn(BelongsTo $optionValue) => $optionValue->with(["option" => $optionSelection])->select($optionValueColumnSelection);
+		$productOptionSelection = static fn(HasMany $productOption) => $productOption->with(["optionValue" => $optionValueSelection])->select($productOptionColumnSelection);
+		return Product::with(["productOptions" => $productOptionSelection])->select($productColumnSelection)->whereIn("slug", $productSlugs)->get();
+	}
+
 	private function createProductSelection(): Builder {
 		return Product::query()->select(["id", "brand_id", "name", "slug", "image", "price", "discount_price"]);
 	}

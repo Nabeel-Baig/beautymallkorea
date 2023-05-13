@@ -25,7 +25,7 @@ class AuthApiService {
 	}
 
 	final public function signUpCustomer(SignUpRequest $signUpRequest): string {
-		$customer = $this->createNewCustomer($signUpRequest);
+		$customer = $this->createNewCustomer($signUpRequest->validated());
 
 		return $this->createAccessToken($customer);
 	}
@@ -69,6 +69,12 @@ class AuthApiService {
 		return $customer;
 	}
 
+	final public function createNewCustomer(array $createCustomerData): Customer {
+		$createCustomerData = handleFiles("customers", $createCustomerData);
+
+		return Customer::create($createCustomerData);
+	}
+
 	private function validateCustomer(SignInRequest $signInRequest): ?Customer {
 		$customer = Customer::whereEmail($signInRequest->input("email"))->first();
 		if (!$customer) {
@@ -76,13 +82,6 @@ class AuthApiService {
 		}
 
 		return $customer->verifyPassword($signInRequest->input("password")) ? $customer : null;
-	}
-
-	private function createNewCustomer(SignUpRequest $signUpRequest): Customer {
-		$createCustomerData = $signUpRequest->validated();
-		$createCustomerData = handleFiles("customers", $createCustomerData);
-
-		return Customer::create($createCustomerData);
 	}
 
 	private function createAccessToken(Customer $customer): string {

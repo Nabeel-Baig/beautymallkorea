@@ -2,9 +2,12 @@
 
 namespace App\ValueObjects;
 
+use App\Extensions\ValueObjectExtensions;
 use JsonSerializable;
 
 class OrderDetailsValueObject implements JsonSerializable {
+	use ValueObjectExtensions;
+
 	private string $ipAddress;
 	private string $userAgent;
 	private string $comment;

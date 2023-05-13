@@ -7,7 +7,7 @@ use App\Enums\ShippingMethod;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\Enum\EnumListCollection;
 
-class OrderProcessingMethodController extends Controller {
+class EnumController extends Controller {
 	final public function paymentMethod(): EnumListCollection {
 		$paymentMethods = PaymentMethod::cases();
 

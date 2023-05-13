@@ -25,7 +25,11 @@ class OrderItemProductOption implements CastsAttributes {
 	/**
 	 * @throws JsonException
 	 */
-	final public function set(Model $model, string $key, mixed $value, array $attributes): string {
+	final public function set(Model $model, string $key, mixed $value, array $attributes): ?string {
+		if ($value === null) {
+			return null;
+		}
+
 		if (!$value instanceof OrderItemProductOptionValueObject) {
 			throw new InvalidArgumentException("The given value is not an OrderItemProductOptionValueObject instance.");
 		}

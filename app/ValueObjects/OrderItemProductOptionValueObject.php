@@ -2,9 +2,12 @@
 
 namespace App\ValueObjects;
 
+use App\Extensions\ValueObjectExtensions;
 use JsonSerializable;
 
 class OrderItemProductOptionValueObject implements JsonSerializable {
+	use ValueObjectExtensions;
+
 	private string $optionName;
 	private string $optionValueName;
 
