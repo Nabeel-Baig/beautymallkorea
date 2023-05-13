@@ -76,6 +76,13 @@ if (!function_exists("handleFilesIfPresent")) {
 	}
 }
 
+if (!function_exists("priceWithCurrency")) {
+	function priceWithCurrency(string $currency, string $price): string {
+		$price = number_format($price, 2);
+		return "{$currency} {$price}";
+	}
+}
+
 if (!function_exists("getPercentage")) {
 	function getPercentage(float $part = null, float $whole = null): int {
 		return ($part / $whole) * 100;

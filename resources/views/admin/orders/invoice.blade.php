@@ -137,27 +137,27 @@
 									@endif
 								</td>
 								<td class="text-right">{{ $orderItem->product_quantity }}</td>
-								<td class="text-right">{{ $setting->currency . " " . number_format($orderItem->product_price, 2) }}</td>
-								<td class="text-right">{{ $setting->currency . " " . number_format($orderItem->product_total_price, 2) }}</td>
+								<td class="text-right">{{ priceWithCurrency($setting->currency, $orderItem->product_price) }}</td>
+								<td class="text-right">{{ priceWithCurrency($setting->currency, $orderItem->product_total_price) }}</td>
 							</tr>
 						@endforeach
 						<tr>
 							<td class="text-right" colspan="4">
 								<b>Sub-Total</b>
 							</td>
-							<td class="text-right">{{ $setting->currency . " " . number_format($order->actual_amount,2) }}</td>
+							<td class="text-right">{{ priceWithCurrency($setting->currency, $order->actual_amount) }}</td>
 						</tr>
 						<tr>
 							<td class="text-right" colspan="4">
 								<b>{{ ShippingMethod::formattedName($order->shipping_method) }}</b>
 							</td>
-							<td class="text-right">{{ $setting->currency . " " . number_format($order->shipping_amount, 2) }}</td>
+							<td class="text-right">{{ priceWithCurrency($setting->currency, $order->shipping_amount) }}</td>
 						</tr>
 						<tr>
 							<td class="text-right" colspan="4">
 								<b>Total</b>
 							</td>
-							<td class="text-right">{{ $setting->currency . " " . number_format($order->total_amount, 2) }}</td>
+							<td class="text-right">{{ priceWithCurrency($setting->currency, $order->total_amount) }}</td>
 						</tr>
 					</tbody>
 				</table>
