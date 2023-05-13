@@ -2,9 +2,12 @@
 
 namespace App\ValueObjects;
 
+use App\Extensions\ValueObjectExtensions;
 use JsonSerializable;
 
 class ProductMetaValueObject implements JsonSerializable {
+	use ValueObjectExtensions;
+
 	private string $metaTitle;
 	private string $metaKeywords;
 	private string $metaDescription;

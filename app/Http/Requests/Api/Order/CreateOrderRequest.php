@@ -5,6 +5,7 @@ namespace App\Http\Requests\Api\Order;
 use App\Enums\PaymentMethod;
 use App\Enums\ShippingMethod;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Collection;
 use Illuminate\Validation\Rules\Enum;
 
 class CreateOrderRequest extends FormRequest {
@@ -45,22 +46,22 @@ class CreateOrderRequest extends FormRequest {
 			// Address Billing Details
 			"address_details.billing" => ["required", "array"],
 
-			"address_details.billing.address_line_one" => ["required", "array"],
-			"address_details.billing.address_line_two" => ["nullable", "array"],
-			"address_details.billing.address_city" => ["required", "array"],
-			"address_details.billing.address_state" => ["required", "array"],
-			"address_details.billing.address_country" => ["required", "array"],
-			"address_details.billing.address_zip_code" => ["required", "array"],
+			"address_details.billing.address_line_one" => ["required", "string"],
+			"address_details.billing.address_line_two" => ["nullable", "string"],
+			"address_details.billing.address_city" => ["required", "string"],
+			"address_details.billing.address_state" => ["required", "string"],
+			"address_details.billing.address_country" => ["required", "string"],
+			"address_details.billing.address_zip_code" => ["required", "string"],
 
 			// Address Shipping Details
 			"address_details.shipping" => ["required", "array"],
 
-			"address_details.shipping.address_line_one" => ["required", "array"],
-			"address_details.shipping.address_line_two" => ["nullable", "array"],
-			"address_details.shipping.address_city" => ["required", "array"],
-			"address_details.shipping.address_state" => ["required", "array"],
-			"address_details.shipping.address_country" => ["required", "array"],
-			"address_details.shipping.address_zip_code" => ["required", "array"],
+			"address_details.shipping.address_line_one" => ["required", "string"],
+			"address_details.shipping.address_line_two" => ["nullable", "string"],
+			"address_details.shipping.address_city" => ["required", "string"],
+			"address_details.shipping.address_state" => ["required", "string"],
+			"address_details.shipping.address_country" => ["required", "string"],
+			"address_details.shipping.address_zip_code" => ["required", "string"],
 			// ==============================================================================================
 
 			// Order Details
@@ -71,5 +72,35 @@ class CreateOrderRequest extends FormRequest {
 			"order_details.payment_method" => ["required", new Enum(PaymentMethod::class)],
 			// ==============================================================================================
 		];
+	}
+
+	final public function billingDetails(): array {
+		return $this->input("receiver_details.billing");
+	}
+
+	final public function billingAddress(): array {
+		return $this->input("address_details.billing");
+	}
+
+	final public function shippingDetails(): array {
+		return $this->collect("receiver_details.shipping")->mapWithKeys(static function (string $value, string $key) {
+			return ["shipping_$key" => $value];
+		})->toArray();
+	}
+
+	final public function shippingAddress(): array {
+		return $this->input("address_details.shipping");
+	}
+
+	final public function orderDetails(): array {
+		$requestIp = $this->ip();
+		$userAgent = $this->userAgent();
+		$comment = $this->input("order_details.comment");
+
+		return compact("requestIp", "userAgent", "comment");
+	}
+
+	final public function orderItems(): Collection {
+		return $this->collect("order_items");
 	}
 }

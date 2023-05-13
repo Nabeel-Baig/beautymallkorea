@@ -2,9 +2,12 @@
 
 namespace App\ValueObjects;
 
+use App\Extensions\ValueObjectExtensions;
 use JsonSerializable;
 
 class AddressValueObject implements JsonSerializable {
+	use ValueObjectExtensions;
+
 	private string $address_line_one;
 	private string $address_line_two;
 	private string $address_city;

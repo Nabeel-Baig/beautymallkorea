@@ -16,9 +16,9 @@ use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
-use Tymon\JWTAuth\Contracts\JWTSubject;
+use Tymon\JWTAuth\Contracts\JWTSubject as IJwtSubject;
 
-class Customer extends Model implements IAuthenticatable, ICanResetPassword, JWTSubject {
+class Customer extends Model implements IAuthenticatable, ICanResetPassword, IJwtSubject {
 	use SoftDeletes, Authenticatable, CanResetPassword, Notifiable, Ownerable;
 
 	protected $table = "customers";

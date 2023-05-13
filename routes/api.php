@@ -5,8 +5,8 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BannerController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\EnumController;
 use App\Http\Controllers\Api\OrderController;
-use App\Http\Controllers\Api\OrderProcessingMethodController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\QuickCategoryController;
@@ -82,9 +82,9 @@ Route::group(["prefix" => "profile", "middleware" => "auth:jwt"], static functio
 	Route::patch("/update", [ProfileController::class, "update"]);
 });
 
-Route::group(["prefix" => "order-processing"], static function () {
-	Route::get("payment-method", [OrderProcessingMethodController::class, "paymentMethod"]);
-	Route::get("shipping-method", [OrderProcessingMethodController::class, "shippingMethod"]);
+Route::group(["prefix" => "enum"], static function () {
+	Route::get("payment-method", [EnumController::class, "paymentMethod"]);
+	Route::get("shipping-method", [EnumController::class, "shippingMethod"]);
 });
 
 

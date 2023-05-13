@@ -2,9 +2,12 @@
 
 namespace App\ValueObjects;
 
+use App\Extensions\ValueObjectExtensions;
 use JsonSerializable;
 
 class ProductDimensionValueObject implements JsonSerializable {
+	use ValueObjectExtensions;
+
 	private float $dimensionLength;
 	private float $dimensionWidth;
 	private float $dimensionHeight;

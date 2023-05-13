@@ -2,9 +2,12 @@
 
 namespace App\ValueObjects;
 
+use App\Extensions\ValueObjectExtensions;
 use JsonSerializable;
 
 class CustomerDetailsValueObject implements JsonSerializable {
+	use ValueObjectExtensions;
+
 	private string $currentActiveIp;
 
 	final public function getCurrentActiveIp(): string {

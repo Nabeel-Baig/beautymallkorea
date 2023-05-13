@@ -2,9 +2,12 @@
 
 namespace App\ValueObjects;
 
+use App\Extensions\ValueObjectExtensions;
 use JsonSerializable;
 
 class BrandCountryValueObject implements JsonSerializable {
+	use ValueObjectExtensions;
+
 	private string $countryName;
 	private string $countryCode;
 	private string $countryFlag;
