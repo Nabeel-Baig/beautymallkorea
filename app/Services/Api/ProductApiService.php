@@ -19,35 +19,23 @@ class ProductApiService {
 	}
 
 	final public function productDetails(Product $product): Product {
-		return $product->load([
-			"relatedProducts" => static function (BelongsToMany $query) {
-				return $query->select(["products.id", "products.brand_id", "products.name", "products.slug", "products.price", "products.discount_price", "products.image"])->with([
-					"brand" => static function (BelongsTo $query) {
-						return $query->select(["brands.id", "brands.name", "brands.slug", "brands.brand_image", "brands.country"]);
-					},
-				]);
-			},
-			"brand" => static function (BelongsTo $query): BelongsTo {
-				return $query->select(["brands.id", "brands.name", "brands.slug", "brands.brand_image", "brands.country"]);
-			},
-			"tags" => static function (BelongsToMany $query) {
-				return $query->select(["tags.id", "tags.slug", "tags.name"]);
-			},
-			"categories" => static function (BelongsToMany $query) {
-				return $query->select(["categories.id", "categories.name", "categories.slug", "categories.description", "categories.image"]);
-			},
-			"productOptions" => static function (HasMany $query) {
-				return $query->select(["product_options.id", "product_options.product_id", "product_options.option_value_id", "product_options.quantity", "product_options.subtract_stock", "product_options.price_difference", "product_options.price_adjustment"])->with([
-					"optionValue" => static function (BelongsTo $query) {
-						return $query->select(["option_values.id", "option_values.name", "option_values.option_id", "option_values.image"])->with([
-							"option" => static function (BelongsTo $query) {
-								return $query->select(["options.id", "options.name"]);
-							},
-						]);
-					},
-				]);
-			},
-		]);
+		$optionColumnSelection = ["options.id", "options.name"];
+		$optionValueColumnSelection = ["option_values.id", "option_values.name", "option_values.option_id", "option_values.image"];
+		$productOptionColumnSelection = ["product_options.id", "product_options.product_id", "product_options.option_value_id", "product_options.quantity", "product_options.subtract_stock", "product_options.price_difference", "product_options.price_adjustment"];
+		$categoryColumnSelection = ["categories.id", "categories.name", "categories.slug", "categories.description", "categories.image"];
+		$tagColumnSelection = ["tags.id", "tags.slug", "tags.name"];
+		$brandColumnSelection = ["brands.id", "brands.name", "brands.slug", "brands.brand_image", "brands.country"];
+		$relatedProductColumnSelection = ["products.id", "products.brand_id", "products.name", "products.slug", "products.price", "products.discount_price", "products.image"];
+
+		$optionSelection = static fn(BelongsTo $option) => $option->select($optionColumnSelection);
+		$optionValueSelection = static fn(BelongsTo $optionValue) => $optionValue->select($optionValueColumnSelection)->with(["option" => $optionSelection]);
+		$productOptionSelection = static fn(HasMany $productOption) => $productOption->select($productOptionColumnSelection)->with(["optionValue" => $optionValueSelection]);
+		$categorySelection = static fn(BelongsToMany $category) => $category->select($categoryColumnSelection);
+		$tagSelection = static fn(BelongsToMany $tag) => $tag->select($tagColumnSelection);
+		$brandSelection = static fn(BelongsTo $brand) => $brand->select($brandColumnSelection);
+		$relatedProductSelection = static fn(BelongsToMany $relatedProduct) => $relatedProduct->select($relatedProductColumnSelection)->with(["brand" => $brandSelection]);
+
+		return $product->load(["relatedProducts" => $relatedProductSelection, "brand" => $brandSelection, "tags" => $tagSelection, "categories" => $categorySelection, "productOptions" => $productOptionSelection]);
 	}
 
 	final public function createProductListBuilder(ProductListQueryParamsRequest $productListQueryParamsRequest): Builder {

@@ -13,7 +13,6 @@ use App\Models\ProductOption;
 use App\ValueObjects\AddressValueObject;
 use App\ValueObjects\OrderDetailsValueObject;
 use App\ValueObjects\OrderItemProductOptionValueObject;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
@@ -42,8 +41,10 @@ class OrderProcessingService {
 		$products = $this->productApiService->fetchProductsForOrderCreation($productSlugs->toArray());
 
 		return $orderItemRequest->map(function (array $orderItem) use ($currentTimeStamp, $products) {
+			$orderItemOptionId = $orderItem["option_id"] ?? null;
+
 			$orderItemProduct = $this->selectProductFromOrderedProducts($products, $orderItem["slug"]);
-			$orderItemProductOption = Arr::exists($orderItem, "option_id") ? $this->selectProductOptionFromOrderedProducts($orderItemProduct, $orderItem["option_id"]) : null;
+			$orderItemProductOption = $orderItemOptionId ? $this->selectProductOptionFromOrderedProducts($orderItemProduct, $orderItemOptionId) : null;
 			$orderItemProductOptionName = $orderItemProductOption ? $this->prepareOrderItemProductOptionName($orderItemProductOption) : null;
 			$orderItemWeight = $this->calculateOrderItemWeight($orderItemProduct, $orderItemProductOption);
 			$orderItemQuantity = $this->verifyAndSubtractOrderItemQuantityFromStock($orderItemProduct, $orderItemProductOption, $orderItem["quantity"]);
@@ -89,7 +90,7 @@ class OrderProcessingService {
 	private function prepareAddressValueObject(array $addressData): AddressValueObject {
 		$address = new AddressValueObject();
 		$address->setAddressLineOne($addressData["address_line_one"]);
-		$address->setAddressLineTwo($addressData["address_line_two"]);
+		$address->setAddressLineTwo($addressData["address_line_two"] ?? "");
 		$address->setAddressCity($addressData["address_city"]);
 		$address->setAddressState($addressData["address_state"]);
 		$address->setAddressCountry($addressData["address_country"]);
@@ -100,7 +101,7 @@ class OrderProcessingService {
 
 	private function prepareOrderDetailsValueObject(array $orderDetailsData): OrderDetailsValueObject {
 		$orderDetails = new OrderDetailsValueObject();
-		$orderDetails->setComment($orderDetailsData["comment"]);
+		$orderDetails->setComment($orderDetailsData["comment"] ?? "");
 		$orderDetails->setIpAddress($orderDetailsData["requestIp"]);
 		$orderDetails->setUserAgent($orderDetailsData["userAgent"]);
 
