@@ -2,8 +2,11 @@
 
 namespace App\Services\Api;
 
+use App\Http\Requests\Api\Product\AddProductToWishlistRequest;
 use App\Http\Requests\Api\Product\ProductListQueryParamsRequest;
 use App\Models\Product;
+use App\Models\ProductOption;
+use App\Models\Wishlist;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,6 +15,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductApiService {
+	final public function __construct(private readonly AuthApiService $authApiService) {}
+
 	final public function productList(ProductListQueryParamsRequest $productListQueryParamsRequest): Collection|LengthAwarePaginator {
 		$productListBuilder = $this->createProductListBuilder($productListQueryParamsRequest);
 
@@ -133,5 +138,29 @@ class ProductApiService {
 					$productListBuilder->whereIn("slug", $productListQueryParamsRequest->input("productOfCategories"));
 				});
 			});
+	}
+
+	final public function addToWishlist(AddProductToWishlistRequest $wishlistRequest): Wishlist {
+		$data = $wishlistRequest->validated();
+		$customer = $this->authApiService->getAuthenticatedCustomer();
+
+		if ($wishlistRequest->input("product_option_id") !== null) {
+			$itemToAddInCart = ProductOption::whereId($data["product_option_id"])->whereProductId($data["product_id"])->select(["id", "product_id"])->firstOrFail();
+		} else {
+			$itemToAddInCart = Product::whereId($data["product_id"])->select(["id"])->firstOrFail();
+		}
+
+		if ($itemToAddInCart instanceof ProductOption) {
+			return Wishlist::create([
+				"customer_id" => $customer->id,
+				"product_id" => $itemToAddInCart->product_id,
+				"product_option_id" => $itemToAddInCart->id,
+			]);
+		}
+
+		return Wishlist::create([
+			"customer_id" => $customer->id,
+			"product_id" => $itemToAddInCart->id,
+		]);
 	}
 }

@@ -55,6 +55,10 @@ Route::group(["prefix" => "brand"], static function () {
 Route::group(["prefix" => "product"], static function () {
 	Route::get("/", [ProductController::class, "index"]);
 	Route::get("/{product:slug}", [ProductController::class, "productDetails"]);
+
+	Route::group(["middleware" => "auth:jwt"], static function () {
+		Route::post("/wishlist", [ProductController::class, "addToWishlist"]);
+	});
 });
 
 Route::group(["prefix" => "tag"], static function () {
