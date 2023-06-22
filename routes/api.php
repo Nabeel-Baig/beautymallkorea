@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\QuickCategoryController;
 use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\Api\TagController;
+use App\Http\Controllers\Api\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,10 +56,12 @@ Route::group(["prefix" => "brand"], static function () {
 Route::group(["prefix" => "product"], static function () {
 	Route::get("/", [ProductController::class, "index"]);
 	Route::get("/{product:slug}", [ProductController::class, "productDetails"]);
+});
 
-	Route::group(["middleware" => "auth:jwt"], static function () {
-		Route::post("/wishlist", [ProductController::class, "addToWishlist"]);
-	});
+Route::group(["prefix" => "wishlist", "middleware" => "auth:jwt"], static function () {
+	Route::get("/", [WishlistController::class, "index"]);
+	Route::post("/create", [WishlistController::class, "create"]);
+	Route::delete("/delete/{wishlist}", [WishlistController::class, "delete"]);
 });
 
 Route::group(["prefix" => "tag"], static function () {

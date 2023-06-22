@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\Product;
+namespace App\Http\Requests\Api\Wishlist;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddProductToWishlistRequest extends FormRequest {
+class CreateWishlistRequest extends FormRequest {
 	final public function rules(): array {
 		return [
 			"product_id" => ["required", "numeric"],
