@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests\Api\Order;
 
-use Illuminate\Validation\Rules\RequiredIf;
-
 class CreateGuestOrderRequest extends CreateOrderRequest
 {
 	final public function rules(): array
@@ -11,7 +9,7 @@ class CreateGuestOrderRequest extends CreateOrderRequest
 		$rules = parent::rules();
 
 		$rules["receiver_details.create_account"] = ["required", "boolean"];
-		$rules["receiver_details.billing.email"][] = "unique:customers";
+		$rules["receiver_details.billing.email"][] = "unique:customers,email";
 		$rules["receiver_details.billing.password"] = ["nullable", "string", "min:6", "confirmed"];
 
 		return $rules;
